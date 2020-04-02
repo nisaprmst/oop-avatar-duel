@@ -1,4 +1,7 @@
-package com.avatarduel.cards;
+package com.avatarduel.cards.characters;
+
+import com.avatarduel.cards.Card;
+import com.avatarduel.cards.Element;
 
 public class CharacterCard extends Card {
     private int attack;
