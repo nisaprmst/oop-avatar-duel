@@ -5,8 +5,8 @@ public class CharacterCard extends Card {
     private int defense;
     private int power;
 
-    public CharacterCard(int id, String name, String description, int attack, int defense, int power) {
-        super(id, name, description);
+    public CharacterCard(int id, String name, String description, Element element, int attack, int defense, int power) {
+        super(id, name, description, element);
         this.attack = attack;
         this.defense = defense;
         this.power = power;
