@@ -9,9 +9,9 @@ public class BattleCharacterCard extends CharacterCard {
     private boolean hasAttacked = false;
     // private ArrayList<SkillCard> skillCards;
 
-    public BattleCharacterCard(int id, String name, String description, Element element, int attack, int defense,
-                               int power, Position position) {
-        super(id, name, description, element, attack, defense, power);
+    public BattleCharacterCard(int id, String name, String description, Element element, String imagePath,
+                               int attack, int defense, int power, Position position) {
+        super(id, name, description, element, imagePath, attack, defense, power);
         this.position = position;
     }
 }

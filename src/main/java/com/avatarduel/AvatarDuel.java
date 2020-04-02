@@ -24,8 +24,7 @@ public class AvatarDuel extends Application {
     landReader.setSkipHeader(true);
     List<String[]> landRows = landReader.read();
     for (String[] row : landRows) {
-      LandCard l = new LandCard(Integer.parseInt(row[0]), row[1], row[3], Element.valueOf(row[2]));
-      System.out.println(l.getName());
+      LandCard l = new LandCard(Integer.parseInt(row[0]), row[1], row[3], Element.valueOf(row[2]), row[4]);
     }
   }
 

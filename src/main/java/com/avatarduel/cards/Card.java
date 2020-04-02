@@ -3,7 +3,7 @@ package com.avatarduel.cards;
 abstract public class Card {
     private int id;
     private String name;
-    String description;
+    private String description;
     private Element element;
     private String imagePath;
 
@@ -12,13 +12,15 @@ abstract public class Card {
         this.name = "";
         this.description = "";
         this.element = Element.AIR;
+        this.imagePath = "";
     }
 
-    public Card(int id, String name, String description, Element element) {
+    public Card(int id, String name, String description, Element element, String imagePath) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.element = element;
+        this.imagePath = imagePath;
     }
 
     public int getId() {
@@ -33,7 +35,7 @@ abstract public class Card {
         return  this.description;
     }
 
-    public Element getElement() {
-        return element;
-    }
+    public Element getElement() { return element; }
+
+    public String getImagePath() { return imagePath; }
 }
