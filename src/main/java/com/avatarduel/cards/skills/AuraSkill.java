@@ -17,4 +17,11 @@ public class AuraSkill extends SkillCard{
     public int getDefPoint(){
         return defPoint;
     }
+
+    @Override
+    public void printInfo() {
+        super.printInfo();
+        System.out.print("Attack:"); System.out.println(this.atkPoint);
+        System.out.print("Defense:"); System.out.println(this.defPoint);
+    }
 }
