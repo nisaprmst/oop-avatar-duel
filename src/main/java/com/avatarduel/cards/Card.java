@@ -23,6 +23,13 @@ abstract public class Card {
         this.imagePath = imagePath;
     }
 
+    public Card(int id, String name, String description, String imagePath) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.imagePath = imagePath;
+    }
+
     public int getId() {
         return this.id;
     }
