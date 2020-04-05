@@ -27,4 +27,12 @@ public class CharacterCard extends Card {
     public int getPower() {
         return power;
     }
+
+    @Override
+    public void printInfo() {
+        super.printInfo();
+        System.out.print("Attack:"); System.out.println(this.attack);
+        System.out.print("Defense:"); System.out.println(this.defense);
+        System.out.print("Power:"); System.out.println(this.power);
+    }
 }
