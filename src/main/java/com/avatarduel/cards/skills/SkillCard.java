@@ -13,4 +13,10 @@ public class SkillCard extends Card{
     public int getPower(){
         return power;
     }
+
+    @Override
+    public void printInfo() {
+        super.printInfo();
+        System.out.print("Power: "); System.out.println(this.power);
+    }
 }
