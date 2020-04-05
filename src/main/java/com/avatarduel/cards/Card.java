@@ -45,4 +45,12 @@ abstract public class Card {
     public Element getElement() { return element; }
 
     public String getImagePath() { return imagePath; }
+
+    public void printInfo() {
+        System.out.print("ID:"); System.out.println(this.id);
+        System.out.print("Name:"); System.out.println(this.name);
+        System.out.print("Description:"); System.out.println(this.description);
+        System.out.print("Element:"); System.out.println(this.element);
+        System.out.print("Image Path:"); System.out.println(this.imagePath);
+    }
 }
