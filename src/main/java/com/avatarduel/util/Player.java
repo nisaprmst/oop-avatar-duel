@@ -2,6 +2,8 @@ package com.avatarduel.util;
 
 import com.avatarduel.util.*;
 import com.avatarduel.cards.*;
+import com.avatarduel.cards.characters.CharacterCard;
+
 import java.util.*;
 
 public class Player {
@@ -79,5 +81,12 @@ public class Player {
             this.currPower.replace(el, this.power.get(el));
         }
     }
-
+    public boolean isPowerEnough(CharacterCard character) {
+        return this.currPower.get(character.getElement()) >= character.getPower();
+    }
+    public void usePower(CharacterCard character) {
+        if (isPowerEnough(character)) {
+            this.currPower.replace(character.getElement(), this.currPower.get(character.getElement())-character.getPower());
+        }
+    }
 }

@@ -29,6 +29,11 @@ public class CharacterCard extends Card {
     }
 
     @Override
+    public Element getElement() {
+        return super.getElement();
+    }
+
+    @Override
     public void printInfo() {
         super.printInfo();
         System.out.print("Attack:"); System.out.println(this.attack);
