@@ -74,9 +74,6 @@ public class Player {
         Card card = this.deck.drawCard();
         this.cardsInHand.add(card);
     }
-    public boolean isPlayerSame(Player p) {
-        return true;
-    }
     public void addPower(LandCard land) {
         this.power.replace(land.getElement(), this.power.get(land.getElement()) + 1);
     }
@@ -93,4 +90,10 @@ public class Player {
             this.currPower.replace(character.getElement(), this.currPower.get(character.getElement())-character.getPower());
         }
     }
+    // public void removeCharacter(int idxCard) {
+    //     this.field.removeCharacter(idxCard);
+    // }
+    // public void removeSkill(int idxCard) {
+    //     this.field.removeSkill(idxCard);
+    // }
 }

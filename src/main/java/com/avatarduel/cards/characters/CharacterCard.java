@@ -7,6 +7,10 @@ public class CharacterCard extends Card {
     private int attack;
     private int defense;
     private int power;
+    private boolean hasAttacked;
+    private Position position;
+    private boolean justSummoned;
+
 
     public CharacterCard(int id, String name, String description, Element element, String imagePath,
                          int attack, int defense, int power) {
@@ -14,6 +18,9 @@ public class CharacterCard extends Card {
         this.attack = attack;
         this.defense = defense;
         this.power = power;
+        this.position = Position.ATTACK;
+        this.hasAttacked = false;
+        this.justSummoned = false;
     }
 
     public int getAttack() {
@@ -28,6 +35,29 @@ public class CharacterCard extends Card {
         return power;
     }
 
+    public boolean getHasAttack() {
+        return this.hasAttacked;
+    }
+
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public boolean getJustSummoned() {
+        return this.justSummoned;
+    }
+
+    public void getHasAttack(boolean param) {
+        this.hasAttacked = param;
+    }
+
+    public void getPosition(Position pos) {
+        this.position = pos;
+    }
+
+    public void getJustSummoned(boolean param) {
+        this.justSummoned = param;
+    }
     @Override
     public Element getElement() {
         return super.getElement();
