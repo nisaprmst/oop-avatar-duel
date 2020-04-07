@@ -1,7 +1,7 @@
-package com.avatarduel.gamemanager;
+package com.avatarduel.util;
 
 import java.util.*;
-import com.avatarduel.cards.Card;
+import com.avatarduel.cards.*;
 
 public class Deck {
     private final ArrayList<Card> cards;

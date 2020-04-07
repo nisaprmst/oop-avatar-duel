@@ -1,8 +1,8 @@
-package com.avatarduel.gamemanager;
+package com.avatarduel.util;
 
-import com.avatarduel.cards.Card;
-import com.avatarduel.cards.skills.SkillCard;
-import com.avatarduel.cards.characters.CharacterCard;
+import com.avatarduel.cards.*;
+import com.avatarduel.cards.characters.*;
+import com.avatarduel.cards.skills.*;
 
 public class Field {
     private final Card[] characterRow;
