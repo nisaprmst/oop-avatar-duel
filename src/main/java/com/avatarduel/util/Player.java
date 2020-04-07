@@ -27,6 +27,9 @@ public class Player {
             this.power.put(el, 0);
             this.currPower.put(el, 0);
         }
+        for (int i = 0; i < 7; i++) {
+            this.cardsInHand.add(this.deck.drawCard());
+        }
     }
 
     // getter
