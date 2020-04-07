@@ -25,7 +25,8 @@ public class DrawPhase extends Phase {
             player = game.player2;
             enemy = game.player1;
         }
-        Card card = player.drawCard();
+        player.draw();
+        player.resetPower();
     }
 
 }

@@ -67,8 +67,9 @@ public class Player {
     public void placeCard(Card card, int position) {
         this.field.placeCard(card, position);
     }
-    public Card drawCard() {
-        return this.deck.drawCard();
+    public void draw() {
+        Card card = this.deck.drawCard();
+        this.cardsInHand.add(card);
     }
     public boolean isPlayerSame(Player p) {
         return true;
