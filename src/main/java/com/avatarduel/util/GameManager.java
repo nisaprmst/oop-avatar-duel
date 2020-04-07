@@ -5,9 +5,10 @@ import com.avatarduel.util.*;
 
 public class GameManager {
     // attribute
-    Phase phase;
-    Player player1;
-    Player player2;
+    public Phase phase;
+    public Player player1;
+    public Player player2;
+    public int turn;
 
     // ctor
     GameManager() {
@@ -25,8 +26,5 @@ public class GameManager {
     }
     public void changePhase(Phase f) {
         this.phase = f;
-    }
-    public void run() {
-
     }
 }

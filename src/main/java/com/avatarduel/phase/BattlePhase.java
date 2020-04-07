@@ -8,7 +8,7 @@ public class BattlePhase extends Phase {
         super(game);
     }
     public void nextPhase() {
-        game.changePhase(new MainPhase(game));
+        game.changePhase(new MainPhase(game, 2));
     }
     public void phaseInfo() {
         System.out.println("Starting battle phase");

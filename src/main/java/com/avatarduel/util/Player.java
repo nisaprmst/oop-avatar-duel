@@ -10,7 +10,8 @@ public class Player {
     private Deck deck;
     private ArrayList<Card> cardsInHand;
     private Field field;
-    private Map power;
+    private Map<Element, Integer> currPower; // untuk menyimpan nilai power saat main
+    private Map<Element, Integer> power; // untuk menyimpan nilai maksimal power
 
     // ctor 
     public Player() {
@@ -18,7 +19,12 @@ public class Player {
         this.deck = new Deck();
         this.cardsInHand = new ArrayList<Card>();
         this.field = new Field();
-        this.power = new HashMap<>();
+        this.power = new HashMap<Element, Integer>();
+        this.currPower = new HashMap<Element, Integer>();
+        for (Element el: Element.values()) {
+            this.power.put(el, 0);
+            this.currPower.put(el, 0);
+        }
     }
 
     // getter
@@ -34,7 +40,7 @@ public class Player {
     public Field getField() {
         return this.field;
     }
-    public Map getPower() {
+    public Map<Element, Integer> getPower() {
         return this.power;
     }
 
@@ -51,7 +57,7 @@ public class Player {
     public void setField(Field field) {
         this.field = field;
     }
-    public void setPower(Map power) {
+    public void setPower(Map<Element, Integer> power) {
         this.power = power;
     }
 
@@ -64,6 +70,14 @@ public class Player {
     }
     public boolean isPlayerSame(Player p) {
         return true;
+    }
+    public void addPower(LandCard land) {
+        this.power.replace(land.getElement(), this.power.get(land.getElement()) + 1);
+    }
+    public void resetPower() {
+        for (Element el: Element.values()) {
+            this.currPower.replace(el, this.power.get(el));
+        }
     }
 
 }
