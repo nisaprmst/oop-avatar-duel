@@ -28,11 +28,11 @@ public class CharacterCard extends Card {
     }
 
     public int getDefense() {
-        return defense;
+        return this.defense;
     }
 
     public int getPower() {
-        return power;
+        return this.power;
     }
 
     public boolean getHasAttack() {
