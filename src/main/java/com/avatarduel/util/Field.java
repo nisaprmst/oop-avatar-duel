@@ -39,4 +39,12 @@ public class Field {
     public boolean isSkillEmpty() {
         return this.skillRow.isEmpty();
     }
+
+    public Card removeCharacter(int position) {
+        return this.characterRow.remove(position);
+    }
+
+    public Card removeSkill(int position) {
+        return this.skillRow.remove(position);
+    }
 }
