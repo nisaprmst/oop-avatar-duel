@@ -32,4 +32,11 @@ public class Field {
             this.skillRow.put(position, card);
         }
     }
+    public boolean isCharacterEmpty() {
+        return this.characterRow.isEmpty();
+    }
+
+    public boolean isSkillEmpty() {
+        return this.skillRow.isEmpty();
+    }
 }
