@@ -28,13 +28,9 @@ abstract public class Card {
     }
 
     public int getId() { return this.id; }
-
     public String getName() { return this.name; }
-
     public String getDescription() { return  this.description; }
-
     public Element getElement() { return element; }
-
     public String getImagePath() { return imagePath; }
 
     /**
