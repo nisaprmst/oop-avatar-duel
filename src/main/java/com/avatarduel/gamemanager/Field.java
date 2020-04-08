@@ -12,15 +12,14 @@ public class Field {
 
     // ctor
     public Field() {
-        this.characterRow = new HashMap<Integer, CharacterCard>();
-        this.skillRow = new HashMap<Integer, SkillCard>();
+        this.characterRow = new HashMap<>();
+        this.skillRow = new HashMap<>();
     }
 
     // get set
     public CharacterCard getCharacterRow(int row) {
         return this.characterRow.get(row);
     }
-
     public SkillCard getSkillRow(int row) {
         return this.skillRow.get(row);
     }
@@ -28,7 +27,6 @@ public class Field {
     public void placeCharacter(CharacterCard card, int position) {
         this.characterRow.put(position, card);
     }
-    
     public void placeSkill(SkillCard card, int position) {
         this.skillRow.put(position, card);
     }
