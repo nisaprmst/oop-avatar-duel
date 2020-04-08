@@ -1,4 +1,4 @@
-package com.avatarduel.util;
+package com.avatarduel.gamemanager;
 
 import com.avatarduel.cards.*;
 import com.avatarduel.cards.characters.*;
