@@ -21,7 +21,6 @@ public class CharacterCard extends Card {
      */
     private boolean justSummoned;
 
-
     public CharacterCard(int id, String name, String description, Element element, String imagePath,
                          int attack, int defense, int power) {
         super(id, name, description, element, imagePath);
