@@ -3,6 +3,7 @@ package com.avatarduel.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -22,6 +23,14 @@ public class MainScreenController implements Initializable {
     private HBox player1hand;
     @FXML
     private HBox player2hand;
+    @FXML
+    private HBox player2skillfield;
+    @FXML
+    private HBox player1skillfield;
+    @FXML
+    private HBox player2charfield;
+    @FXML
+    private HBox player1charfield;
 
     FXMLLoader cardloader;
     CardController cardController;
@@ -49,7 +58,7 @@ public class MainScreenController implements Initializable {
     public void deletelabel(int index){
         leftvbox.getChildren().remove(index);
         Button button = new Button("click di remove");
-        button.setOnAction(e -> deletehand());
+        button.setOnAction(e -> player1summon());
         leftvbox.getChildren().add(button);
     }
 
@@ -62,9 +71,10 @@ public class MainScreenController implements Initializable {
 
         cardController = cardloader.getController();
         String path = getClass().getClassLoader().getResource("com/avatarduel/card/image/character/" + imagename).toString();
-        Image img = new Image(path, 90, 90, true, true);
+        Image img = new Image(path, 90, 90, false, true);
         System.out.println(path);
-        card = cardController.setCardImage(img);
+        cardController.setCardImage(img);
+        cardController.setContextMenuItem();
 
         player1hand.getChildren().add(card);
 
@@ -72,5 +82,10 @@ public class MainScreenController implements Initializable {
 
     public void deletehand(){;
         player1hand.getChildren().remove(player1hand.getChildren().size()-1);
+    }
+
+    public void player1summon(){
+        card = (ImageView) player1hand.getChildren().remove(player1hand.getChildren().size()-1);
+        player1charfield.getChildren().add(card);
     }
 }

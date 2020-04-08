@@ -5,15 +5,9 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -37,7 +31,7 @@
                                         <HBox fx:id="player2hand" alignment="CENTER" prefHeight="112.0" prefWidth="780.0" spacing="10.0" />
                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
                                                     <children>
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
@@ -48,8 +42,20 @@
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                     </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
                                                 </HBox>
-                                                <HBox alignment="CENTER" prefHeight="142.0" prefWidth="780.0" spacing="5.0" />
+                                                <HBox fx:id="player2skillfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding></HBox>
                                             </children>
                                             <VBox.margin>
                                                 <Insets top="10.0" />
@@ -57,7 +63,7 @@
                                         </StackPane>
                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
                                                     <children>
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
@@ -68,8 +74,17 @@
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                     </children>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
                                                 </HBox>
-                                                <HBox alignment="CENTER" prefHeight="142.0" prefWidth="780.0" spacing="5.0" />
+                                                <HBox fx:id="player2charfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding></HBox>
                                             </children>
                                         </StackPane>
                                     </children>
@@ -97,7 +112,7 @@
                                     <children>
                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
                                                     <children>
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
@@ -108,13 +123,19 @@
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                     </children>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
                                                 </HBox>
-                                                <HBox alignment="CENTER" prefHeight="142.0" prefWidth="780.0" spacing="5.0" />
+                                                <HBox fx:id="player1charfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding></HBox>
                                             </children>
                                         </StackPane>
                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
                                                     <children>
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
@@ -125,8 +146,14 @@
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
                                                     </children>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
                                                 </HBox>
-                                                <HBox alignment="CENTER" prefHeight="142.0" prefWidth="780.0" spacing="5.0" />
+                                                <HBox fx:id="player1skillfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding></HBox>
                                             </children>
                                             <VBox.margin>
                                                 <Insets top="10.0" />
@@ -169,4 +196,3 @@
         </StackPane>
     </center>
 </BorderPane>
-

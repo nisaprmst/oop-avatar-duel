@@ -33,7 +33,7 @@ public class AvatarDuel extends Application {
 
   @Override
   public void start(Stage stage) throws Exception{
-    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/sample.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/MainScreen.fxml"));
     BorderPane root = loader.load();
     MainScreenController controller = loader.getController();
 
