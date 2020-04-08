@@ -1,6 +1,11 @@
 package com.avatarduel.gamemanager.phase;
 
 import com.avatarduel.gamemanager.GameManager;
+import com.avatarduel.gamemanager.Player;
+import com.avatarduel.gamemanager.Field;
+import com.avatarduel.cards.character.*;
+import com.avatarduel.cards.skill.*;
+import com.avatarduel.cards.LandCard;
 
 public class MainPhase extends Phase {
     // ctor
@@ -52,7 +57,7 @@ public class MainPhase extends Phase {
         Field field;
         field = new Field();
         if(field.isSkillEmpty()){
-            if(player.isPowerEnough()){
+            if(player.isPowerEnough(skill)){
                 field.placeSkill(skill, position);
                 //perubahan attack karena aura skill pada karakter yang dipilih
                 int att = player.getAttackAtPos(characterpos) + skill.getAtkPoint();
@@ -73,7 +78,7 @@ public class MainPhase extends Phase {
         fieldenemy = new Field();
         fieldplayer = new Field();
         if(fieldplayer.isSkillEmpty()){
-            if(player.isPowerEnough()){
+            if(player.isPowerEnough(skill)){
                 // menghancurkan kartu karakter lawan
                 enemy.removeCharacter(enemypos);
                 // setelah menghancurkan karakter lawan, kartu destroy card hancur
@@ -82,11 +87,11 @@ public class MainPhase extends Phase {
         }
     }
     // mengubah posisi pada kartu karakter
-    public setPositionCharacter(CharacterCard character){
+    public Position setPositionCharacter(CharacterCard character){
         if(character.getPosition() == Position.ATTACK){
-            character.setPosition(Position.DEFENSE);
+            return character.setPosition(Position.DEFENSE);
         } else {
-            character.setPosition(Position.ATTACK);
+            return character.setPosition(Position.ATTACK);
         }
     }
 }
