@@ -21,6 +21,7 @@ public class CharacterCard extends Card {
      */
     private boolean justSummoned;
 
+
     public CharacterCard(int id, String name, String description, Element element, String imagePath,
                          int attack, int defense, int power) {
         super(id, name, description, element, imagePath);
@@ -32,16 +33,40 @@ public class CharacterCard extends Card {
         this.justSummoned = false;
     }
 
-    public int getAttack() { return this.attack; }
-    public int getDefense() { return this.defense; }
-    public int getPower() { return this.power; }
-    public boolean getHasAttacked() { return this.hasAttacked; }
-    public Position getPosition() { return this.position; }
-    public boolean getJustSummoned() { return this.justSummoned; }
+    public int getAttack() {
+        return this.attack;
+    }
+    public int getDefense() {
+        return this.defense;
+    }
+    public int getPower() {
+        return this.power;
+    }
+    public boolean getHasAttacked() {
+        return this.hasAttacked;
+    }
+    public Position getPosition() {
+        return this.position;
+    }
+    public boolean getJustSummoned() {
+        return this.justSummoned;
+    }
 
-    public void setHasAttacked(boolean param) { this.hasAttacked = param; }
-    public void setPosition(Position pos) { this.position = pos; }
-    public void setJustSummoned(boolean param) { this.justSummoned = param; }
+    public void setHasAttacked(boolean param) {
+        this.hasAttacked = param;
+    }
+    public void setPosition(Position pos) {
+        this.position = pos;
+    }
+    public void setAtkPoint(int att){
+        this.attack = att;
+    }
+    public void setDefPoint(int def){
+        this.defense = def;
+    }
+    public void setJustSummoned(boolean param) {
+        this.justSummoned = param;
+    }
 
     @Override
     public void printInfo() {
