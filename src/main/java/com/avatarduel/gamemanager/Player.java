@@ -2,6 +2,7 @@ package com.avatarduel.gamemanager;
 
 import com.avatarduel.cards.*;
 import com.avatarduel.cards.characters.CharacterCard;
+import com.avatarduel.cards.characters.Position;
 
 import java.util.*;
 
@@ -47,7 +48,18 @@ public class Player {
     public Map<Element, Integer> getPower() {
         return this.power;
     }
-
+    public int getAttackAtPos(int pos) {
+        return this.field.getCharacterRow(pos).getAttack();
+    }
+    public int getDefenseAtPos(int pos) {
+        return this.field.getCharacterRow(pos).getDefense();
+    }
+    public Position getPositionAtPos(int pos) {
+        return this.field.getCharacterRow(pos).getPosition();
+    }
+    public CharacterCard getCharacterAtPos(int pos) {
+        return this.field.getCharacterRow(pos);
+    }
     // setter
     public void setHp(int hp) {
         this.hp = hp;
@@ -66,8 +78,8 @@ public class Player {
     }
 
     // method
-    public void placeCard(Card card, int position) {
-        this.field.placeCard(card, position);
+    public void substractHp(int val) {
+        this.hp -= val;
     }
     public void draw() {
         Card card = this.deck.drawCard();
@@ -89,10 +101,25 @@ public class Player {
             this.currPower.replace(character.getElement(), this.currPower.get(character.getElement())-character.getPower());
         }
     }
-    // public void removeCharacter(int idxCard) {
-    //     this.field.removeCharacter(idxCard);
-    // }
-    // public void removeSkill(int idxCard) {
-    //     this.field.removeSkill(idxCard);
-    // }
+    public void removeCharacter(int idxCard) {
+        this.field.removeCharacter(idxCard);
+    }
+    public void removeSkill(int idxCard) {
+        this.field.removeSkill(idxCard);
+    }
+    public boolean canAttack(int position) {
+        CharacterCard card;
+        card = this.field.getCharacterRow(position);
+        boolean ret = card.getJustSummoned();
+        return !ret;
+    }
+    public boolean canChangePos(int position) {
+        CharacterCard card;
+        card = this.field.getCharacterRow(position);
+        boolean ret = card.getHasAttacked();
+        return !ret;
+    }
+    public boolean isCharacterFieldEmpty() {
+        return this.field.isCharacterEmpty();
+    }
 }
