@@ -17,7 +17,7 @@ public class CharacterCard extends Card {
     private boolean hasAttacked;
     private Position position;
     /**
-     * If is set true, the CharacterCard is just summoned to the field and can't attack/
+     * If is set true, the CharacterCard is just summoned to the field and can't attack
      */
     private boolean justSummoned;
 
@@ -34,28 +34,14 @@ public class CharacterCard extends Card {
 
     public int getAttack() { return this.attack; }
     public int getDefense() { return this.defense; }
-    public int getPower() {
-        return this.power;
-    }
-    public boolean getHasAttacked() {
-        return this.hasAttacked;
-    }
-    public Position getPosition() {
-        return this.position;
-    }
-    public boolean getJustSummoned() {
-        return this.justSummoned;
-    }
+    public int getPower() { return this.power; }
+    public boolean getHasAttacked() { return this.hasAttacked; }
+    public Position getPosition() { return this.position; }
+    public boolean getJustSummoned() { return this.justSummoned; }
 
-    public void setHasAttacked(boolean param) {
-        this.hasAttacked = param;
-    }
-    public void setPosition(Position pos) {
-        this.position = pos;
-    }
-    public void setJustSummoned(boolean param) {
-        this.justSummoned = param;
-    }
+    public void setHasAttacked(boolean param) { this.hasAttacked = param; }
+    public void setPosition(Position pos) { this.position = pos; }
+    public void setJustSummoned(boolean param) { this.justSummoned = param; }
 
     @Override
     public void printInfo() {
