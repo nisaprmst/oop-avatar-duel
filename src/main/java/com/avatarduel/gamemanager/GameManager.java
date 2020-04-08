@@ -1,7 +1,6 @@
-package com.avatarduel.util;
+package com.avatarduel.gamemanager;
 
-import com.avatarduel.phase.*;
-import com.avatarduel.util.*;
+import com.avatarduel.gamemanager.phase.*;
 
 public class GameManager {
     // attribute

@@ -1,6 +1,6 @@
-package com.avatarduel.phase;
+package com.avatarduel.gamemanager.phase;
 
-import com.avatarduel.util.*;
+import com.avatarduel.gamemanager.GameManager;
 
 public class BattlePhase extends Phase {
     // ctor

@@ -1,6 +1,5 @@
-package com.avatarduel.util;
+package com.avatarduel.gamemanager;
 
-import com.avatarduel.util.*;
 import com.avatarduel.cards.*;
 import com.avatarduel.cards.characters.CharacterCard;
 
@@ -19,10 +18,10 @@ public class Player {
     public Player() {
         this.hp = 0;
         this.deck = new Deck();
-        this.cardsInHand = new ArrayList<Card>();
+        this.cardsInHand = new ArrayList<>();
         this.field = new Field();
-        this.power = new HashMap<Element, Integer>();
-        this.currPower = new HashMap<Element, Integer>();
+        this.power = new HashMap<>();
+        this.currPower = new HashMap<>();
         for (Element el: Element.values()) {
             this.power.put(el, 0);
             this.currPower.put(el, 0);

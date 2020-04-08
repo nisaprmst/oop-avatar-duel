@@ -3,9 +3,7 @@ package com.avatarduel.gamemanager;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
-import com.avatarduel.cards.Card;
-import com.avatarduel.cards.CardLoader;
-import com.avatarduel.cards.LandCard;
+import com.avatarduel.cards.*;
 import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.skills.AuraSkill;
 
@@ -43,7 +41,7 @@ public class Deck {
         ArrayList<CharacterCard> lcc = cl.loadCharacterCardsFromFile("../card/data/character.csv");
         ArrayList<AuraSkill> las = cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
 
-        Deck deck = new Deck();
+        com.avatarduel.gamemanager.Deck deck = new com.avatarduel.gamemanager.Deck();
 
         for (LandCard lc : llc) {
             deck.addCard(lc);
@@ -55,12 +53,11 @@ public class Deck {
             deck.addCard(as);
         }
 
-//        Card testCard1 = deck.drawCard();
-//        Card testCard2 = deck.drawCard();
-//        Card testCard3 = deck.drawCard();
-//        testCard1.printInfo();
-//        testCard2.printInfo();
-//        testCard3.printInfo();
-
+        Card testCard1 = deck.drawCard();
+        Card testCard2 = deck.drawCard();
+        Card testCard3 = deck.drawCard();
+        testCard1.printInfo();
+        testCard2.printInfo();
+        testCard3.printInfo();
     }
 }

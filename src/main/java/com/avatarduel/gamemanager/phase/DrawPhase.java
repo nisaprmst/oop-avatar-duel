@@ -1,7 +1,7 @@
-package com.avatarduel.phase;
+package com.avatarduel.gamemanager.phase;
 
-import com.avatarduel.util.*;
-import com.avatarduel.cards.*;
+import com.avatarduel.gamemanager.GameManager;
+import com.avatarduel.gamemanager.Player;
 
 public class DrawPhase extends Phase {
     // ctor
