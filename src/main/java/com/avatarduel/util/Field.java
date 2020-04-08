@@ -7,31 +7,32 @@ import java.util.*;
 
 
 public class Field {
-    private Map<Integer, Card>  characterRow;
-    private Map<Integer, Card> skillRow;
+    private Map<Integer, CharacterCard>  characterRow;
+    private Map<Integer, SkillCard> skillRow;
 
     // ctor
     public Field() {
-        this.characterRow = new HashMap<Integer, Card>();
-        this.skillRow = new HashMap<Integer, Card>();
+        this.characterRow = new HashMap<Integer, CharacterCard>();
+        this.skillRow = new HashMap<Integer, SkillCard>();
     }
 
     // get set
-    public Card getCharacterRow(int row) {
+    public CharacterCard getCharacterRow(int row) {
         return this.characterRow.get(row);
     }
 
-    public Card getSkillRow(int row) {
+    public SkillCard getSkillRow(int row) {
         return this.skillRow.get(row);
     }
 
-    public void placeCard(Card card, int position) {
-        if (card instanceof CharacterCard) {
-            this.characterRow.put(position, card);
-        } else if (card instanceof SkillCard) { 
-            this.skillRow.put(position, card);
-        }
+    public void placeCharacter(CharacterCard card, int position) {
+        this.characterRow.put(position, card);
     }
+    
+    public void placeSkill(SkillCard card, int position) {
+        this.skillRow.put(position, card);
+    }
+
     public boolean isCharacterEmpty() {
         return this.characterRow.isEmpty();
     }
@@ -40,11 +41,11 @@ public class Field {
         return this.skillRow.isEmpty();
     }
 
-    public Card removeCharacter(int position) {
+    public CharacterCard removeCharacter(int position) {
         return this.characterRow.remove(position);
     }
 
-    public Card removeSkill(int position) {
+    public SkillCard removeSkill(int position) {
         return this.skillRow.remove(position);
     }
 }

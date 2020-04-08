@@ -35,7 +35,7 @@ public class CharacterCard extends Card {
         return this.power;
     }
 
-    public boolean getHasAttack() {
+    public boolean getHasAttacked() {
         return this.hasAttacked;
     }
 
@@ -47,15 +47,15 @@ public class CharacterCard extends Card {
         return this.justSummoned;
     }
 
-    public void getHasAttack(boolean param) {
+    public void setHasAttacked(boolean param) {
         this.hasAttacked = param;
     }
 
-    public void getPosition(Position pos) {
+    public void setPosition(Position pos) {
         this.position = pos;
     }
 
-    public void getJustSummoned(boolean param) {
+    public void setJustSummoned(boolean param) {
         this.justSummoned = param;
     }
     @Override
