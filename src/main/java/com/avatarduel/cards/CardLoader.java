@@ -10,6 +10,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is loader for card data from given csv file path.
+ */
 public class CardLoader {
     public List<String[]> readFromCSV(String path) throws URISyntaxException, IOException {
         File cardFile = new File(getClass().getResource(path).toURI());
@@ -19,6 +22,13 @@ public class CardLoader {
         return CSVFile.read();
     }
 
+    /**
+     * Read the data from csv file in given path and return the array list of CharacterCard
+     * @param path the path of character card csv file
+     * @return array list of CharacterCard
+     * @throws IOException exception when reading csv file. for example: file not found error
+     * @throws URISyntaxException exception when a string could not  be parsed as a URI reference
+     */
     public ArrayList<CharacterCard> loadCharacterCardsFromFile(String path) throws IOException, URISyntaxException {
         List<String[]> fileRows = readFromCSV(path);
         ArrayList<CharacterCard> loadedCharacterCards = new ArrayList<>();
@@ -30,6 +40,13 @@ public class CardLoader {
         return loadedCharacterCards;
     }
 
+    /**
+     * Read the data from csv file in given path and return the array list of LandCard
+     * @param path the path of land card csv file
+     * @return array list of LandCard
+     * @throws IOException exception when reading csv file. for example: file not found error
+     * @throws URISyntaxException exception when a string could not  be parsed as a URI reference
+     */
     public ArrayList<LandCard> loadLandCardsFromFile(String path) throws IOException, URISyntaxException {
         List<String[]> fileRows = readFromCSV(path);
         ArrayList<LandCard> loadedLandCards = new ArrayList<>();
@@ -40,6 +57,13 @@ public class CardLoader {
         return loadedLandCards;
     }
 
+    /**
+     * Read the data from csv file in given path and return the array list of AuraSkill
+     * @param path the path of land card csv file
+     * @return array list of LandCard
+     * @throws IOException exception when reading csv file. for example: file not found error
+     * @throws URISyntaxException exception when a string could not  be parsed as a URI reference
+     */
     public ArrayList<AuraSkill> loadAuraSkillFromFile(String path) throws IOException, URISyntaxException {
         List<String[]> fileRows = readFromCSV(path);
 
