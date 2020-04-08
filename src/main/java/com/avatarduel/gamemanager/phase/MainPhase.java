@@ -39,6 +39,7 @@ public class MainPhase extends Phase {
                 field.placeCharacter(character,position);
                 character.setJustSummoned(true);
                 character.setHasAttacked(false);
+                player.usePower(character);
             }
         }
     }
@@ -57,7 +58,7 @@ public class MainPhase extends Phase {
         Field field;
         field = new Field();
         if(field.isSkillEmpty()){
-            if(player.isPowerEnough(skill)){
+            if(player.isPowerEnoughAura(skill)){
                 field.placeSkill(skill, position);
                 //perubahan attack karena aura skill pada karakter yang dipilih
                 int att = player.getAttackAtPos(characterpos) + skill.getAtkPoint();
@@ -65,6 +66,7 @@ public class MainPhase extends Phase {
                 //perubahan defense karena aura skill pada karakter yang dipilih
                 int def = player.getDefenseAtPos(characterpos) + skill.getDefPoint();
                 character.setDefPoint(def);
+                player.usePowerAura(skill);
             }
         }
     }
@@ -78,11 +80,12 @@ public class MainPhase extends Phase {
         fieldenemy = new Field();
         fieldplayer = new Field();
         if(fieldplayer.isSkillEmpty()){
-            if(player.isPowerEnough(skill)){
+            if(player.isPowerEnoughDestroy(skill)){
                 // menghancurkan kartu karakter lawan
                 enemy.removeCharacter(enemypos);
                 // setelah menghancurkan karakter lawan, kartu destroy card hancur
                 player.removeSkill(position);
+                player.usePowerDestroy(skill);
             }
         }
     }
