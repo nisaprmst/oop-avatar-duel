@@ -45,7 +45,7 @@ public class MainPhase extends Phase {
         player.addPower(land);
     }
     // memilih aura skill pada deck
-    public void setAuraSkill(AuraSkill skill, int position, int characterpos){
+    public void setAuraSkill(AuraSkill skill, int position, CharacterCard character, int characterpos){
         Player player;
         player = new Player();
 
@@ -56,10 +56,10 @@ public class MainPhase extends Phase {
                 field.placeSkill(skill, position);
                 //perubahan attack karena aura skill pada karakter yang dipilih
                 int att = player.getAttackAtPos(characterpos) + skill.getAtkPoint();
-                player.setAtkPoint(att);
+                character.setAtkPoint(att);
                 //perubahan defense karena aura skill pada karakter yang dipilih
                 int def = player.getDefenseAtPos(characterpos) + skill.getDefPoint();
-                player.setDefPoint(def);
+                character.setDefPoint(def);
             }
         }
     }
