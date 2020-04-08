@@ -55,6 +55,14 @@ public class CharacterCard extends Card {
         this.position = pos;
     }
 
+    public void setAtkPoint(int att){
+        this.attack = att;
+    }
+
+    public void setDefPoint(int def){
+        this.defense = def;
+    }
+
     public void setJustSummoned(boolean param) {
         this.justSummoned = param;
     }
