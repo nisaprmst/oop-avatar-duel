@@ -3,31 +3,48 @@ package com.avatarduel.util;
 import com.avatarduel.cards.*;
 import com.avatarduel.cards.characters.*;
 import com.avatarduel.cards.skills.*;
+import java.util.*;
+
 
 public class Field {
-    private final Card[] characterRow;
-    private final Card[] skillRow;
+    private Map<Integer, Card>  characterRow;
+    private Map<Integer, Card> skillRow;
 
     // ctor
     public Field() {
-        this.characterRow = new Card[8];
-        this.skillRow = new Card[8];
+        this.characterRow = new HashMap<Integer, Card>();
+        this.skillRow = new HashMap<Integer, Card>();
     }
 
     // get set
-    public Card getCharacterRow(final int row) {
-        return this.characterRow[row];
+    public Card getCharacterRow(int row) {
+        return this.characterRow.get(row);
     }
 
-    public Card getSkillRow(final int row) {
-        return this.skillRow[row];
+    public Card getSkillRow(int row) {
+        return this.skillRow.get(row);
     }
 
-    public void placeCard(final Card card, final int position) {
+    public void placeCard(Card card, int position) {
         if (card instanceof CharacterCard) {
-            this.characterRow[position] = card;
+            this.characterRow.put(position, card);
         } else if (card instanceof SkillCard) { 
-            this.skillRow[position] = card;
+            this.skillRow.put(position, card);
         }
+    }
+    public boolean isCharacterEmpty() {
+        return this.characterRow.isEmpty();
+    }
+
+    public boolean isSkillEmpty() {
+        return this.skillRow.isEmpty();
+    }
+
+    public Card removeCharacter(int position) {
+        return this.characterRow.remove(position);
+    }
+
+    public Card removeSkill(int position) {
+        return this.skillRow.remove(position);
     }
 }
