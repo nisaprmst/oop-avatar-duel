@@ -10,24 +10,11 @@ import com.avatarduel.cards.*;
 
 public class MainPhase extends Phase {
     // ctor
-    private int count;
-    public MainPhase(GameManager game, int count) {
+    public MainPhase(GameManager game) {
         super(game);
-        this.count = count;
     }
     public void nextPhase() {
-        if (this.count == 1) {
-            game.changePhase(new BattlePhase(game));
-        } else if (this.count == 2) {
-            game.changePhase(new DrawPhase(game));
-            game.changeTurn();
-            game.player1.getField().resetHasAttacked();
-            game.player2.getField().resetHasAttacked();
-            game.player1.resetPower();
-            game.player2.resetPower();
-            game.player1.getField().resetJustSummoned();
-            game.player2.getField().resetJustSummoned();
-        }
+        game.changePhase(new DrawPhase(game));
     }
     public void phaseInfo() {
         System.out.println("Starting main phase");

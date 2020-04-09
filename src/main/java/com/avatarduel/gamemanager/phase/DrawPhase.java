@@ -9,7 +9,7 @@ public class DrawPhase extends Phase {
         super(game);
     }
     public void nextPhase() {
-        game.changePhase(new MainPhase(game, 1));
+        game.changePhase(new MainPhase(game));
     }
     public void phaseInfo() {
         System.out.println("Starting draw phase");

@@ -9,7 +9,14 @@ public class BattlePhase extends Phase {
         super(game);
     }
     public void nextPhase() {
-        game.changePhase(new MainPhase(game, 2));
+        game.changePhase(new MainPhase(game));
+        game.changeTurn();
+        game.player1.getField().resetHasAttacked();
+        game.player2.getField().resetHasAttacked();
+        game.player1.resetPower();
+        game.player2.resetPower();
+        game.player1.getField().resetJustSummoned();
+        game.player2.getField().resetJustSummoned();
     }
     public void phaseInfo() {
         System.out.println("Starting battle phase");
