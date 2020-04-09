@@ -1,33 +1,59 @@
 package com.avatarduel.gamemanager;
 
-import com.avatarduel.cards.Card;
-import com.avatarduel.cards.skills.SkillCard;
-import com.avatarduel.cards.characters.CharacterCard;
+import com.avatarduel.cards.*;
+import com.avatarduel.cards.characters.*;
+import com.avatarduel.cards.skills.*;
+import java.util.*;
+
 
 public class Field {
-    private final Card[] characterRow;
-    private final Card[] skillRow;
+    private Map<Integer, CharacterCard>  characterRow;
+    private Map<Integer, SkillCard> skillRow;
 
     // ctor
     public Field() {
-        this.characterRow = new Card[8];
-        this.skillRow = new Card[8];
+        this.characterRow = new HashMap<>();
+        this.skillRow = new HashMap<>();
     }
 
     // get set
-    public Card getCharacterRow(final int row) {
-        return this.characterRow[row];
+    public CharacterCard getCharacterRow(int row) {
+        return this.characterRow.get(row);
+    }
+    public SkillCard getSkillRow(int row) {
+        return this.skillRow.get(row);
     }
 
-    public Card getSkillRow(final int row) {
-        return this.skillRow[row];
+    public void placeCharacter(CharacterCard card, int position) {
+        this.characterRow.put(position, card);
+    }
+    public void placeSkill(SkillCard card, int position) {
+        this.skillRow.put(position, card);
     }
 
-    public void placeCard(final Card card, final int position) {
-        if (card instanceof CharacterCard) {
-            this.characterRow[position] = card;
-        } else if (card instanceof SkillCard) { 
-            this.skillRow[position] = card;
+    public boolean isCharacterEmpty() {
+        return this.characterRow.isEmpty();
+    }
+
+    public boolean isSkillEmpty() {
+        return this.skillRow.isEmpty();
+    }
+
+    public CharacterCard removeCharacter(int position) {
+        return this.characterRow.remove(position);
+    }
+
+    public SkillCard removeSkill(int position) {
+        return this.skillRow.remove(position);
+    }
+    public void resetHasAttacked() {
+        for (CharacterCard value : characterRow.values()) {
+            value.setHasAttacked(false);
+        }
+    }
+    public void resetJustSummoned() {
+        for (CharacterCard value : characterRow.values()) {
+            value.setJustSummoned(false);
         }
     }
 }
