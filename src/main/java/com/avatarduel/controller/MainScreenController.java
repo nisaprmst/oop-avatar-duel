@@ -83,7 +83,7 @@ public class MainScreenController implements Initializable {
         String type = "";
         ObservableList player1handchildren = player1hand.getChildren();
         ObservableList player2handchildren = player2hand.getChildren();
-        for(Card c: AvatarDuel.player1.getCardsInHand()){
+        for(Card c: AvatarDuel.gameManager.player1.getCardsInHand()){
             if(player == 1){
                 if(c instanceof CharacterCard){
                     imgname = "character/" + c.getImagePath();
@@ -103,7 +103,7 @@ public class MainScreenController implements Initializable {
             renderhand(player1hand.getChildren(),imgname, type);
         }
 
-        for(Card c: AvatarDuel.player2.getCardsInHand()){
+        for(Card c: AvatarDuel.gameManager.player2.getCardsInHand()){
             if(player == 2){
                 if(c instanceof CharacterCard){
                     imgname = "character/" + c.getImagePath();
@@ -215,7 +215,7 @@ public class MainScreenController implements Initializable {
     }
 
     public void onNextPhaseButtonClick(){
-        Label label = (Label)phaseindicator.getChildren().get(phase-1);
+        /*Label label = (Label)phaseindicator.getChildren().get(phase-1);
         label.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
         System.out.println(phaseindicator.getChildren());
         if(phase + 1 > 5){
@@ -232,8 +232,10 @@ public class MainScreenController implements Initializable {
 
         label = (Label)phaseindicator.getChildren().get(phase-1);
         label.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        printPhase();
+        printPhase();*/
 
+        AvatarDuel.gameManager.phase.nextPhase();
+        AvatarDuel.gameManager.phase.phaseInfo();
         updateScreen();
 
     }

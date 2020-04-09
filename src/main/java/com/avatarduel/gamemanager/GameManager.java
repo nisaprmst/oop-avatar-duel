@@ -10,12 +10,12 @@ public class GameManager {
     public int turn;
 
     // ctor
-    GameManager() {
+    public GameManager() {
         this.phase = new DrawPhase(this);
         this.player1 = new Player();
         this.player2 = new Player();
     }
-    GameManager(Player P1, Player P2) {
+    public GameManager(Player P1, Player P2) {
         this.phase = new DrawPhase(this);
         this.player1 = P1;
         this.player2 = P2;
