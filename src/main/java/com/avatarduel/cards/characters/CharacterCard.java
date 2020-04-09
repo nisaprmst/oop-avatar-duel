@@ -1,8 +1,11 @@
 package com.avatarduel.cards.characters;
 
+import java.util.ArrayList;
+
 import com.avatarduel.cards.Card;
 import com.avatarduel.cards.CardType;
 import com.avatarduel.cards.Element;
+import com.avatarduel.cards.skills.SkillCard;
 
 /**
  * This class inherit Card class to representing additional CharacterCard data
@@ -25,6 +28,7 @@ public class CharacterCard extends Card {
      * If is set true, the CharacterCard is equipped with power up skill
      */
     private boolean isPowerUp;
+    private ArrayList<Integer> idxSkillLinked;
 
     public CharacterCard(int id, String name, String description, Element element, String imagePath,
                          int attack, int defense, int power) {
@@ -36,6 +40,7 @@ public class CharacterCard extends Card {
         this.hasAttacked = false;
         this.justSummoned = false;
         this.isPowerUp = false;
+        this.idxSkillLinked = new ArrayList<Integer>();
     }
 
     public int getAttack() {
@@ -59,6 +64,9 @@ public class CharacterCard extends Card {
     public boolean getIsPowerUp() {
         return this.isPowerUp;
     }
+    public ArrayList<Integer> getIdxSkillLinked() {
+        return this.idxSkillLinked;
+    }
 
     public void setHasAttacked(boolean param) {
         this.hasAttacked = param;
@@ -77,6 +85,19 @@ public class CharacterCard extends Card {
     }
     public void setIsPowerUp(boolean param) {
         this.isPowerUp = param;
+    }
+    /**
+     * @param idxSkillLinked the idxSkillLinked to set
+     */
+    public void setIdxSkillLinked(ArrayList<Integer> idxSkillLinked) {
+        this.idxSkillLinked = idxSkillLinked;
+    }
+
+    public void addSkill(int idxSkill) {
+        this.idxSkillLinked.add(idxSkill);
+    }
+    public void removeSkill(int idxSkill) {
+        this.idxSkillLinked.remove(idxSkill);
     }
 
     @Override

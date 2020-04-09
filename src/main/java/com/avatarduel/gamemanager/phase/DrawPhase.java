@@ -1,7 +1,7 @@
 package com.avatarduel.gamemanager.phase;
 
 import com.avatarduel.gamemanager.GameManager;
-import com.avatarduel.gamemanager.Player;
+import com.avatarduel.gamemanager.*;
 
 public class DrawPhase extends Phase {
     // ctor
@@ -14,7 +14,7 @@ public class DrawPhase extends Phase {
     public void phaseInfo() {
         System.out.println("Starting draw phase");
     }
-    public void process() {
+    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception {
         Player player, enemy;
         enemy = new Player();
         player = new Player();

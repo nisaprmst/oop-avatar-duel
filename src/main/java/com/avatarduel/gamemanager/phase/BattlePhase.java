@@ -1,7 +1,9 @@
 package com.avatarduel.gamemanager.phase;
 
+import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.gamemanager.*;
 import com.avatarduel.cards.characters.*;
+import com.avatarduel.exceptions.InvalidFieldIndexException;
 
 public class BattlePhase extends Phase {
     // ctor
@@ -22,8 +24,11 @@ public class BattlePhase extends Phase {
         System.out.println("Starting battle phase");
     }
 
+    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception{
+        
+    }
     // untuk kalo ada karakter
-    public void attackCharacter(int posPlayer, int posEnemy) {
+    public void attackCharacter(int posPlayer, int posEnemy) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -36,7 +41,12 @@ public class BattlePhase extends Phase {
         // kalo ga baru disummon brrti bisa attack
         if (player.canAttack(posPlayer)) {
             // itung selisih attack
-            int att = player.getAttackAtPos(posPlayer) - enemy.getAttackAtPos(posEnemy);
+            int att;
+            if (enemy.getPositionAtPos(posEnemy) == Position.ATTACK) {
+                att = player.getAttackAtPos(posPlayer) - enemy.getAttackAtPos(posEnemy);
+            } else {
+                att = player.getAttackAtPos(posPlayer) - enemy.getDefenseAtPos(posEnemy);
+            }
             if (att >= 0) {
                 enemy.removeCharacter(posEnemy);
                 // kalo attack lebih besar dan posisi enemy bukan bertahan maka HP enemy berkurang
@@ -51,7 +61,7 @@ public class BattlePhase extends Phase {
         }
     }
     // kalo gaada karakter
-    public void attackHp(int posPlayer) {
+    public void attackHp(int posPlayer) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -70,7 +80,7 @@ public class BattlePhase extends Phase {
     }
 
     // attack umum
-    public void attack(int posPlayer, int posEnemy) {
+    public void attack(int posPlayer, int posEnemy) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
