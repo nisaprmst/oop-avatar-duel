@@ -11,14 +11,14 @@ import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.skills.AuraSkill;
 import com.avatarduel.cards.skills.SkillCard;
 import com.avatarduel.controller.MainScreenController;
-import com.avatarduel.gamemanager.GameManager;
-import com.avatarduel.gamemanager.Player;
+import com.avatarduel.gamemanager.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -67,14 +67,14 @@ public class AvatarDuel extends Application {
 
     player1 = new Player();
     player2 = new Player();
-    player1.setCardsInHand(player1hand);
-    player2.setCardsInHand(player2hand);
+    // player1.setCardsInHand(player1hand);
+    // player2.setCardsInHand(player2hand);
 
-    gameManager = new GameManager(player1, player2);
 
-    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/MainScreen.fxml"));
-    BorderPane root = loader.load();
-    MainScreenController controller = loader.getController();
+    // FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/MainScreen.fxml"));
+    // BorderPane root = loader.load();
+    // MainScreenController controller = loader.getController();
+    StackPane root = new StackPane();
 
 
 
