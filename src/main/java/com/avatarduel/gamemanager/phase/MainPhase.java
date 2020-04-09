@@ -131,7 +131,7 @@ public class MainPhase extends Phase {
         character.setDefPoint(def);
     }
 
-    public void destroyEnemyCharacter(DestroySkill skill, int pos. boolean isOnPlayer){
+    public void destroyEnemyCharacter(DestroySkill skill, int pos, boolean isOnPlayer){
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
