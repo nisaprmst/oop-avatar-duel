@@ -53,12 +53,12 @@ public class Deck {
     /**
      * Testing Deck
      */
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) {
         try {
             CardLoader cl = new CardLoader();
-//            cl.loadLandCardsFromFile("../card/data/land.csv");
-//            cl.loadCharacterCardsFromFile("../card/data/character.csv");
-//            cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
+            cl.loadLandCardsFromFile("../card/data/land.csv");
+            cl.loadCharacterCardsFromFile("../card/data/character.csv");
+            cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
 
             Deck deck = new Deck();
 
@@ -70,6 +70,8 @@ public class Deck {
             testCard1.printInfo();
             testCard2.printInfo();
             testCard3.printInfo();
+        } catch (IOException e) {
+            System.out.println("Failed to load card");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
