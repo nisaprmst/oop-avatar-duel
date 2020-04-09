@@ -8,28 +8,15 @@ import com.avatarduel.cards.*;
 /**
  * This class store ArrayList of Card use to draw from a player.
  */
-public class Deck {
+public class Deck extends ArrayList<Card>{
     private ArrayList<Card> cards;
 
     public Deck() {
         cards = new ArrayList<>();
     }
-
-    private Card getCard(final int index) {
-        return this.cards.get(index);
-    }
-
-    private void addCard(final Card card) {
-        this.cards.add(card);
-    }
-
-    private void removeCard(final Card card) {
-        this.cards.remove(card);
-    }
-
     public void loadDeck(ArrayList<Card> cardsList) {
         for (Card card: cardsList) {
-            addCard(card);
+            add(card);
         }
     }
 
@@ -37,8 +24,7 @@ public class Deck {
         final Random rand = new Random();
         final int idxDraw = rand.nextInt(cards.size()); // mengambil posisi random pada deck dari 0-(cards.size-1)
 
-        Card randomCard = getCard(idxDraw); // mengakses cards pada posisi ke-idxDraw
-        removeCard(randomCard); // me-remove cards pada posisi ke-idxDraw dari deck
+        Card randomCard = remove(idxDraw); // me-remove cards pada posisi ke-idxDraw dari deck
 
         return randomCard;
     }

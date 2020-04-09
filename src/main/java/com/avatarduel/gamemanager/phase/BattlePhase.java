@@ -22,12 +22,10 @@ public class BattlePhase extends Phase {
     public void attackCharacter(int posPlayer, int posEnemy) {
         // pilih mana player mana enemy
         Player player, enemy;
-        enemy = new Player();
-        player = new Player();
         if (game.turn == 1) {
             player = game.player1;
             enemy = game.player2;
-        } else if (game.turn == 2) {
+        } else {
             player = game.player2;
             enemy = game.player1;
         }
@@ -41,6 +39,8 @@ public class BattlePhase extends Phase {
                 if (att > 0 && enemy.getPositionAtPos(posEnemy) == Position.ATTACK) {
                     enemy.substractHp(att);
                 }
+                CharacterCard character = player.getCharacterAtPos(posPlayer);
+                character.setHasAttacked(true);
             }
         }
     }
@@ -48,29 +48,29 @@ public class BattlePhase extends Phase {
     public void attackHp(int posPlayer) {
         // pilih mana player mana enemy
         Player player, enemy;
-        enemy = new Player();
-        player = new Player();
         if (game.turn == 1) {
             player = game.player1;
             enemy = game.player2;
-        } else if (game.turn == 2) {
+        } else {
             player = game.player2;
             enemy = game.player1;
         }
-        int att = player.getAttackAtPos(posPlayer);
-        enemy.substractHp(att);
+        if (player.canAttack(posPlayer)) {
+            int att = player.getAttackAtPos(posPlayer);
+            CharacterCard character = player.getCharacterAtPos(posPlayer);
+            character.setHasAttacked(true);
+            enemy.substractHp(att);
+        }
     }
 
     // attack umum
     public void attack(int posPlayer, int posEnemy) {
         // pilih mana player mana enemy
         Player player, enemy;
-        enemy = new Player();
-        player = new Player();
         if (game.turn == 1) {
             player = game.player1;
             enemy = game.player2;
-        } else if (game.turn == 2) {
+        } else {
             player = game.player2;
             enemy = game.player1;
         }

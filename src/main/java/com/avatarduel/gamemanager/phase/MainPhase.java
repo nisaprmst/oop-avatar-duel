@@ -3,9 +3,10 @@ package com.avatarduel.gamemanager.phase;
 import com.avatarduel.gamemanager.GameManager;
 import com.avatarduel.gamemanager.Player;
 import com.avatarduel.gamemanager.Field;
-import com.avatarduel.cards.character.*;
-import com.avatarduel.cards.skill.*;
-import com.avatarduel.cards.LandCard;
+import com.avatarduel.cards.characters.*;
+import com.avatarduel.cards.characters.CharacterCard;
+import com.avatarduel.cards.skills.*;
+import com.avatarduel.cards.*;
 
 public class MainPhase extends Phase {
     // ctor
@@ -28,73 +29,132 @@ public class MainPhase extends Phase {
         //
     }
     // meletakkan kartu karakter ke field
-    public void setCharacterCard(CharacterCard character, int position){
-        Player player;
+    public void setCharacterCard(int posInHand, int posInField){
+        // pilih mana player mana enemy
+        Player player, enemy;
+        enemy = new Player();
         player = new Player();
+        if (game.turn == 1) {
+            player = game.player1;
+            enemy = game.player2;
+        } else {
+            player = game.player2;
+            enemy = game.player1;
+        }
         Field field;
-        field = new Field();
-
-		if(player.isPowerEnough(character)){
-            if(field.isCharacterEmpty()){
-                field.placeCharacter(character,position);
+        field = player.getField();
+        CharacterCard character;
+        Card removed;
+        removed = player.removeFromHand(posInHand);
+        if(removed instanceof CharacterCard){
+            character = (CharacterCard) removed;
+            if(player.isPowerEnough(character)){
+                field.placeCharacter(character,posInField);
                 character.setJustSummoned(true);
                 character.setHasAttacked(false);
                 player.usePower(character);
             }
         }
     }
+    // meletakkan kartu karakter ke field
+    public void setSkillCard(int posInHand, int posInField, int target){
+        // pilih mana player mana enemy
+        Player player, enemy;
+        if (game.turn == 1) {
+            player = game.player1;
+            enemy = game.player2;
+        } else {
+            player = game.player2;
+            enemy = game.player1;
+        }
+        Field field;
+        field = player.getField();
+        SkillCard skill;
+        Card removed;
+        removed = player.removeFromHand(posInHand);
+        if(removed instanceof SkillCard){
+            skill = (SkillCard) removed;
+            if(player.isPowerEnough(skill)){
+                field.placeSkill(skill,posInField);
+                player.usePower(skill);
+                if (skill instanceof AuraSkill) {
+                    AuraSkill aura = (AuraSkill) skill;
+                    this.addAuratoCharacter(aura, target);
+                } else if (skill instanceof DestroySkill) {
+                    DestroySkill destroy = (DestroySkill) skill;
+                    this.destroyEnemyCharacter(destroy, target);
+                    // setelah menghancurkan karakter lawan, kartu destroy card hancur
+                    player.removeSkill(posInField);
+                }
+            }
+        }
+    }
     // memilih land card pada deck
-    public void setLandCard(LandCard land){
-        Player player;
-        player = new Player();
-
+    public void setLandCard(int posInHand){
+        // pilih mana player mana enemy
+        Player player, enemy;
+        if (game.turn == 1) {
+            player = game.player1;
+            enemy = game.player2;
+        } else {
+            player = game.player2;
+            enemy = game.player1;
+        }
+        LandCard land = (LandCard) player.removeFromHand(posInHand);
         player.addPower(land);
     }
-    // memilih aura skill pada deck
-    public void setAuraSkill(AuraSkill skill, int position, CharacterCard character, int characterpos){
-        Player player;
-        player = new Player();
 
-        Field field;
-        field = new Field();
-        if(field.isSkillEmpty()){
-            if(player.isPowerEnoughAura(skill)){
-                field.placeSkill(skill, position);
-                //perubahan attack karena aura skill pada karakter yang dipilih
-                int att = player.getAttackAtPos(characterpos) + skill.getAtkPoint();
-                character.setAtkPoint(att);
-                //perubahan defense karena aura skill pada karakter yang dipilih
-                int def = player.getDefenseAtPos(characterpos) + skill.getDefPoint();
-                character.setDefPoint(def);
-                player.usePowerAura(skill);
-            }
+    public void addAuratoCharacter (AuraSkill skill, int characterpos){
+        // pilih mana player mana enemy
+        Player player, enemy;
+        if (game.turn == 1) {
+            player = game.player1;
+            enemy = game.player2;
+        } else {
+            player = game.player2;
+            enemy = game.player1;
         }
+        CharacterCard character = player.getCharacterAtPos(characterpos);
+        //perubahan attack karena aura skill pada karakter yang dipilih
+        int att = player.getAttackAtPos(characterpos) + skill.getAtkPoint();
+        character.setAtkPoint(att);
+        //perubahan defense karena aura skill pada karakter yang dipilih
+        int def = player.getDefenseAtPos(characterpos) + skill.getDefPoint();
+        character.setDefPoint(def);
     }
-    // memilih destroy kill pada deck
-    public void setDestroySkill(DestroySkill skill, int position, int enemypos){
-        Player enemy, player;
-        enemy = new Player();
-        player - new Player();
 
-        Field fieldplayer, fieldenemy;
-        fieldenemy = new Field();
-        fieldplayer = new Field();
-        if(fieldplayer.isSkillEmpty()){
-            if(player.isPowerEnoughDestroy(skill)){
-                // menghancurkan kartu karakter lawan
-                enemy.removeCharacter(enemypos);
-                // setelah menghancurkan karakter lawan, kartu destroy card hancur
-                player.removeSkill(position);
-                player.usePowerDestroy(skill);
-            }
+    public void destroyEnemyCharacter(DestroySkill skill, int enemypos){
+        // pilih mana player mana enemy
+        Player player, enemy;
+        if (game.turn == 1) {
+            player = game.player1;
+            enemy = game.player2;
+        } else {
+            player = game.player2;
+            enemy = game.player1;
         }
+        // menghancurkan kartu karakter lawan
+        enemy.removeCharacter(enemypos);
     }
     // mengubah posisi pada kartu karakter
-    public Position setPositionCharacter(CharacterCard character){
-        if(character.getPosition() == Position.ATTACK){
-            return character.setPosition(Position.DEFENSE);
+    public void changePositionCharacter(int idxField){
+        // pilih mana player mana enemy
+        Player player, enemy;
+        enemy = new Player();
+        player = new Player();
+        if (game.turn == 1) {
+            player = game.player1;
+            enemy = game.player2;
         } else {
-            return character.setPosition(Position.ATTACK);
+            player = game.player2;
+            enemy = game.player1;
+        }
+        CharacterCard character;
+        character = player.getCharacterAtPos(idxField);
+        if(character.getPosition() == Position.ATTACK){
+            character.setPosition(Position.DEFENSE);
+        } else {
+            character.setPosition(Position.ATTACK);
         }
     }
 }
