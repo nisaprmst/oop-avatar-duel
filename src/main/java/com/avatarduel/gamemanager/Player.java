@@ -64,6 +64,9 @@ public class Player {
     public SkillCard getSkillAtPos(int pos) {
         return this.field.getSkillRow(pos);
     }
+    public boolean getIsPowerUpAtPos(int pos) {
+        return this.field.getCharacterRow(pos).getIsPowerUp();
+    }
     // setter
     public void setHp(int hp) {
         this.hp = hp;

@@ -52,6 +52,7 @@ public class CardLoader {
      * @param path path for Land Card csv file
      * @throws IOException exception when reading csv file. for example: file not found error
      * @throws URISyntaxException exception when a string could not  be parsed as a URI reference
+     * @return ArrayList of LandCard loaded from path
      */
     public ArrayList<LandCard> loadLandCardsFromFile(String path) throws IOException, URISyntaxException {
         List<String[]> fileRows = readFromCSV(path);

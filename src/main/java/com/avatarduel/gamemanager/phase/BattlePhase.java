@@ -33,8 +33,10 @@ public class BattlePhase extends Phase {
             if (att >= 0) {
                 enemy.removeCharacter(posEnemy);
                 // kalo attack lebih besar dan posisi enemy bukan bertahan maka HP enemy berkurang
-                if (att > 0 && enemy.getPositionAtPos(posEnemy) == Position.ATTACK) {
-                    enemy.substractHp(att);
+                if (att > 0) {
+                    if (enemy.getPositionAtPos(posEnemy) == Position.ATTACK || player.getIsPowerUpAtPos(posPlayer)) {
+                        enemy.substractHp(att);
+                    }
                 }
                 CharacterCard character = player.getCharacterAtPos(posPlayer);
                 character.setHasAttacked(true);

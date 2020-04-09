@@ -24,6 +24,7 @@ public class Deck extends ArrayList<Card>{
     /**
      * Take random position in valid deck size range then get and remove the card from the array list.
      * @return Card the random card available in array list.
+     * @throws EmptyDeckException exception if Deck is empty.
      */
     public Card drawCard() throws EmptyDeckException {
         if (cards.size() == 0) {
@@ -38,28 +39,29 @@ public class Deck extends ArrayList<Card>{
     }
     /**
      * Testing Deck
-     */
-    public static void main(String[] args) {
-        try {
-            CardLoader cl = new CardLoader();
-            cl.loadLandCardsFromFile("../card/data/land.csv");
-            cl.loadCharacterCardsFromFile("../card/data/character.csv");
-            cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
+     * @param 
+    //  */
+    // public static void main(String[] args) {
+    //     try {
+    //         CardLoader cl = new CardLoader();
+    //         cl.loadLandCardsFromFile("../card/data/land.csv");
+    //         cl.loadCharacterCardsFromFile("../card/data/character.csv");
+    //         cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
 
-            Deck deck = new Deck();
+    //         Deck deck = new Deck();
 
-            deck.loadDeck(cl.getLoadedCards());
+    //         deck.loadDeck(cl.getLoadedCards());
 
-            Card testCard1 = deck.drawCard();
-            Card testCard2 = deck.drawCard();
-            Card testCard3 = deck.drawCard();
-            testCard1.printInfo();
-            testCard2.printInfo();
-            testCard3.printInfo();
-        } catch (IOException e) {
-            System.out.println("Failed to load card");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
+    //         Card testCard1 = deck.drawCard();
+    //         Card testCard2 = deck.drawCard();
+    //         Card testCard3 = deck.drawCard();
+    //         testCard1.printInfo();
+    //         testCard2.printInfo();
+    //         testCard3.printInfo();
+    //     } catch (IOException e) {
+    //         System.out.println("Failed to load card");
+    //     } catch (Exception e) {
+    //         System.out.println(e.getMessage());
+    //     }
+    // }
 }
