@@ -1,5 +1,6 @@
 package com.avatarduel.gamemanager.phase;
 
+import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.gamemanager.GameManager;
 import com.avatarduel.gamemanager.Player;
 import com.avatarduel.gamemanager.Field;
@@ -49,7 +50,7 @@ public class MainPhase extends Phase {
         }
     }
     // meletakkan kartu karakter ke field
-    public void setSkillCard(int posInHand, int posInField, int target){
+    public void setSkillCard(int posInHand, int posInField, int target) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -99,7 +100,7 @@ public class MainPhase extends Phase {
         player.addPower(land);
     }
 
-    public void addAuratoCharacter (AuraSkill skill, int characterpos){
+    public void addAuratoCharacter (AuraSkill skill, int characterpos) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -131,7 +132,7 @@ public class MainPhase extends Phase {
         // menghancurkan kartu karakter lawan
         enemy.removeCharacter(enemypos);
     }
-    public void addPowerUptoCharacter (PowerSkill power, int characterpos) {
+    public void addPowerUptoCharacter (PowerSkill power, int characterpos) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -146,7 +147,7 @@ public class MainPhase extends Phase {
         character.setIsPowerUp(true);
     }
     // mengubah posisi pada kartu karakter
-    public void changePositionCharacter(int idxField){
+    public void changePositionCharacter(int idxField) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         enemy = new Player();
