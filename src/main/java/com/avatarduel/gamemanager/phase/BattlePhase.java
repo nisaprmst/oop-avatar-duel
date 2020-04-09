@@ -22,6 +22,9 @@ public class BattlePhase extends Phase {
         System.out.println("Starting battle phase");
     }
 
+    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) {
+        
+    }
     // untuk kalo ada karakter
     public void attackCharacter(int posPlayer, int posEnemy) {
         // pilih mana player mana enemy
@@ -36,7 +39,12 @@ public class BattlePhase extends Phase {
         // kalo ga baru disummon brrti bisa attack
         if (player.canAttack(posPlayer)) {
             // itung selisih attack
-            int att = player.getAttackAtPos(posPlayer) - enemy.getAttackAtPos(posEnemy);
+            int att;
+            if (enemy.getPositionAtPos(posEnemy) == Position.ATTACK) {
+                att = player.getAttackAtPos(posPlayer) - enemy.getAttackAtPos(posEnemy);
+            } else {
+                att = player.getAttackAtPos(posPlayer) - enemy.getDefenseAtPos(posEnemy);
+            }
             if (att >= 0) {
                 enemy.removeCharacter(posEnemy);
                 // kalo attack lebih besar dan posisi enemy bukan bertahan maka HP enemy berkurang

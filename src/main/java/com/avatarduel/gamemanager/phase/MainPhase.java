@@ -2,6 +2,7 @@ package com.avatarduel.gamemanager.phase;
 
 import com.avatarduel.gamemanager.GameManager;
 import com.avatarduel.gamemanager.Player;
+import com.avatarduel.gamemanager.Command;
 import com.avatarduel.gamemanager.Field;
 import com.avatarduel.cards.characters.*;
 import com.avatarduel.cards.characters.CharacterCard;
@@ -19,13 +20,24 @@ public class MainPhase extends Phase {
     public void phaseInfo() {
         System.out.println("Starting main phase");
     }
+    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) {
+        if (command == Command.SUMMONATTACK) {
+            this.setCharacterCard(posInHand, posInField, Position.ATTACK);
+        } else if (command == Command.SUMMONDEFENSE) {
+            this.setCharacterCard(posInHand, posInField, Position.DEFENSE);
+        } else if (command == Command.PLACESKILL) {
+            this.setSkillCard(posInHand, posInField, target, isOnPlayer);
+        } else if (command == Command.REMOVESKILL) {
+
+        } else {
+            
+        }
+    }
 
     // meletakkan kartu karakter ke field
-    public void setCharacterCard(int posInHand, int posInField){
+    public void setCharacterCard(int posInHand, int posInField, Position pos){
         // pilih mana player mana enemy
         Player player, enemy;
-        enemy = new Player();
-        player = new Player();
         if (game.turn == 1) {
             player = game.player1;
             enemy = game.player2;
@@ -44,6 +56,7 @@ public class MainPhase extends Phase {
                 field.placeCharacter(character,posInField);
                 character.setJustSummoned(true);
                 character.setHasAttacked(false);
+                character.setPosition(pos);
                 player.usePower(character);
             }
         }
