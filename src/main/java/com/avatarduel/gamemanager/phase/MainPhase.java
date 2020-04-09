@@ -1,13 +1,11 @@
 package com.avatarduel.gamemanager.phase;
 
-import com.avatarduel.cards.LandCard;
-import com.avatarduel.cards.characters.CharacterCard;
-import com.avatarduel.cards.characters.Position;
-import com.avatarduel.cards.skills.AuraSkill;
-import com.avatarduel.cards.skills.DestroySkill;
-import com.avatarduel.gamemanager.Field;
 import com.avatarduel.gamemanager.GameManager;
 import com.avatarduel.gamemanager.Player;
+import com.avatarduel.gamemanager.Field;
+import com.avatarduel.cards.character.*;
+import com.avatarduel.cards.skill.*;
+import com.avatarduel.cards.LandCard;
 
 public class MainPhase extends Phase {
     // ctor
@@ -41,6 +39,7 @@ public class MainPhase extends Phase {
                 field.placeCharacter(character,position);
                 character.setJustSummoned(true);
                 character.setHasAttacked(false);
+                player.usePower(character);
             }
         }
     }
@@ -52,48 +51,50 @@ public class MainPhase extends Phase {
         player.addPower(land);
     }
     // memilih aura skill pada deck
-//    public void setAuraSkill(AuraSkill skill, int position, CharacterCard character, int characterpos){
-//        Player player;
-//        player = new Player();
-//
-//        Field field;
-//        field = new Field();
-//        if(field.isSkillEmpty()){
-//            if(player.isPowerEnough()){
-//                field.placeSkill(skill, position);
-//                //perubahan attack karena aura skill pada karakter yang dipilih
-//                int att = player.getAttackAtPos(characterpos) + skill.getAtkPoint();
-//                character.setAtkPoint(att);
-//                //perubahan defense karena aura skill pada karakter yang dipilih
-//                int def = player.getDefenseAtPos(characterpos) + skill.getDefPoint();
-//                character.setDefPoint(def);
-//            }
-//        }
-//    }
+    public void setAuraSkill(AuraSkill skill, int position, CharacterCard character, int characterpos){
+        Player player;
+        player = new Player();
+
+        Field field;
+        field = new Field();
+        if(field.isSkillEmpty()){
+            if(player.isPowerEnoughAura(skill)){
+                field.placeSkill(skill, position);
+                //perubahan attack karena aura skill pada karakter yang dipilih
+                int att = player.getAttackAtPos(characterpos) + skill.getAtkPoint();
+                character.setAtkPoint(att);
+                //perubahan defense karena aura skill pada karakter yang dipilih
+                int def = player.getDefenseAtPos(characterpos) + skill.getDefPoint();
+                character.setDefPoint(def);
+                player.usePowerAura(skill);
+            }
+        }
+    }
     // memilih destroy kill pada deck
-//    public void setDestroySkill(DestroySkill skill, int position, int enemypos){
-//        Player enemy, player;
-//        enemy = new Player();
-//        player = new Player();
-//
-//        Field fieldplayer, fieldenemy;
-//        fieldenemy = new Field();
-//        fieldplayer = new Field();
-//        if(fieldplayer.isSkillEmpty()){
-//            if(player.isPowerEnough()){
-//                // menghancurkan kartu karakter lawan
-//                enemy.removeCharacter(enemypos);
-//                // setelah menghancurkan karakter lawan, kartu destroy card hancur
-//                player.removeSkill(position);
-//            }
-//        }
-//    }
+    public void setDestroySkill(DestroySkill skill, int position, int enemypos){
+        Player enemy, player;
+        enemy = new Player();
+        player - new Player();
+
+        Field fieldplayer, fieldenemy;
+        fieldenemy = new Field();
+        fieldplayer = new Field();
+        if(fieldplayer.isSkillEmpty()){
+            if(player.isPowerEnoughDestroy(skill)){
+                // menghancurkan kartu karakter lawan
+                enemy.removeCharacter(enemypos);
+                // setelah menghancurkan karakter lawan, kartu destroy card hancur
+                player.removeSkill(position);
+                player.usePowerDestroy(skill);
+            }
+        }
+    }
     // mengubah posisi pada kartu karakter
-    public void setPositionCharacter(CharacterCard character){
+    public Position setPositionCharacter(CharacterCard character){
         if(character.getPosition() == Position.ATTACK){
-            character.setPosition(Position.DEFENSE);
+            return character.setPosition(Position.DEFENSE);
         } else {
-            character.setPosition(Position.ATTACK);
+            return character.setPosition(Position.ATTACK);
         }
     }
 }

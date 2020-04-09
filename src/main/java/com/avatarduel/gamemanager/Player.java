@@ -96,9 +96,25 @@ public class Player {
     public boolean isPowerEnough(CharacterCard character) {
         return this.currPower.get(character.getElement()) >= character.getPower();
     }
+    public boolean isPowerEnoughAura(AuraSkill aura){
+        return this.currPower.get(aura.getElement()) >= aura.getPower();
+    }
+    public boolean isPowerEnoughDestroy(DestroySkill dest){
+        return this.currPower.get(dest.getElement()) >= dest.getPower();
+    }
     public void usePower(CharacterCard character) {
         if (isPowerEnough(character)) {
             this.currPower.replace(character.getElement(), this.currPower.get(character.getElement())-character.getPower());
+        }
+    }
+    public void usePowerAura(AuraSkill aura){
+        if(isPowerEnoughAura(aura)){
+            this.currPower.replace(aura.getElement(), this.currPower.get(aura.getElement())-aura.getPower())
+        }
+    }
+    public void usePowerDestroy(DestroySkill dest){
+        if(isPowerEnoughDestroy(dest)){
+            this.currPower.replace(dest.getElement(), this.currPower.get(dest.getElement())-dest.getPower())
         }
     }
     public void removeCharacter(int idxCard) {
