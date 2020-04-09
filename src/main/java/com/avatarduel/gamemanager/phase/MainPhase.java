@@ -90,6 +90,9 @@ public class MainPhase extends Phase {
                     this.destroyEnemyCharacter(destroy, target);
                     // setelah menghancurkan karakter lawan, kartu destroy card hancur
                     player.removeSkill(posInField);
+                } else if (skill.getSkillType() == Skill.POWER) {
+                    PowerSkill power = (PowerSkill) skill;
+                    this.addPowerUptoCharacter(power, target);
                 }
             }
         }
@@ -140,6 +143,20 @@ public class MainPhase extends Phase {
         }
         // menghancurkan kartu karakter lawan
         enemy.removeCharacter(enemypos);
+    }
+    public void addPowerUptoCharacter (PowerSkill power, int characterpos) {
+        // pilih mana player mana enemy
+        Player player, enemy;
+        if (game.turn == 1) {
+            player = game.player1;
+            enemy = game.player2;
+        } else {
+            player = game.player2;
+            enemy = game.player1;
+        }
+        CharacterCard character = player.getCharacterAtPos(characterpos);
+        //perubahan power up karena skill pada karakter yang dipilih
+        character.setIsPowerUp(true);
     }
     // mengubah posisi pada kartu karakter
     public void changePositionCharacter(int idxField){
