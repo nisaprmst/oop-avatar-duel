@@ -46,4 +46,14 @@ public class Field {
     public SkillCard removeSkill(int position) {
         return this.skillRow.remove(position);
     }
+    public void resetHasAttacked() {
+        for (CharacterCard value : characterRow.values()) {
+            value.setHasAttacked(false);
+        }
+    }
+    public void resetJustSummoned() {
+        for (CharacterCard value : characterRow.values()) {
+            value.setJustSummoned(false);
+        }
+    }
 }

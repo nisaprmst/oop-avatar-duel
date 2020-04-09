@@ -21,6 +21,12 @@ public class MainPhase extends Phase {
         } else if (this.count == 2) {
             game.changePhase(new DrawPhase(game));
             game.changeTurn();
+            game.player1.getField().resetHasAttacked();
+            game.player2.getField().resetHasAttacked();
+            game.player1.resetPower();
+            game.player2.resetPower();
+            game.player1.getField().resetJustSummoned();
+            game.player2.getField().resetJustSummoned();
         }
     }
     public void phaseInfo() {
@@ -150,10 +156,13 @@ public class MainPhase extends Phase {
         }
         CharacterCard character;
         character = player.getCharacterAtPos(idxField);
-        if(character.getPosition() == Position.ATTACK){
-            character.setPosition(Position.DEFENSE);
-        } else {
-            character.setPosition(Position.ATTACK);
+        // kalau tidak baru menyerang pada main phase 1
+        if (!character.getHasAttacked()) {
+            if(character.getPosition() == Position.ATTACK){
+                character.setPosition(Position.DEFENSE);
+            } else {
+                character.setPosition(Position.ATTACK);
+            }
         }
     }
 }
