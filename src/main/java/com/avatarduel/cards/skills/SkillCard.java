@@ -8,7 +8,7 @@ public class SkillCard extends Card{
     private Skill skillType;
 
     public SkillCard(int id, String name, String description, Element element, String imagePath, int power, Skill skillType){
-        super(id, name, description, element, imagePath);
+        super(id, name, description, element, imagePath, CardType.SKILL);
         this.power = power;
         this.skillType = skillType;
     }

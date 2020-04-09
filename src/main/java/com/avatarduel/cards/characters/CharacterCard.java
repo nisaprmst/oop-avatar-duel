@@ -1,6 +1,7 @@
 package com.avatarduel.cards.characters;
 
 import com.avatarduel.cards.Card;
+import com.avatarduel.cards.CardType;
 import com.avatarduel.cards.Element;
 
 /**
@@ -23,7 +24,7 @@ public class CharacterCard extends Card {
 
     public CharacterCard(int id, String name, String description, Element element, String imagePath,
                          int attack, int defense, int power) {
-        super(id, name, description, element, imagePath);
+        super(id, name, description, element, imagePath, CardType.CHARACTER);
         this.attack = attack;
         this.defense = defense;
         this.power = power;
