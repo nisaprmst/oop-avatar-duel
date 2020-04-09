@@ -35,6 +35,7 @@ abstract public class Card {
     public String getDescription() { return  this.description; }
     public Element getElement() { return element; }
     public String getImagePath() { return imagePath; }
+    public CardType getCardType() { return cardType; }
 
     /**
      * Print all properties in Card to the console

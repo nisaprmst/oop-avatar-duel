@@ -16,6 +16,9 @@ public class SkillCard extends Card{
     public int getPower(){
         return power;
     }
+    public Skill getSkillType() {
+        return skillType;
+    }
 
     @Override
     public void printInfo() {
