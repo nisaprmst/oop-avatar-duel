@@ -21,7 +21,7 @@ public class MainPhase extends Phase {
     public void phaseInfo() {
         System.out.println("Starting main phase");
     }
-    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) {
+    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception {
         if (command == Command.SUMMONATTACK) {
             this.setCharacterCard(posInHand, posInField, Position.ATTACK);
         } else if (command == Command.SUMMONDEFENSE) {
@@ -89,6 +89,7 @@ public class MainPhase extends Phase {
                 } else {
                     character = enemy.getCharacterAtPos(target);
                 }
+                skill.setIdxCharacterLinked(target);
                 if (skill.getSkillType() == Skill.AURA) {
                     character.addSkill(posInField);
                     AuraSkill aura = (AuraSkill) skill;

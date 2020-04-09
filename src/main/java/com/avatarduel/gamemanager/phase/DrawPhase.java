@@ -14,7 +14,7 @@ public class DrawPhase extends Phase {
     public void phaseInfo() {
         System.out.println("Starting draw phase");
     }
-    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) {
+    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception {
         Player player, enemy;
         enemy = new Player();
         player = new Player();

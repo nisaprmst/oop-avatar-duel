@@ -24,7 +24,7 @@ public class BattlePhase extends Phase {
         System.out.println("Starting battle phase");
     }
 
-    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) {
+    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception{
         
     }
     // untuk kalo ada karakter
