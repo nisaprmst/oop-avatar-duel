@@ -3,6 +3,8 @@ package com.avatarduel.gamemanager;
 import com.avatarduel.cards.*;
 import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.characters.Position;
+import com.avatarduel.cards.skills.AuraSkill;
+import com.avatarduel.cards.skills.DestroySkill;
 
 import java.util.*;
 
@@ -109,12 +111,12 @@ public class Player {
     }
     public void usePowerAura(AuraSkill aura){
         if(isPowerEnoughAura(aura)){
-            this.currPower.replace(aura.getElement(), this.currPower.get(aura.getElement())-aura.getPower())
+            this.currPower.replace(aura.getElement(), this.currPower.get(aura.getElement())-aura.getPower());
         }
     }
     public void usePowerDestroy(DestroySkill dest){
         if(isPowerEnoughDestroy(dest)){
-            this.currPower.replace(dest.getElement(), this.currPower.get(dest.getElement())-dest.getPower())
+            this.currPower.replace(dest.getElement(), this.currPower.get(dest.getElement())-dest.getPower());
         }
     }
     public void removeCharacter(int idxCard) {

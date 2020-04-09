@@ -3,8 +3,8 @@ package com.avatarduel.gamemanager.phase;
 import com.avatarduel.gamemanager.GameManager;
 import com.avatarduel.gamemanager.Player;
 import com.avatarduel.gamemanager.Field;
-import com.avatarduel.cards.character.*;
-import com.avatarduel.cards.skill.*;
+import com.avatarduel.cards.characters.*;
+import com.avatarduel.cards.skills.*;
 import com.avatarduel.cards.LandCard;
 
 public class MainPhase extends Phase {
@@ -72,9 +72,8 @@ public class MainPhase extends Phase {
     }
     // memilih destroy kill pada deck
     public void setDestroySkill(DestroySkill skill, int position, int enemypos){
-        Player enemy, player;
-        enemy = new Player();
-        player - new Player();
+        Player enemy = new Player();
+        Player player = new Player();
 
         Field fieldplayer, fieldenemy;
         fieldenemy = new Field();
@@ -90,11 +89,11 @@ public class MainPhase extends Phase {
         }
     }
     // mengubah posisi pada kartu karakter
-    public Position setPositionCharacter(CharacterCard character){
+    public void setPositionCharacter(CharacterCard character){
         if(character.getPosition() == Position.ATTACK){
-            return character.setPosition(Position.DEFENSE);
+            character.setPosition(Position.DEFENSE);
         } else {
-            return character.setPosition(Position.ATTACK);
+            character.setPosition(Position.ATTACK);
         }
     }
 }
