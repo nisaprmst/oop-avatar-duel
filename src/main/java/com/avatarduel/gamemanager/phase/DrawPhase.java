@@ -16,12 +16,10 @@ public class DrawPhase extends Phase {
     }
     public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception {
         Player player, enemy;
-        enemy = new Player();
-        player = new Player();
         if (game.turn == 1) {
             player = game.player1;
             enemy = game.player2;
-        } else if (game.turn == 2) {
+        } else {
             player = game.player2;
             enemy = game.player1;
         }
