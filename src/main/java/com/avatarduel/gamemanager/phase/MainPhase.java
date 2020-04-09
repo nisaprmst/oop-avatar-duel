@@ -1,5 +1,6 @@
 package com.avatarduel.gamemanager.phase;
 
+import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.gamemanager.GameManager;
 import com.avatarduel.gamemanager.Player;
 import com.avatarduel.gamemanager.Field;
@@ -36,7 +37,7 @@ public class MainPhase extends Phase {
 
 		if(player.isPowerEnough(character)){
             if(field.isCharacterEmpty()){
-                field.placeCharacter(character,position);
+                field.placeCharacterInColumn(character,position);
                 character.setJustSummoned(true);
                 character.setHasAttacked(false);
                 player.usePower(character);
@@ -51,7 +52,7 @@ public class MainPhase extends Phase {
         player.addPower(land);
     }
     // memilih aura skill pada deck
-    public void setAuraSkill(AuraSkill skill, int position, CharacterCard character, int characterpos){
+    public void setAuraSkill(AuraSkill skill, int position, CharacterCard character, int characterpos) throws InvalidFieldIndexException {
         Player player;
         player = new Player();
 
@@ -59,7 +60,7 @@ public class MainPhase extends Phase {
         field = new Field();
         if(field.isSkillEmpty()){
             if(player.isPowerEnoughAura(skill)){
-                field.placeSkill(skill, position);
+                field.placeSkillInColumn(skill, position);
                 //perubahan attack karena aura skill pada karakter yang dipilih
                 int att = player.getAttackAtPos(characterpos) + skill.getAtkPoint();
                 character.setAtkPoint(att);

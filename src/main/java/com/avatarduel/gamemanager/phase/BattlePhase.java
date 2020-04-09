@@ -1,7 +1,9 @@
 package com.avatarduel.gamemanager.phase;
 
+import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.gamemanager.*;
 import com.avatarduel.cards.characters.*;
+import com.avatarduel.exceptions.InvalidFieldIndexException;
 
 public class BattlePhase extends Phase {
     // ctor
@@ -19,7 +21,7 @@ public class BattlePhase extends Phase {
 
     }
     // untuk kalo ada karakter
-    public void attackCharacter(int posPlayer, int posEnemy) {
+    public void attackCharacter(int posPlayer, int posEnemy) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         enemy = new Player();
@@ -45,7 +47,7 @@ public class BattlePhase extends Phase {
         }
     }
     // kalo gaada karakter
-    public void attackHp(int posPlayer) {
+    public void attackHp(int posPlayer) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         enemy = new Player();
@@ -62,7 +64,7 @@ public class BattlePhase extends Phase {
     }
 
     // attack umum
-    public void attack(int posPlayer, int posEnemy) {
+    public void attack(int posPlayer, int posEnemy) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         enemy = new Player();

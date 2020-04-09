@@ -5,6 +5,7 @@ import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.characters.Position;
 import com.avatarduel.cards.skills.AuraSkill;
 import com.avatarduel.cards.skills.DestroySkill;
+import com.avatarduel.exceptions.InvalidFieldIndexException;
 
 import java.util.*;
 
@@ -50,17 +51,17 @@ public class Player {
     public Map<Element, Integer> getPower() {
         return this.power;
     }
-    public int getAttackAtPos(int pos) {
-        return this.field.getCharacterRow(pos).getAttack();
+    public int getAttackAtPos(int pos) throws InvalidFieldIndexException {
+        return this.field.getCharacterInColumn(pos).getAttack();
     }
-    public int getDefenseAtPos(int pos) {
-        return this.field.getCharacterRow(pos).getDefense();
+    public int getDefenseAtPos(int pos) throws InvalidFieldIndexException {
+        return this.field.getCharacterInColumn(pos).getDefense();
     }
-    public Position getPositionAtPos(int pos) {
-        return this.field.getCharacterRow(pos).getPosition();
+    public Position getPositionAtPos(int pos) throws InvalidFieldIndexException {
+        return this.field.getCharacterInColumn(pos).getPosition();
     }
-    public CharacterCard getCharacterAtPos(int pos) {
-        return this.field.getCharacterRow(pos);
+    public CharacterCard getCharacterAtPos(int pos) throws InvalidFieldIndexException {
+        return this.field.getCharacterInColumn(pos);
     }
     // setter
     public void setHp(int hp) {
@@ -125,15 +126,15 @@ public class Player {
     public void removeSkill(int idxCard) {
         this.field.removeSkill(idxCard);
     }
-    public boolean canAttack(int position) {
+    public boolean canAttack(int position) throws InvalidFieldIndexException {
         CharacterCard card;
-        card = this.field.getCharacterRow(position);
+        card = this.field.getCharacterInColumn(position);
         boolean ret = card.getJustSummoned();
         return !ret;
     }
-    public boolean canChangePos(int position) {
+    public boolean canChangePos(int position) throws InvalidFieldIndexException {
         CharacterCard card;
-        card = this.field.getCharacterRow(position);
+        card = this.field.getCharacterInColumn(position);
         boolean ret = card.getHasAttacked();
         return !ret;
     }
