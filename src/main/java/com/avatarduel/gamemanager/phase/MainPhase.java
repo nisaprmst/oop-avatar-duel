@@ -26,9 +26,7 @@ public class MainPhase extends Phase {
     public void phaseInfo() {
         System.out.println("Starting main phase");
     }
-    public void process() {
-        //
-    }
+
     // meletakkan kartu karakter ke field
     public void setCharacterCard(int posInHand, int posInField){
         // pilih mana player mana enemy

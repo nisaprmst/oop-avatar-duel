@@ -14,10 +14,7 @@ public class BattlePhase extends Phase {
     public void phaseInfo() {
         System.out.println("Starting battle phase");
     }
-    public void process () {
-        // kyknya ga dipake
 
-    }
     // untuk kalo ada karakter
     public void attackCharacter(int posPlayer, int posEnemy) {
         // pilih mana player mana enemy

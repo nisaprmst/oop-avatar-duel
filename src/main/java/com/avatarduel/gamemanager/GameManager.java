@@ -23,7 +23,7 @@ public class GameManager {
 
     public void changeTurn() {
         if (this.turn == 1) {
-            this.turn == 2;
+            this.turn = 2;
         } else {
             this.turn = 1;
         }
