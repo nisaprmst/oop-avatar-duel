@@ -18,6 +18,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -65,12 +66,13 @@ public class AvatarDuel extends Application {
 
     player1 = new Player();
     player2 = new Player();
-    player1.setCardsInHand(player1hand);
-    player2.setCardsInHand(player2hand);
+    // player1.setCardsInHand(player1hand);
+    // player2.setCardsInHand(player2hand);
 
-    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/MainScreen.fxml"));
-    BorderPane root = loader.load();
-    MainScreenController controller = loader.getController();
+    // FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/MainScreen.fxml"));
+    // BorderPane root = loader.load();
+    // MainScreenController controller = loader.getController();
+    StackPane root = new StackPane();
 
 
 

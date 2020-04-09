@@ -5,9 +5,11 @@ import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.characters.Position;
 import com.avatarduel.cards.skills.AuraSkill;
 import com.avatarduel.cards.skills.DestroySkill;
+import com.avatarduel.exceptions.EmptyDeckException;
 import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.cards.skills.SkillCard;
-
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 public class Player {
@@ -31,8 +33,25 @@ public class Player {
             this.power.put(el, 0);
             this.currPower.put(el, 0);
         }
+        try {
+            CardLoader cl = new CardLoader();
+            cl.loadLandCardsFromFile("../card/data/land.csv");
+            cl.loadCharacterCardsFromFile("../card/data/character.csv");
+            cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
+
+            deck.loadDeck(cl.getLoadedCards());
+            System.out.println(deck.size());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         for (int i = 0; i < 7; i++) {
-            this.cardsInHand.add(this.deck.drawCard());
+            try {
+                this.cardsInHand.add(this.deck.drawCard());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
