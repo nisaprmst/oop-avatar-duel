@@ -20,6 +20,7 @@ public class MainPhase extends Phase {
             game.changePhase(new BattlePhase(game));
         } else if (this.count == 2) {
             game.changePhase(new DrawPhase(game));
+            game.changeTurn();
         }
     }
     public void phaseInfo() {
