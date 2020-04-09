@@ -50,7 +50,7 @@ public class MainPhase extends Phase {
         }
     }
     // meletakkan kartu karakter ke field
-    public void setSkillCard(int posInHand, int posInField, int target) throws InvalidFieldIndexException {
+    public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer) throws InvalidFiledIndexException{
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -63,6 +63,7 @@ public class MainPhase extends Phase {
         Field field;
         field = player.getField();
         SkillCard skill;
+        CharacterCard character;
         Card removed;
         removed = player.removeFromHand(posInHand);
         if(removed.getCardType() == CardType.SKILL){
@@ -70,15 +71,22 @@ public class MainPhase extends Phase {
             if(player.isPowerEnough(skill)){
                 field.placeSkillInColumn(skill,posInField);
                 player.usePower(skill);
+                if (isOnPlayer) {
+                    character = player.getCharacterAtPos(target);
+                } else {
+                    character = enemy.getCharacterAtPos(target);
+                }
                 if (skill.getSkillType() == Skill.AURA) {
+                    character.addSkill(posInField);
                     AuraSkill aura = (AuraSkill) skill;
-                    this.addAuratoCharacter(aura, target);
+                    this.addAuratoCharacter(aura, target, isOnPlayer);
                 } else if (skill.getSkillType() == Skill.DESTROY) {
                     DestroySkill destroy = (DestroySkill) skill;
-                    this.destroyEnemyCharacter(destroy, target);
+                    this.destroyEnemyCharacter(destroy, target, isOnPlayer);
                     // setelah menghancurkan karakter lawan, kartu destroy card hancur
                     player.removeSkill(posInField);
                 } else if (skill.getSkillType() == Skill.POWER) {
+                    character.addSkill(posInField);
                     PowerSkill power = (PowerSkill) skill;
                     this.addPowerUptoCharacter(power, target);
                 }
@@ -100,7 +108,7 @@ public class MainPhase extends Phase {
         player.addPower(land);
     }
 
-    public void addAuratoCharacter (AuraSkill skill, int characterpos) throws InvalidFieldIndexException {
+    public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) throws InvalidIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -110,7 +118,12 @@ public class MainPhase extends Phase {
             player = game.player2;
             enemy = game.player1;
         }
-        CharacterCard character = player.getCharacterAtPos(characterpos);
+        CharacterCard character;
+        if (isOnPlayer) {
+            character = player.getCharacterAtPos(characterpos);
+        } else {
+            character = enemy.getCharacterAtPos(characterpos);
+        }
         //perubahan attack karena aura skill pada karakter yang dipilih
         int att = player.getAttackAtPos(characterpos) + skill.getAtkPoint();
         character.setAtkPoint(att);
@@ -119,7 +132,7 @@ public class MainPhase extends Phase {
         character.setDefPoint(def);
     }
 
-    public void destroyEnemyCharacter(DestroySkill skill, int enemypos){
+    public void destroyEnemyCharacter(DestroySkill skill, int pos, boolean isOnPlayer){
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -129,8 +142,12 @@ public class MainPhase extends Phase {
             player = game.player2;
             enemy = game.player1;
         }
-        // menghancurkan kartu karakter lawan
-        enemy.removeCharacter(enemypos);
+        // menghancurkan kartu karakter
+        if (isOnPlayer) {
+            player.removeCharacter(pos);
+        } else {
+            enemy.removeCharacter(pos);
+        }
     }
     public void addPowerUptoCharacter (PowerSkill power, int characterpos) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
@@ -143,6 +160,7 @@ public class MainPhase extends Phase {
             enemy = game.player1;
         }
         CharacterCard character = player.getCharacterAtPos(characterpos);
+        // cek elementnya
         //perubahan power up karena skill pada karakter yang dipilih
         character.setIsPowerUp(true);
     }
