@@ -12,5 +12,4 @@ public abstract class Phase {
     }
     public abstract void nextPhase();
     public abstract void phaseInfo();
-    public abstract void process();
 }

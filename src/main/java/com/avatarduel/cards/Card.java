@@ -9,6 +9,7 @@ abstract public class Card {
     private String description;
     private Element element;
     private String imagePath;
+    private CardType cardType;
 
     /**
      * Constructor
@@ -18,13 +19,15 @@ abstract public class Card {
      * @param description card description
      * @param element card element
      * @param imagePath card image path
+     * @param cardType card type
      */
-    public Card(int id, String name, String description, Element element, String imagePath) {
+    public Card(int id, String name, String description, Element element, String imagePath, CardType cardType) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.element = element;
         this.imagePath = imagePath;
+        this.cardType = cardType;
     }
 
     public int getId() { return this.id; }
@@ -32,6 +35,7 @@ abstract public class Card {
     public String getDescription() { return  this.description; }
     public Element getElement() { return element; }
     public String getImagePath() { return imagePath; }
+    public CardType getCardType() { return cardType; }
 
     /**
      * Print all properties in Card to the console

@@ -20,6 +20,14 @@ public class GameManager {
         this.player1 = P1;
         this.player2 = P2;
     }
+
+    public void changeTurn() {
+        if (this.turn == 1) {
+            this.turn = 2;
+        } else {
+            this.turn = 1;
+        }
+    }
     public void printPhaseInfo() {
         this.phase.phaseInfo();
     }

@@ -6,6 +6,7 @@ import com.avatarduel.cards.characters.Position;
 import com.avatarduel.cards.skills.AuraSkill;
 import com.avatarduel.cards.skills.DestroySkill;
 import com.avatarduel.exceptions.InvalidFieldIndexException;
+import com.avatarduel.cards.skills.SkillCard;
 
 import java.util.*;
 
@@ -63,6 +64,12 @@ public class Player {
     public CharacterCard getCharacterAtPos(int pos) throws InvalidFieldIndexException {
         return this.field.getCharacterInColumn(pos);
     }
+    public SkillCard getSkillAtPos(int pos) throws InvalidFieldIndexException {
+        return this.field.getSkillInColumn(pos);
+    }
+    public boolean getIsPowerUpAtPos(int pos) throws InvalidFieldIndexException {
+        return this.field.getCharacterInColumn(pos).getIsPowerUp();
+    }
     // setter
     public void setHp(int hp) {
         this.hp = hp;
@@ -99,26 +106,21 @@ public class Player {
     public boolean isPowerEnough(CharacterCard character) {
         return this.currPower.get(character.getElement()) >= character.getPower();
     }
-    public boolean isPowerEnoughAura(AuraSkill aura){
-        return this.currPower.get(aura.getElement()) >= aura.getPower();
-    }
-    public boolean isPowerEnoughDestroy(DestroySkill dest){
-        return this.currPower.get(dest.getElement()) >= dest.getPower();
+    public boolean isPowerEnough(SkillCard skill) {
+        return this.currPower.get(skill.getElement()) >= skill.getPower();
     }
     public void usePower(CharacterCard character) {
         if (isPowerEnough(character)) {
             this.currPower.replace(character.getElement(), this.currPower.get(character.getElement())-character.getPower());
         }
     }
-    public void usePowerAura(AuraSkill aura){
-        if(isPowerEnoughAura(aura)){
-            this.currPower.replace(aura.getElement(), this.currPower.get(aura.getElement())-aura.getPower());
+    public void usePower(SkillCard skill) {
+        if (isPowerEnough(skill)) {
+            this.currPower.replace(skill.getElement(), this.currPower.get(skill.getElement())-skill.getPower());
         }
     }
-    public void usePowerDestroy(DestroySkill dest){
-        if(isPowerEnoughDestroy(dest)){
-            this.currPower.replace(dest.getElement(), this.currPower.get(dest.getElement())-dest.getPower());
-        }
+    public Card removeFromHand(int idxCard) {
+        return this.deck.remove(idxCard);
     }
     public void removeCharacter(int idxCard) {
         this.field.removeCharacter(idxCard);

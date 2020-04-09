@@ -1,6 +1,7 @@
 package com.avatarduel.cards.characters;
 
 import com.avatarduel.cards.Card;
+import com.avatarduel.cards.CardType;
 import com.avatarduel.cards.Element;
 
 /**
@@ -20,16 +21,21 @@ public class CharacterCard extends Card {
      * If is set true, the CharacterCard is just summoned to the field and can't attack
      */
     private boolean justSummoned;
+    /**
+     * If is set true, the CharacterCard is equipped with power up skill
+     */
+    private boolean isPowerUp;
 
     public CharacterCard(int id, String name, String description, Element element, String imagePath,
                          int attack, int defense, int power) {
-        super(id, name, description, element, imagePath);
+        super(id, name, description, element, imagePath, CardType.CHARACTER);
         this.attack = attack;
         this.defense = defense;
         this.power = power;
         this.position = Position.ATTACK;
         this.hasAttacked = false;
         this.justSummoned = false;
+        this.isPowerUp = false;
     }
 
     public int getAttack() {
@@ -50,6 +56,9 @@ public class CharacterCard extends Card {
     public boolean getJustSummoned() {
         return this.justSummoned;
     }
+    public boolean getIsPowerUp() {
+        return this.isPowerUp;
+    }
 
     public void setHasAttacked(boolean param) {
         this.hasAttacked = param;
@@ -65,6 +74,9 @@ public class CharacterCard extends Card {
     }
     public void setJustSummoned(boolean param) {
         this.justSummoned = param;
+    }
+    public void setIsPowerUp(boolean param) {
+        this.isPowerUp = param;
     }
 
     @Override
