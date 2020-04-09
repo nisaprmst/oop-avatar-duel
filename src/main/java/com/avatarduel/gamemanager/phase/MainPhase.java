@@ -1,5 +1,6 @@
 package com.avatarduel.gamemanager.phase;
 
+import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.gamemanager.GameManager;
 import com.avatarduel.gamemanager.Player;
 import com.avatarduel.gamemanager.Command;
@@ -53,7 +54,7 @@ public class MainPhase extends Phase {
         if(removed.getCardType() == CardType.CHARACTER){
             character = (CharacterCard) removed;
             if(player.isPowerEnough(character)){
-                field.placeCharacter(character,posInField);
+                field.placeCharacterInColumn(character,posInField);
                 character.setJustSummoned(true);
                 character.setHasAttacked(false);
                 character.setPosition(pos);
@@ -62,7 +63,7 @@ public class MainPhase extends Phase {
         }
     }
     // meletakkan kartu karakter ke field
-    public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer){
+    public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -81,7 +82,7 @@ public class MainPhase extends Phase {
         if(removed.getCardType() == CardType.SKILL){
             skill = (SkillCard) removed;
             if(player.isPowerEnough(skill)){
-                field.placeSkill(skill,posInField);
+                field.placeSkillInColumn(skill,posInField);
                 player.usePower(skill);
                 if (isOnPlayer) {
                     character = player.getCharacterAtPos(target);
@@ -120,7 +121,7 @@ public class MainPhase extends Phase {
         player.addPower(land);
     }
 
-    public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer){
+    public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -161,7 +162,7 @@ public class MainPhase extends Phase {
             enemy.removeCharacter(pos);
         }
     }
-    public void addPowerUptoCharacter (PowerSkill power, int characterpos) {
+    public void addPowerUptoCharacter (PowerSkill power, int characterpos) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -177,7 +178,7 @@ public class MainPhase extends Phase {
         character.setIsPowerUp(true);
     }
     // mengubah posisi pada kartu karakter
-    public void changePositionCharacter(int idxField){
+    public void changePositionCharacter(int idxField) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         enemy = new Player();
