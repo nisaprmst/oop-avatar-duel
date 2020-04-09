@@ -51,7 +51,7 @@ public class MainPhase extends Phase {
         CharacterCard character;
         Card removed;
         removed = player.removeFromHand(posInHand);
-        if(removed instanceof CharacterCard){
+        if(removed.getCardType() == CardType.CHARACTER){
             character = (CharacterCard) removed;
             if(player.isPowerEnough(character)){
                 field.placeCharacter(character,posInField);
@@ -77,15 +77,15 @@ public class MainPhase extends Phase {
         SkillCard skill;
         Card removed;
         removed = player.removeFromHand(posInHand);
-        if(removed instanceof SkillCard){
+        if(removed.getCardType() == CardType.SKILL){
             skill = (SkillCard) removed;
             if(player.isPowerEnough(skill)){
                 field.placeSkill(skill,posInField);
                 player.usePower(skill);
-                if (skill instanceof AuraSkill) {
+                if (skill.getSkillType() == Skill.AURA) {
                     AuraSkill aura = (AuraSkill) skill;
                     this.addAuratoCharacter(aura, target);
-                } else if (skill instanceof DestroySkill) {
+                } else if (skill.getSkillType() == Skill.DESTROY) {
                     DestroySkill destroy = (DestroySkill) skill;
                     this.destroyEnemyCharacter(destroy, target);
                     // setelah menghancurkan karakter lawan, kartu destroy card hancur
