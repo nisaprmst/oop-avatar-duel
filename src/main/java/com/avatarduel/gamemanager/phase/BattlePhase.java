@@ -24,9 +24,6 @@ public class BattlePhase extends Phase {
         System.out.println("Starting battle phase");
     }
 
-    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception{
-        
-    }
     // untuk kalo ada karakter
     public void attackCharacter(int posPlayer, int posEnemy) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
@@ -80,7 +77,8 @@ public class BattlePhase extends Phase {
     }
 
     // attack umum
-    public void attack(int posPlayer, int posEnemy) throws InvalidFieldIndexException {
+    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception {
+
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -90,14 +88,14 @@ public class BattlePhase extends Phase {
             player = game.player2;
             enemy = game.player1;
         }
-        if (player.getCharacterAtPos(posPlayer) != null) {
+        if (player.getCharacterAtPos(posInField) != null) {
             // kalo ada karakternya maka serang kartunya
-            if (enemy.getCharacterAtPos(posEnemy) != null) {
-                this.attackCharacter(posPlayer, posEnemy);
+            if (enemy.getCharacterAtPos(target) != null) {
+                this.attackCharacter(posInField, target);
             } else {
                 // kalo gaada karakternya dan gaada karakter di lawan serang hp lawan
                 if (enemy.isCharacterFieldEmpty()) {
-                    this.attackHp(posPlayer);
+                    this.attackHp(posInField);
                 }
                 // kalo gaada ga ngapa ngapain
             }
