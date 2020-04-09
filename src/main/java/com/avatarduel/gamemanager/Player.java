@@ -3,7 +3,12 @@ package com.avatarduel.gamemanager;
 import com.avatarduel.cards.*;
 import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.characters.Position;
+<<<<<<< HEAD
 import com.avatarduel.cards.skills.SkillCard;
+=======
+import com.avatarduel.cards.skills.AuraSkill;
+import com.avatarduel.cards.skills.DestroySkill;
+>>>>>>> 88894fab185151395e98ba6cc5830edaf356c20d
 
 import java.util.*;
 
@@ -109,6 +114,7 @@ public class Player {
             this.currPower.replace(character.getElement(), this.currPower.get(character.getElement())-character.getPower());
         }
     }
+<<<<<<< HEAD
     public void usePower(SkillCard skill) {
         if (isPowerEnough(skill)) {
             this.currPower.replace(skill.getElement(), this.currPower.get(skill.getElement())-skill.getPower());
@@ -116,6 +122,17 @@ public class Player {
     }
     public Card removeFromHand(int idxCard) {
         return this.deck.remove(idxCard);
+=======
+    public void usePowerAura(AuraSkill aura){
+        if(isPowerEnoughAura(aura)){
+            this.currPower.replace(aura.getElement(), this.currPower.get(aura.getElement())-aura.getPower());
+        }
+    }
+    public void usePowerDestroy(DestroySkill dest){
+        if(isPowerEnoughDestroy(dest)){
+            this.currPower.replace(dest.getElement(), this.currPower.get(dest.getElement())-dest.getPower());
+        }
+>>>>>>> 88894fab185151395e98ba6cc5830edaf356c20d
     }
     public void removeCharacter(int idxCard) {
         this.field.removeCharacter(idxCard);
