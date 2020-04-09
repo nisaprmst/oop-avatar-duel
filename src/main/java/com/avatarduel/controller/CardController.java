@@ -1,9 +1,12 @@
 package com.avatarduel.controller;
 
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
@@ -15,13 +18,49 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
-public class CardController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CardController implements Initializable {
     @FXML
     private ImageView card;
 
-    public void setCardImage(Image img){
+    private IntegerProperty source  = new SimpleIntegerProperty(999);
+
+    private IntegerProperty target  = new SimpleIntegerProperty(999);
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    }
+
+    public int getSource() {
+        return source.get();
+    }
+
+    public IntegerProperty sourceProperty() {
+        return source;
+    }
+
+    public void setSource(int source) {
+        this.source.set(source);
+    }
+
+    public int getTarget() {
+        return target.get();
+    }
+
+    public IntegerProperty targetProperty() {
+        return target;
+    }
+
+    public void setTarget(int target) {
+        this.target.set(target);
+    }
+
+    public void setCardImage(String imagename){
+        String path = getClass().getResource("../card/image/" + imagename).toString();
+        Image img = new Image(path, 90, 90, false, true);
         card.setImage(img);
-        card.setRotate(90);
         card.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
             @Override
@@ -53,26 +92,13 @@ public class CardController {
         });
     }
 
-    public void setContextMenuItem() throws Exception{
+    public void setContextMenuItem(int phase, String location, String type) throws Exception{
         FXMLLoader contextMenuLoader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/CardContextMenu.fxml"));
         ContextMenu contextMenu = contextMenuLoader.load();
-        //contextMenu.getItems().add(new MenuItem("Load"));
         CardContextMenuController contextMenuController = contextMenuLoader.getController();
+        contextMenuController.commandProperty().addListener((k, oldValue, newValue) -> setCommandSource());
 
-        contextMenuController.setMenuItems( "Main 1");
-
-        //System.out.println(contextMenu.getItems());
-
-        /*card.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.isPrimaryButtonDown()) {
-                    contextMenu.show(card, event.getScreenX(), event.getScreenY());
-                }
-            }
-        });*/
-
-        //card.setOnContextMenuRequested(e ->contextMenu.show(card, e.getScreenX(), e.getScreenY()));
+        contextMenuController.setMenuItems(phase, location, type);
 
         card.addEventHandler(ContextMenuEvent.CONTEXT_MENU_REQUESTED, event -> {
             contextMenu.show(card, event.getScreenX(), event.getScreenY());
@@ -80,7 +106,69 @@ public class CardController {
         });
         card.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
             contextMenu.hide();
+            if(GUIState.state == 1){
+                setCommandTarget();
+            }
         });
+
+    }
+
+    private void setCommandSource(){
+        Parent parent = card.getParent();
+        int i;
+        for(i = 0; i < parent.getChildrenUnmodifiable().size(); i++){
+            if(card.equals(parent.getChildrenUnmodifiable().get(i))){
+                break;
+            }
+        }
+        System.out.println("Source is: " + i);
+        GUIState.source = i;
+        setSource(i);
+    }
+
+    private void setCommandTarget(){
+        Parent parent = card.getParent();
+        int i;
+        for(i = 0; i < parent.getChildrenUnmodifiable().size(); i++){
+            if(card.equals(parent.getChildrenUnmodifiable().get(i))){
+                break;
+            }
+        }
+        System.out.println("Target is: " + i);
+        GUIState.target = i;
+        setTargetLocation(parent);
+        System.out.println("location is: " + GUIState.location);
+
+        GUIState.state = 0;
+        setTarget(i);
+    }
+
+    private void setTargetLocation(Parent parent){
+        String id = parent.getId();
+        int location = 999;
+
+        switch (id){
+            case "player1hand":
+                location = 1;
+                break;
+            case "player1skillfield":
+                location = 2;
+                break;
+            case "player1charfield":
+                location = 3;
+                break;
+            case "player2charfield":
+                location = 4;
+                break;
+            case "player2skillfield":
+                location = 5;
+                break;
+            case "player2hand":
+                location = 6;
+                break;
+        }
+
+        GUIState.location = location;
 
     }
 

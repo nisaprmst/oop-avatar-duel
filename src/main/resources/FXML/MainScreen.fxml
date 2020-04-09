@@ -16,6 +16,7 @@
         <VBox fx:id="leftvbox" prefHeight="720.0" prefWidth="300.0" style="-fx-background-color: BLUE;" BorderPane.alignment="CENTER">
             <children>
                 <Label fx:id="labelone" text="label" />
+            <Button mnemonicParsing="false" text="NextPhase" fx:id="nextphaseButton" onAction="#onNextPhaseButtonClick"/>
             </children>
         </VBox>
     </left>
@@ -180,7 +181,7 @@
                         <Insets top="362.0" />
                     </StackPane.margin>
                 </BorderPane>
-                <TilePane alignment="CENTER" maxHeight="40.0" maxWidth="275.0" minHeight="40.0" minWidth="275.0" prefColumns="1" prefHeight="40.0" prefTileHeight="35.0" prefTileWidth="55.0" prefWidth="275.0" style="-fx-background-color: Green;">
+                <TilePane alignment="CENTER" maxHeight="40.0" maxWidth="275.0" minHeight="40.0" minWidth="275.0" prefColumns="1" prefHeight="40.0" prefTileHeight="35.0" prefTileWidth="55.0" prefWidth="275.0" style="-fx-background-color: Green;" fx:id="phaseindicator">
                     <StackPane.margin>
                         <Insets right="200.0" />
                     </StackPane.margin>
