@@ -50,7 +50,7 @@ public class MainPhase extends Phase {
         }
     }
     // meletakkan kartu karakter ke field
-    public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer) throws InvalidFiledIndexException{
+    public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
@@ -108,7 +108,7 @@ public class MainPhase extends Phase {
         player.addPower(land);
     }
 
-    public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) throws InvalidIndexException {
+    public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         if (game.turn == 1) {
