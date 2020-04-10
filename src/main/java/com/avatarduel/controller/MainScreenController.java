@@ -164,7 +164,6 @@ public class MainScreenController implements Initializable {
             case "Position":
                 positionCommand(GUIState.source);
                 break;
-
         }
 
     }
