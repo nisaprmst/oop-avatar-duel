@@ -9,6 +9,15 @@ abstract public class Card {
     private final String imagePath;
     private final CardType cardType;
 
+    public Card() {
+        id = -1;
+        name = "";
+        description = "";
+        element = Element.AIR;
+        imagePath = "";
+        cardType = CardType.CHARACTER;
+    }
+
     /**
      * Constructor
      *

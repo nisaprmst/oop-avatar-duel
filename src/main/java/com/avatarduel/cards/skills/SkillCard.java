@@ -15,6 +15,10 @@ public class SkillCard extends Card{
         this.idxCharacterLinked = -1;
     }
 
+    public SkillCard() {
+        super();
+    }
+
     public int getPower(){
         return power;
     }

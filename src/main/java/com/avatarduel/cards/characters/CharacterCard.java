@@ -14,11 +14,11 @@ public class CharacterCard extends Card {
     private int attack;
     private int defense;
     private int power;
-    private boolean hasAttacked; /** If is set true, the CharacterCard has already attack */
-    private Position position; /** Can be either ATTACK or DEFENSE */
-    private boolean justSummoned; /** If is set true, the CharacterCard is just summoned to the field and can't attack */
-    private boolean isPowerUp; /** If is set true, the CharacterCard is equipped with power up skill */
-    private ArrayList<Integer> idxSkillLinked; /** To store any skill cards that attach to this Card */
+    private boolean hasAttacked; /* If is set true, the CharacterCard has already attack */
+    private Position position; /* Can be either ATTACK or DEFENSE */
+    private boolean justSummoned; /* If is set true, the CharacterCard is just summoned to the field and can't attack */
+    private boolean isPowerUp; /* If is set true, the CharacterCard is equipped with power up skill */
+    private ArrayList<Integer> idxSkillLinked; /* To store any skill cards that attach to this Card */
 
     /**
      * Parameterized constructor. The fifth first argument are the same with the parent.
@@ -37,6 +37,10 @@ public class CharacterCard extends Card {
         this.justSummoned = false;
         this.isPowerUp = false;
         this.idxSkillLinked = new ArrayList<>();
+    }
+
+    public CharacterCard() {
+        super();
     }
 
     public int getAttack() { return this.attack; }
