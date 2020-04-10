@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is loader for card data from given csv file path.
+ * This class is loader for card data from given csv file path. The loader must load the card data in different
+ * methods for each kind of Card to ensure the instance is correct.
  */
 public class CardLoader {
     private ArrayList<Card> loadedCards;
@@ -77,5 +78,15 @@ public class CardLoader {
                             row[4], Integer.parseInt(row[5]), Integer.parseInt(row[6]), Integer.parseInt(row[7]));
             loadedCards.add(as);
         }
+    }
+    
+    // TODO: 4/10/2020 Implement the body of loadDestroySkillFromFile
+    public void loadDestroySkillFromFile(String path) {
+
+    }
+
+    // TODO: 4/10/2020 Implement the body of loadPowerUpSkillFromFile
+    public void loadPowerUpSkillFromFile(String path) {
+        
     }
 }

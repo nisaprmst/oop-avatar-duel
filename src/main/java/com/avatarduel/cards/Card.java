@@ -1,15 +1,22 @@
 package com.avatarduel.cards;
 
-/**
- * Card is abstract class to representing card data in general.
- */
+/** Card is abstract class to representing card data in general. */
 abstract public class Card {
-    private int id;
-    private String name;
-    private String description;
-    private Element element;
-    private String imagePath;
-    private CardType cardType;
+    private final int id;
+    private final String name;
+    private final String description;
+    private final Element element;
+    private final String imagePath;
+    private final CardType cardType;
+
+    public Card() {
+        id = -1;
+        name = "";
+        description = "";
+        element = Element.AIR;
+        imagePath = "";
+        cardType = CardType.CHARACTER;
+    }
 
     /**
      * Constructor
@@ -37,9 +44,7 @@ abstract public class Card {
     public String getImagePath() { return imagePath; }
     public CardType getCardType() { return cardType; }
 
-    /**
-     * Print all properties in Card to the console
-     */
+    /** Print all properties in Card to the console. */
     public void printInfo() {
         System.out.print("ID:"); System.out.println(this.id);
         System.out.print("Name:"); System.out.println(this.name);

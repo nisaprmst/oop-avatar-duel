@@ -15,7 +15,6 @@ public class AuraSkill extends SkillCard{
     public int getAtkPoint(){
         return atkPoint;
     }
-
     public int getDefPoint(){
         return defPoint;
     }
