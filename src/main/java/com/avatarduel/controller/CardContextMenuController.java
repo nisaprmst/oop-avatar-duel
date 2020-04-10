@@ -1,5 +1,9 @@
 package com.avatarduel.controller;
 
+import com.avatarduel.gamemanager.phase.BattlePhase;
+import com.avatarduel.gamemanager.phase.DrawPhase;
+import com.avatarduel.gamemanager.phase.MainPhase;
+import com.avatarduel.gamemanager.phase.Phase;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -52,15 +56,13 @@ public class CardContextMenuController implements Initializable {
         setCommand(commandString);
     }
 
-    public void setMenuItems(int phase, String location, String type){
-        System.out.println(phase);
-        System.out.println(location);
+    public void setMenuItems(Phase phase, String location, String type){
+        int phaseInt = determinePhase(phase);
         if(!type.equals("BlankCard")){
-            switch (phase){
+            switch (phaseInt){
                 case 1:
                     break;
                 case 2:
-                case 4:
                     if(location.equals("hand")){
                         if(type.equals("CharacterCard")){
                             cardcontextmenu.getItems().addAll(summon, defense);
@@ -76,11 +78,23 @@ public class CardContextMenuController implements Initializable {
                         cardcontextmenu.getItems().addAll(attack);
                     }
                     break;
-                case 5:
+                case 4:
                     break;
             }
         }
 
+    }
+
+    private int determinePhase(Phase phase){
+        if(phase instanceof DrawPhase){
+            return 1;
+        } else if(phase instanceof MainPhase){
+            return 2;
+        } else if(phase instanceof BattlePhase){
+            return 3;
+        } else{
+            return 4;
+        }
     }
 
 

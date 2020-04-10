@@ -5,6 +5,10 @@ import com.avatarduel.cards.Card;
 import com.avatarduel.cards.LandCard;
 import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.skills.SkillCard;
+import com.avatarduel.gamemanager.phase.BattlePhase;
+import com.avatarduel.gamemanager.phase.DrawPhase;
+import com.avatarduel.gamemanager.phase.MainPhase;
+import com.avatarduel.gamemanager.phase.Phase;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import sun.applet.Main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,12 +52,13 @@ public class MainScreenController implements Initializable {
     CardController cardController;
     ImageView card;
 
-    int phase = 1;
-    int player = 1;
+    Phase phase = AvatarDuel.gameManager.phase;
+    int player = AvatarDuel.gameManager.turn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
         updateScreen();
+        GUIState.hoveredProperty().addListener((k, oldValue, newValue) -> showCard());
     }
 
     public void updateScreen(){
@@ -64,6 +70,8 @@ public class MainScreenController implements Initializable {
             System.out.print(e.getMessage());
         }
         //fillfield()
+        renderPhaseIndicator();
+
     }
 
     public void clearfield(){
@@ -84,7 +92,7 @@ public class MainScreenController implements Initializable {
         ObservableList player1handchildren = player1hand.getChildren();
         ObservableList player2handchildren = player2hand.getChildren();
         for(Card c: AvatarDuel.gameManager.player1.getCardsInHand()){
-            if(player == 1){
+            if(AvatarDuel.gameManager.turn == 1){
                 if(c instanceof CharacterCard){
                     imgname = "character/" + c.getImagePath();
                     type = "CharacterCard";
@@ -104,7 +112,7 @@ public class MainScreenController implements Initializable {
         }
 
         for(Card c: AvatarDuel.gameManager.player2.getCardsInHand()){
-            if(player == 2){
+            if(AvatarDuel.gameManager.turn == 2){
                 if(c instanceof CharacterCard){
                     imgname = "character/" + c.getImagePath();
                     type = "CharacterCard";
@@ -131,7 +139,7 @@ public class MainScreenController implements Initializable {
         cardController.sourceProperty().addListener((k, oldValue, newValue) -> determineGUIState());
         cardController.targetProperty().addListener((k, oldValue, newValue) -> processCommand());
         cardController.setCardImage(imagename);
-        cardController.setContextMenuItem(phase, "hand", type);
+        cardController.setContextMenuItem(AvatarDuel.gameManager.phase, "hand", type);
         System.out.println("masuk sini");
 
         handchildren.add(card);
@@ -195,69 +203,65 @@ public class MainScreenController implements Initializable {
         player1skillfield.getChildren().add(card);
     }
 
-    public void addplayer1hand(String imagename) throws Exception{
-        cardloader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/card.fxml"));
-        card = cardloader.load();
-        cardController = cardloader.getController();
-        cardController.setCardImage(imagename);
-       // cardController.setContextMenuItem();
-
-    }
-
-    public void deletehand(){;
-        player1hand.getChildren().remove(player1hand.getChildren().size()-1);
-    }
-
-    public void player1summon(){
-        card = (ImageView) player1hand.getChildren().remove(player1hand.getChildren().size()-1);
-        player1charfield.getChildren().add(card);
-    }
-
-    public void onNextPhaseButtonClick(){
-        /*Label label = (Label)phaseindicator.getChildren().get(phase-1);
-        label.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
-        System.out.println(phaseindicator.getChildren());
-        if(phase + 1 > 5){
-            System.out.println("entered draw phase");
-            phase = 1;
-            if(player == 1){
-                player = 2;
-            } else{
-                player = 1;
-            }
-        } else{
-            phase = phase + 1;
-        }
-
-        label = (Label)phaseindicator.getChildren().get(phase-1);
-        label.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        printPhase();*/
-
+    @FXML
+    private void onNextPhaseButtonClick(){
         AvatarDuel.gameManager.phase.nextPhase();
         AvatarDuel.gameManager.phase.phaseInfo();
         updateScreen();
-
     }
 
-    public void printPhase(){
-        String phaseString = "Entered ";
-        switch(phase){
+    private void renderPhaseIndicator(){
+        Label prevLabel, currLabel;
+        if(AvatarDuel.gameManager.phase instanceof DrawPhase){
+            prevLabel = (Label) phaseindicator.getChildren().get(3);
+            currLabel = (Label) phaseindicator.getChildren().get(0);
+        } else if(AvatarDuel.gameManager.phase instanceof MainPhase){
+            prevLabel = (Label) phaseindicator.getChildren().get(0);
+            currLabel = (Label) phaseindicator.getChildren().get(1);
+        } else if(AvatarDuel.gameManager.phase instanceof BattlePhase){
+            prevLabel = (Label) phaseindicator.getChildren().get(1);
+            currLabel = (Label) phaseindicator.getChildren().get(2);
+        } else{ //End Phase
+            prevLabel = (Label) phaseindicator.getChildren().get(2);
+            currLabel = (Label) phaseindicator.getChildren().get(3);
+        }
+        prevLabel.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        currLabel.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+    private void printPhase(){
+        AvatarDuel.gameManager.phase.phaseInfo();
+    }
+
+    private void showCard(){
+        int location = GUIState.getHovLocation();
+        int hovered = GUIState.getHovered();
+
+        String locationString = "";
+
+        switch(location){
             case 1:
-                phaseString += "Draw Phase";
+                locationString = "Player 1's hand";
                 break;
             case 2:
-                phaseString += "Main Phase 1";
+                locationString = "Player 1's skill field";
                 break;
             case 3:
-                phaseString += "Battle Phase";
+                locationString = "Player 1's character field";
                 break;
             case 4:
-                phaseString += "Main Phase 2";
+                locationString = "Player 2's character field";
                 break;
             case 5:
-                phaseString += "End Phase";
+                locationString = "Player 2's skill field";
+                break;
+            case 6:
+                locationString = "Player 2's hand";
                 break;
         }
-        System.out.println(phaseString);
+
+        System.out.println("Card " + (hovered + 1) + " on " + locationString + " hovered");
+
+
     }
 }
