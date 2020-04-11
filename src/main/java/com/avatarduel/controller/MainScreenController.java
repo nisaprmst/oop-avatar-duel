@@ -2,9 +2,12 @@ package com.avatarduel.controller;
 
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.cards.Card;
+import com.avatarduel.cards.CardType;
+import com.avatarduel.cards.Element;
 import com.avatarduel.cards.LandCard;
 import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.skills.SkillCard;
+import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.gamemanager.phase.BattlePhase;
 import com.avatarduel.gamemanager.phase.DrawPhase;
 import com.avatarduel.gamemanager.phase.MainPhase;
@@ -21,16 +24,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import sun.applet.Main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
     @FXML
-    private Label labelone;
-    @FXML
-    private VBox leftvbox;
+    private CardInfoController cardInfoController;
     @FXML
     private HBox player1hand;
     @FXML
@@ -234,31 +234,65 @@ public class MainScreenController implements Initializable {
     }
 
     private void showCard(){
+        Card c;
         int location = GUIState.getHovLocation();
         int hovered = GUIState.getHovered();
 
         String locationString = "";
 
-        switch(location){
-            case 1:
-                locationString = "Player 1's hand";
-                break;
-            case 2:
-                locationString = "Player 1's skill field";
-                break;
-            case 3:
-                locationString = "Player 1's character field";
-                break;
-            case 4:
-                locationString = "Player 2's character field";
-                break;
-            case 5:
-                locationString = "Player 2's skill field";
-                break;
-            case 6:
-                locationString = "Player 2's hand";
-                break;
+        if(hovered != -999){
+            switch(location){
+                case 1:
+                    locationString = "Player 1's hand";
+                    c = AvatarDuel.gameManager.player1.getCardsInHand().get(hovered);
+                    cardInfoController.setInfo(c);
+                    break;
+                case 2:
+                    locationString = "Player 1's skill field";
+                    try{
+                        c = AvatarDuel.gameManager.player1.getField().getSkillInColumn(hovered);
+                        cardInfoController.setInfo(c);
+                    } catch(InvalidFieldIndexException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 3:
+                    locationString = "Player 1's character field";
+                    try{
+                        c = AvatarDuel.gameManager.player1.getField().getCharacterInColumn(hovered);
+                        cardInfoController.setInfo(c);
+                    } catch(InvalidFieldIndexException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 4:
+                    locationString = "Player 2's character field";
+                    try{
+                        c = AvatarDuel.gameManager.player2.getField().getCharacterInColumn(hovered);
+                        cardInfoController.setInfo(c);
+                    } catch(InvalidFieldIndexException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 5:
+                    locationString = "Player 2's skill field";
+                    try{
+                        c = AvatarDuel.gameManager.player2.getField().getSkillInColumn(hovered);
+                        cardInfoController.setInfo(c);
+                    } catch(InvalidFieldIndexException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 6:
+                    locationString = "Player 2's hand";
+                    c = AvatarDuel.gameManager.player2.getCardsInHand().get(hovered);
+                    cardInfoController.setInfo(c);
+                    break;
+            }
+        } else{
+            cardInfoController.setBlankInfo();
         }
+
 
         System.out.println("Card " + (hovered + 1) + " on " + locationString + " hovered");
 
