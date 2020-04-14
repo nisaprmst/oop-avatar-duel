@@ -89,7 +89,7 @@ public class MainPhase extends Phase {
                 } else {
                     character = enemy.getCharacterAtPos(target);
                 }
-                skill.setIdxCharacterLinked(target);
+                skill.setCharacterLinked(character);
                 if (skill.getSkillType() == Skill.AURA) {
                     character.addSkill(skill);
                     AuraSkill aura = (AuraSkill) skill;
