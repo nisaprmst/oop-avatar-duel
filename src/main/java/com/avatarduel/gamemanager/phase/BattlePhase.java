@@ -44,13 +44,11 @@ public class BattlePhase extends Phase {
             } else {
                 att = player.getAttackAtPos(posPlayer) - enemy.getDefenseAtPos(posEnemy);
             }
-            if (att >= 0) {
+            if (att > 0) {
                 enemy.removeCharacter(posEnemy);
                 // kalo attack lebih besar dan posisi enemy bukan bertahan maka HP enemy berkurang
-                if (att > 0) {
-                    if (enemy.getPositionAtPos(posEnemy) == Position.ATTACK || player.getIsPowerUpAtPos(posPlayer)) {
-                        enemy.substractHp(att);
-                    }
+                if (enemy.getPositionAtPos(posEnemy) == Position.ATTACK || player.getIsPowerUpAtPos(posPlayer)) {
+                    enemy.substractHp(att);
                 }
                 CharacterCard character = player.getCharacterAtPos(posPlayer);
                 character.setHasAttacked(true);
