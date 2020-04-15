@@ -11,7 +11,6 @@ public class BattlePhase extends Phase {
         super(game, PhaseType.BATTLE);
     }
     public void nextPhase() {
-        GameManager game = getGame();
         game.changePhase(new MainPhase(game));
         game.changeTurn();
         game.getPlayer().getField().resetHasAttacked();
@@ -29,8 +28,8 @@ public class BattlePhase extends Phase {
     public void attackCharacter(int posPlayer, int posEnemy) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
-        player = getGame().getPlayer();
-        enemy = getGame().getEnemy();
+        player = game.getPlayer();
+        enemy = game.getEnemy();
         // kalo ga baru disummon brrti bisa attack
         if (player.canAttack(posPlayer)) {
             // itung selisih attack
@@ -55,8 +54,8 @@ public class BattlePhase extends Phase {
     public void attackHp(int posPlayer) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
-        player = getGame().getPlayer();
-        enemy = getGame().getEnemy();
+        player = game.getPlayer();
+        enemy = game.getEnemy();
         if (player.canAttack(posPlayer)) {
             int att = player.getAttackAtPos(posPlayer);
             CharacterCard character = player.getCharacterAtPos(posPlayer);
@@ -70,8 +69,8 @@ public class BattlePhase extends Phase {
 
         // pilih mana player mana enemy
         Player player, enemy;
-        player = getGame().getPlayer();
-        enemy = getGame().getEnemy();
+        player = game.getPlayer();
+        enemy = game.getEnemy();
         if (player.getCharacterAtPos(posInField) != null) {
             // kalo ada karakternya maka serang kartunya
             if (enemy.getCharacterAtPos(target) != null) {

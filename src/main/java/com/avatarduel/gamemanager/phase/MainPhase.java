@@ -16,7 +16,7 @@ public class MainPhase extends Phase {
         super(game, PhaseType.MAIN);
     }
     public void nextPhase() {
-        getGame().changePhase(new DrawPhase(getGame()));
+        game.changePhase(new BattlePhase(game));
     }
     public void phaseInfo() {
         System.out.println("Starting main phase");
@@ -39,8 +39,8 @@ public class MainPhase extends Phase {
     public void setCharacterCard(int posInHand, int posInField, Position pos){
         // pilih mana player mana enemy
         Player player, enemy;
-        player = getGame().getPlayer();
-        enemy = getGame().getEnemy();
+        player = game.getPlayer();
+        enemy = game.getEnemy();
         Field field;
         field = player.getField();
         CharacterCard character;
@@ -65,8 +65,8 @@ public class MainPhase extends Phase {
     public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
-        player = getGame().getPlayer();
-        enemy = getGame().getEnemy();
+        player = game.getPlayer();
+        enemy = game.getEnemy();
         Field field;
         field = player.getField();
         SkillCard skill;
@@ -105,8 +105,8 @@ public class MainPhase extends Phase {
     public void setLandCard(int posInHand){
         // pilih mana player mana enemy
         Player player, enemy;
-        player = getGame().getPlayer();
-        enemy = getGame().getEnemy();
+        player = game.getPlayer();
+        enemy = game.getEnemy();
         LandCard land = (LandCard) player.removeFromHand(posInHand);
         player.addPower(land);
     }
@@ -114,8 +114,8 @@ public class MainPhase extends Phase {
     public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
-        player = getGame().getPlayer();
-        enemy = getGame().getEnemy();
+        player = game.getPlayer();
+        enemy = game.getEnemy();
         CharacterCard character;
         if (isOnPlayer) {
             character = player.getCharacterAtPos(characterpos);
@@ -133,8 +133,8 @@ public class MainPhase extends Phase {
     public void destroyEnemyCharacter(DestroySkill skill, int pos, boolean isOnPlayer){
         // pilih mana player mana enemy
         Player player, enemy;
-        player = getGame().getPlayer();
-        enemy = getGame().getEnemy();
+        player = game.getPlayer();
+        enemy = game.getEnemy();
         // menghancurkan kartu karakter
         if (isOnPlayer) {
             player.removeCharacter(pos);
@@ -145,8 +145,8 @@ public class MainPhase extends Phase {
     public void addPowerUptoCharacter (PowerUpSkill power, int characterpos) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
-        player = getGame().getPlayer();
-        enemy = getGame().getEnemy();
+        player = game.getPlayer();
+        enemy = game.getEnemy();
         CharacterCard character = player.getCharacterAtPos(characterpos);
         // cek elementnya
         //perubahan power up karena skill pada karakter yang dipilih
@@ -156,8 +156,8 @@ public class MainPhase extends Phase {
     public void changePositionCharacter(int idxField) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
-        player = getGame().getPlayer();
-        enemy = getGame().getEnemy();
+        player = game.getPlayer();
+        enemy = game.getEnemy();
         CharacterCard character;
         character = player.getCharacterAtPos(idxField);
         // kalau tidak baru menyerang pada main phase 1
@@ -172,8 +172,8 @@ public class MainPhase extends Phase {
     // menghapus kartu skill tertentu
     public void removeSkillCard(int idxField){
         Player player,enemy;
-        player = getGame().getPlayer();
-        enemy = getGame().getEnemy();
+        player = game.getPlayer();
+        enemy = game.getEnemy();
         CharacterCard characterLink;
         SkillCard skill = player.getSkillAtPos(idxField);
         characterLink = skill.getCharacterLinked();

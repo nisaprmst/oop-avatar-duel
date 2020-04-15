@@ -94,14 +94,31 @@ public class GameManager {
             player.printNama();
 
             // draw phase
-            game.printPhaseInfo();
-            player.draw();
-            System.out.println("Berhasil draw card!");
-
-            game.nextPhase();
+            if (game.getPhase().getType() == PhaseType.DRAW) {
+                game.printPhaseInfo();
+                player.draw();
+                System.out.println("daftar perintah");
+                System.out.println("0. next phase");
+                System.out.println("1. print field");
+                System.out.println("2. print cardsInHand");
+                System.out.println("3. print enemy field");
+                System.out.println("4. taruh kartu ke field");
+                int input = scanner.nextInt();
+                if (input == 0) {
+                    game.nextPhase();
+                } else if (input == 1) {
+                    player.getField().printCharacterRow();
+                } else if (input == 2) {
+                    player.printCardsInHand();
+                } else if (input == 3) {
+                    enemy.getField().printCharacterRow();
+                } else {
+                    System.out.println("perintah salah!");
+                    System.out.println(input);
+                }
 
             // main phase
-            if (game.getPhase().getType() == PhaseType.MAIN) {
+            } else if (game.getPhase().getType() == PhaseType.MAIN) {
                 game.printPhaseInfo();
                 System.out.println("daftar perintah");
                 System.out.println("0. next phase");
@@ -111,15 +128,19 @@ public class GameManager {
                 System.out.println("4. taruh kartu ke field");
                 int input = scanner.nextInt();
                 if (input == 0) {
-
-                }
-                if (input == 1) {
+                    game.nextPhase();
+                } else if (input == 1) {
                     player.getField().printCharacterRow();
                 } else if (input == 2) {
                     player.printCardsInHand();
                 } else if (input == 3) {
                     enemy.getField().printCharacterRow();
+                } else {
+                    System.out.println("perintah salah!");
                 }
+            } else {
+                game.printPhaseInfo();
+                int input = scanner.nextInt();
             }
         }
 

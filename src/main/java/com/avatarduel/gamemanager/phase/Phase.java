@@ -6,7 +6,7 @@ import com.avatarduel.gamemanager.GameManager;
 
 public abstract class Phase {
     // attribute
-    private GameManager game;
+    GameManager game;
     private PhaseType type;
 
 
@@ -16,22 +16,10 @@ public abstract class Phase {
         this.type = type;
     }
     /**
-     * @return the game
-     */
-    public GameManager getGame() {
-        return game;
-    }
-    /**
      * @return the type
      */
     public PhaseType getType() {
         return type;
-    }
-    /**
-     * @param game the game to set
-     */
-    public void setGame(GameManager game) {
-        this.game = game;
     }
     /**
      * @param type the type to set
