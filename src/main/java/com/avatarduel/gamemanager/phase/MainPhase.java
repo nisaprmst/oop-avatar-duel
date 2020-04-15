@@ -21,8 +21,9 @@ public class MainPhase extends Phase {
     public void phaseInfo() {
         System.out.println("Starting main phase");
     }
-    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception {
+    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) {
         if (command == Command.SUMMONATTACK) {
+            System.out.println("masuk");
             this.setCharacterCard(posInHand, posInField, Position.ATTACK);
         } else if (command == Command.SUMMONDEFENSE) {
             this.setCharacterCard(posInHand, posInField, Position.DEFENSE);
@@ -58,11 +59,13 @@ public class MainPhase extends Phase {
                 character.setHasAttacked(false);
                 character.setPosition(pos);
                 player.usePower(character);
+            } else {
+                System.out.println("ga cukup power");
             }
         }
     }
     // meletakkan kartu karakter ke field
-    public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer) throws InvalidFieldIndexException {
+    public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer) {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -76,27 +79,31 @@ public class MainPhase extends Phase {
         if(removed.getCardType() == CardType.SKILL){
             skill = (SkillCard) removed;
             if(player.isPowerEnough(skill)){
-                field.placeSkillInColumn(skill,posInField);
-                player.usePower(skill);
-                if (isOnPlayer) {
-                    character = player.getCharacterAtPos(target);
-                } else {
-                    character = enemy.getCharacterAtPos(target);
-                }
-                skill.setCharacterLinked(character);
-                if (skill.getSkillType() == Skill.AURA) {
-                    character.addSkill(skill);
-                    AuraSkill aura = (AuraSkill) skill;
-                    this.addAuratoCharacter(aura, target, isOnPlayer);
-                } else if (skill.getSkillType() == Skill.DESTROY) {
-                    DestroySkill destroy = (DestroySkill) skill;
-                    this.destroyEnemyCharacter(destroy, target, isOnPlayer);
-                    // setelah menghancurkan karakter lawan, kartu destroy card hancur
-                    player.removeSkill(posInField);
-                } else if (skill.getSkillType() == Skill.POWER) {
-                    character.addSkill(skill);
-                    PowerUpSkill power = (PowerUpSkill) skill;
-                    this.addPowerUptoCharacter(power, target);
+                try {
+                    field.placeSkillInColumn(skill,posInField);
+                    player.usePower(skill);
+                    if (isOnPlayer) {
+                        character = player.getCharacterAtPos(target);
+                    } else {
+                        character = enemy.getCharacterAtPos(target);
+                    }
+                    skill.setCharacterLinked(character);
+                    if (skill.getSkillType() == Skill.AURA) {
+                        character.addSkill(skill);
+                        AuraSkill aura = (AuraSkill) skill;
+                        this.addAuratoCharacter(aura, target, isOnPlayer);
+                    } else if (skill.getSkillType() == Skill.DESTROY) {
+                        DestroySkill destroy = (DestroySkill) skill;
+                        this.destroyEnemyCharacter(destroy, target, isOnPlayer);
+                        // setelah menghancurkan karakter lawan, kartu destroy card hancur
+                        player.removeSkill(posInField);
+                    } else if (skill.getSkillType() == Skill.POWER) {
+                        character.addSkill(skill);
+                        PowerUpSkill power = (PowerUpSkill) skill;
+                        this.addPowerUptoCharacter(power, target);
+                    }
+                } catch (InvalidFieldIndexException e) {
+                    System.out.println(e.getMessage());
                 }
             }
         }
@@ -111,7 +118,7 @@ public class MainPhase extends Phase {
         player.addPower(land);
     }
 
-    public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) throws InvalidFieldIndexException {
+    public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -142,7 +149,7 @@ public class MainPhase extends Phase {
             enemy.removeCharacter(pos);
         }
     }
-    public void addPowerUptoCharacter (PowerUpSkill power, int characterpos) throws InvalidFieldIndexException {
+    public void addPowerUptoCharacter (PowerUpSkill power, int characterpos) {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -153,7 +160,7 @@ public class MainPhase extends Phase {
         character.setIsPowerUp(true);
     }
     // mengubah posisi pada kartu karakter
-    public void changePositionCharacter(int idxField) throws InvalidFieldIndexException {
+    public void changePositionCharacter(int idxField) {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();

@@ -284,16 +284,26 @@ public class Player {
     public void removeSkill(int idxCard) {
         this.field.removeSkill(idxCard);
     }
-    public boolean canAttack(int position) throws InvalidFieldIndexException {
+    public boolean canAttack(int position) {
         CharacterCard card;
-        card = this.field.getCharacterInColumn(position);
-        boolean ret = card.getJustSummoned();
+        boolean ret = true;
+        try {
+            card = this.field.getCharacterInColumn(position);
+            ret = card.getJustSummoned();
+        } catch (InvalidFieldIndexException e) {
+            System.out.println(e.getMessage());
+        }
         return !ret;
     }
-    public boolean canChangePos(int position) throws InvalidFieldIndexException {
+    public boolean canChangePos(int position) {
         CharacterCard card;
-        card = this.field.getCharacterInColumn(position);
-        boolean ret = card.getHasAttacked();
+        boolean ret = true;
+        try {
+            card = this.field.getCharacterInColumn(position);
+            ret = card.getHasAttacked();
+        } catch (InvalidFieldIndexException e) {
+            System.out.println(e.getMessage());
+        }
         return !ret;
     }
     public boolean isCharacterFieldEmpty() {

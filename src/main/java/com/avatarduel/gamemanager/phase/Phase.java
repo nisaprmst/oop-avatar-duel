@@ -29,5 +29,5 @@ public abstract class Phase {
     }
     public abstract void nextPhase();
     public abstract void phaseInfo();
-    public abstract void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception;
+    public abstract void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer);
 }

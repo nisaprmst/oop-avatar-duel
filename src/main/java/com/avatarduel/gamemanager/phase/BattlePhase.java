@@ -25,7 +25,7 @@ public class BattlePhase extends Phase {
     }
 
     // untuk kalo ada karakter
-    public void attackCharacter(int posPlayer, int posEnemy) throws InvalidFieldIndexException {
+    public void attackCharacter(int posPlayer, int posEnemy) {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -51,7 +51,7 @@ public class BattlePhase extends Phase {
         }
     }
     // kalo gaada karakter
-    public void attackHp(int posPlayer) throws InvalidFieldIndexException {
+    public void attackHp(int posPlayer) {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -65,7 +65,7 @@ public class BattlePhase extends Phase {
     }
 
     // attack umum
-    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception {
+    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) {
 
         // pilih mana player mana enemy
         Player player, enemy;

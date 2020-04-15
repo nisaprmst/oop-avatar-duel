@@ -102,7 +102,6 @@ public class GameManager {
                 System.out.println("1. print field");
                 System.out.println("2. print cardsInHand");
                 System.out.println("3. print enemy field");
-                System.out.println("4. taruh kartu ke field");
                 int input = scanner.nextInt();
                 if (input == 0) {
                     game.nextPhase();
@@ -135,12 +134,35 @@ public class GameManager {
                     player.printCardsInHand();
                 } else if (input == 3) {
                     enemy.getField().printCharacterRow();
+                } else if (input == 4) {
+                    System.out.println("Masukkan index cardsInHand: ");
+                    int posInHand = scanner.nextInt();
+                    System.out.println("Masukkan index field: ");
+                    int posInField = scanner.nextInt();
+                    game.getPhase().process(Command.SUMMONATTACK, posInHand, posInField, 0, true);
                 } else {
                     System.out.println("perintah salah!");
                 }
             } else {
                 game.printPhaseInfo();
+                System.out.println("daftar perintah");
+                System.out.println("0. next phase");
+                System.out.println("1. print field");
+                System.out.println("2. print cardsInHand");
+                System.out.println("3. print enemy field");
+                System.out.println("4. serang kartu lawan");
                 int input = scanner.nextInt();
+                if (input == 0) {
+                    game.nextPhase();
+                } else if (input == 1) {
+                    player.getField().printCharacterRow();
+                } else if (input == 2) {
+                    player.printCardsInHand();
+                } else if (input == 3) {
+                    enemy.getField().printCharacterRow();
+                } else {
+                    System.out.println("perintah salah!");
+                }
             }
         }
 
