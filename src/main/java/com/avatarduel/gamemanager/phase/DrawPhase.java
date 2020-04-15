@@ -6,23 +6,18 @@ import com.avatarduel.gamemanager.*;
 public class DrawPhase extends Phase {
     // ctor
     public DrawPhase(GameManager game) {
-        super(game);
+        super(game, PhaseType.DRAW);
     }
     public void nextPhase() {
+        GameManager game = getGame();
         game.changePhase(new MainPhase(game));
     }
     public void phaseInfo() {
         System.out.println("Starting draw phase");
     }
     public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception {
-        Player player, enemy;
-        if (game.turn == 1) {
-            player = game.player1;
-            enemy = game.player2;
-        } else {
-            player = game.player2;
-            enemy = game.player1;
-        }
+        Player player;
+        player = getGame().getPlayer();
         player.draw();
         player.resetPower();
     }

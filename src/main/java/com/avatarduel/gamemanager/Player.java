@@ -14,6 +14,7 @@ import java.util.*;
 
 public class Player {
     // atribut
+    private String nama;
     private int hp;
     private Deck deck;
     private ArrayList<Card> cardsInHand;
@@ -22,13 +23,14 @@ public class Player {
     private Map<Element, Integer> power; // untuk menyimpan nilai maksimal power
 
     // ctor 
-    public Player() {
+    public Player(String nama) {
+        this.nama = nama;
         this.hp = 0;
         this.deck = new Deck();
-        this.cardsInHand = new ArrayList<>();
+        this.cardsInHand = new ArrayList<Card>();
         this.field = new Field();
-        this.power = new HashMap<>();
-        this.currPower = new HashMap<>();
+        this.power = new HashMap<Element, Integer>();
+        this.currPower = new HashMap<Element, Integer>();
         for (Element el: Element.values()) {
             this.power.put(el, 0);
             this.currPower.put(el, 0);
@@ -55,21 +57,81 @@ public class Player {
         }
     }
 
+    public Player() {
+        this.nama = "default";
+        this.hp = 0;
+        this.deck = new Deck();
+        this.cardsInHand = new ArrayList<Card>();
+        this.field = new Field();
+        this.power = new HashMap<Element, Integer>();
+        this.currPower = new HashMap<Element, Integer>();
+        for (Element el: Element.values()) {
+            this.power.put(el, 0);
+            this.currPower.put(el, 0);
+        }
+        try {
+            CardLoader cl = new CardLoader();
+            cl.loadLandCardsFromFile("../card/data/land.csv");
+            cl.loadCharacterCardsFromFile("../card/data/character.csv");
+            cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
+
+            deck.loadDeck(cl.getLoadedCards());
+            System.out.println(deck.size());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        for (int i = 0; i < 7; i++) {
+            try {
+                this.cardsInHand.add(this.deck.drawCard());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
     // getter
+    /**
+     * @return the nama
+     */
+    public String getNama() {
+        return nama;
+    }
+    /**
+     * @return the hp
+     */
     public int getHp() {
-        return this.hp;
+        return hp;
     }
+    /**
+     * @return the deck
+     */
     public Deck getDeck() {
-        return this.deck;
+        return deck;
     }
+    /**
+     * @return the cardsInHand
+     */
     public ArrayList<Card> getCardsInHand() {
-        return this.cardsInHand;
+        return cardsInHand;
     }
+    /**
+     * @return the field
+     */
     public Field getField() {
-        return this.field;
+        return field;
     }
+    /**
+     * @return the power
+     */
     public Map<Element, Integer> getPower() {
-        return this.power;
+        return power;
+    }
+    /**
+     * @return the currPower
+     */
+    public Map<Element, Integer> getCurrPower() {
+        return currPower;
     }
     public int getAttackAtPos(int pos) throws InvalidFieldIndexException {
         return this.field.getCharacterInColumn(pos).getAttack();
@@ -90,23 +152,62 @@ public class Player {
         return this.field.getCharacterInColumn(pos).getIsPowerUp();
     }
     // setter
+    /**
+     * @param nama the nama to set
+     */
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+    /**
+     * @param hp the hp to set
+     */
     public void setHp(int hp) {
         this.hp = hp;
     }
+    /**
+     * @param deck the deck to set
+     */
     public void setDeck(Deck deck) {
         this.deck = deck;
     }
-    public void setCardsInHand(ArrayList<Card> cards) {
-        this.cardsInHand = cards;
+    /**
+     * @param cardsInHand the cardsInHand to set
+     */
+    public void setCardsInHand(ArrayList<Card> cardsInHand) {
+        this.cardsInHand = cardsInHand;
     }
+    /**
+     * @param field the field to set
+     */
     public void setField(Field field) {
         this.field = field;
     }
+    /**
+     * @param power the power to set
+     */
     public void setPower(Map<Element, Integer> power) {
         this.power = power;
     }
+    /**
+     * @param currPower the currPower to set
+     */
+    public void setCurrPower(Map<Element, Integer> currPower) {
+        this.currPower = currPower;
+    }
 
     // method
+    public void printNama() {
+        System.out.print(this.nama);
+        System.out.println(" sedang bermain.");
+    }
+    public void printCardsInHand() {
+        for (int i = 0; i < this.getCardsInHand().size(); i++) {
+            System.out.println();
+            System.out.print("index ");
+            System.out.println(i);
+            this.getCardsInHand().get(i).printInfo();
+        }
+    }
     public void substractHp(int val) {
         this.hp -= val;
     }
@@ -139,7 +240,7 @@ public class Player {
         }
     }
     public Card removeFromHand(int idxCard) {
-        return this.deck.remove(idxCard);
+        return this.cardsInHand.remove(idxCard);
     }
     public void removeCharacter(int idxCard) {
         this.field.removeCharacter(idxCard);

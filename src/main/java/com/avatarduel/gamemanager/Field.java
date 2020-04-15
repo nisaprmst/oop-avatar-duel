@@ -19,8 +19,14 @@ public class Field {
      * Class Constructor
      */
     public Field() {
-        this.characterRow = new HashMap<>();
-        this.skillRow = new HashMap<>();
+        this.maximumCardsPerRow = 6;
+        this.characterRow = new HashMap<Integer, CharacterCard>();
+        this.skillRow = new HashMap<Integer, SkillCard>();
+    }
+    public Field(int max) {
+        this.maximumCardsPerRow = max;
+        this.characterRow = new HashMap<Integer, CharacterCard>();
+        this.skillRow = new HashMap<Integer, SkillCard>();
     }
 
     /**
@@ -53,8 +59,12 @@ public class Field {
      * Place the a CharacterCard in given column position
      * @param card the CharacterCard want to place
      * @param column the number of column position
+     * @throws InvalidFieldIndexException given when the column argument not a valid number
      */
-    public void placeCharacterInColumn(CharacterCard card, int column) {
+    public void placeCharacterInColumn(CharacterCard card, int column)throws InvalidFieldIndexException {
+        if (column < 0 || column >= this.maximumCardsPerRow) {
+            throw new InvalidFieldIndexException(column);
+        }
         this.characterRow.put(column, card);
     }
 
@@ -62,8 +72,12 @@ public class Field {
      * Place the a CharacterCard in given column position
      * @param card the CharacterCard want to place
      * @param column the number of column position
+     * @throws InvalidFieldIndexException given when the column argument not a valid number
      */
-    public void placeSkillInColumn(SkillCard card, int column) {
+    public void placeSkillInColumn(SkillCard card, int column) throws InvalidFieldIndexException {
+        if (column < 0 || column >= this.maximumCardsPerRow) {
+            throw new InvalidFieldIndexException(column);
+        }
         this.skillRow.put(column, card);
     }
 
@@ -90,6 +104,16 @@ public class Field {
     public void resetJustSummoned() {
         for (CharacterCard value : characterRow.values()) {
             value.setJustSummoned(false);
+        }
+    }
+    public void printCharacterRow() {
+        for (int i = 0; i < this.maximumCardsPerRow; i++) {
+            System.out.println();
+            System.out.print("index ");
+            System.out.println(i);
+            if(this.characterRow.containsKey(i)) {
+                this.characterRow.get(i).printInfo();
+            }
         }
     }
 
