@@ -217,15 +217,17 @@ public class MainPhase extends Phase {
         CharacterCard characterLink;
         SkillCard skill;
         characterLink = skill.getCharacterLinked();
+        characterpos = characterLink.getPosition();
+        AuraSkill aura = (AuraSkill) skill;
 
         // remove skill card
         player.removeSkill(idxField);
         
-        //perubahan attack karena aura skill pada karakter yang dipilih
-        int att = player.getAttackAtPos(characterpos) - skill.getAtkPoint();
+        //perubahan attack
+        int att = player.getAttackAtPos(characterpos) - aura.getAtkPoint();
         characterLink.setAtkPoint(att);
-        //perubahan defense karena aura skill pada karakter yang dipilih
-        int def = player.getDefenseAtPos(characterpos) - skill.getDefPoint();
+        //perubahan defense
+        int def = player.getDefenseAtPos(characterpos) - aura.getDefPoint();
         character.setDefPoint(def);
     }
 }
