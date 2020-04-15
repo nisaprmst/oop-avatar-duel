@@ -172,29 +172,22 @@ public class MainPhase extends Phase {
     // menghapus kartu skill tertentu
     public void removeSkillCard(int idxField){
         Player player,enemy;
-        enemy = new Player();
-        player = new Player();
-        if (game.turn == 1) {
-            player = game.player1;
-            enemy = game.player2;
-        } else {
-            player = game.player2;
-            enemy = game.player1;
-        }
+        player = getGame().getPlayer();
+        enemy = getGame().getEnemy();
         CharacterCard characterLink;
-        SkillCard skill;
+        SkillCard skill = player.getSkillAtPos(idxField);
         characterLink = skill.getCharacterLinked();
-        characterpos = characterLink.getPosition();
+        Position characterpos = characterLink.getPosition();
         AuraSkill aura = (AuraSkill) skill;
 
         // remove skill card
         player.removeSkill(idxField);
         
         //perubahan attack
-        int att = player.getAttackAtPos(characterpos) - aura.getAtkPoint();
+        int att = characterLink.getAttack() - aura.getAtkPoint();
         characterLink.setAtkPoint(att);
         //perubahan defense
-        int def = player.getDefenseAtPos(characterpos) - aura.getDefPoint();
-        character.setDefPoint(def);
+        int def = characterLink.getDefense() - aura.getDefPoint();
+        characterLink.setDefPoint(def);
     }
 }
