@@ -10,14 +10,12 @@ import com.avatarduel.exceptions.EmptyDeckException;
  * This class store ArrayList of Card use to draw from a player.
  */
 public class Deck extends ArrayList<Card>{
-
     public Deck() {
         super();
     }
+
     public void loadDeck(ArrayList<Card> cardsList) {
-        for (Card card: cardsList) {
-            add(card);
-        }
+        this.addAll(cardsList);
     }
 
     /**
@@ -30,34 +28,21 @@ public class Deck extends ArrayList<Card>{
             throw new EmptyDeckException("The deck is empty");
         }
         final Random rand = new Random();
-        final int idxDraw = rand.nextInt(this.size()); // mengambil posisi random pada deck dari 0-(cards.size-1)
+        final int idxDraw = rand.nextInt(this.size());
 
-        Card randomCard = remove(idxDraw); // me-remove cards pada posisi ke-idxDraw dari deck
-
-        return randomCard;
+        return remove(idxDraw);
     }
 
-    public static void main(String[] args) {
-        try {
-            CardLoader cl = new CardLoader();
-            cl.loadLandCardsFromFile("../card/data/land.csv");
-            cl.loadCharacterCardsFromFile("../card/data/character.csv");
-            cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
+    public void loadCardFromPath() throws IOException, URISyntaxException {
+        final String LAND_CSV_FILE_PATH = "../card/data/land.csv";
+        final String CHARACTER_CSV_FILE_PATH = "../card/data/land.csv";
+        final String SKILL_CSV_FILE_PATH = "../card/data/land.csv";
+        CardLoader cardLoader = new CardLoader();
 
-            Deck deck = new Deck();
+        cardLoader.loadLandCardsFromFile(LAND_CSV_FILE_PATH);
+        cardLoader.loadCharacterCardsFromFile(CHARACTER_CSV_FILE_PATH);
+        cardLoader.loadAuraSkillFromFile(SKILL_CSV_FILE_PATH);
 
-            deck.loadDeck(cl.getLoadedCards());
-
-            Card testCard1 = deck.drawCard();
-            Card testCard2 = deck.drawCard();
-            Card testCard3 = deck.drawCard();
-            testCard1.printInfo();
-            testCard2.printInfo();
-            testCard3.printInfo();
-        } catch (IOException e) {
-            System.out.println("Failed to load card");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        loadDeck(cardLoader.getLoadedCards());
     }
 }
