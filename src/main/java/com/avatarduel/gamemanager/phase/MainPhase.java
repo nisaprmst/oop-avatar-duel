@@ -23,14 +23,15 @@ public class MainPhase extends Phase {
     }
     public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) {
         if (command == Command.SUMMONATTACK) {
-            System.out.println("masuk");
             this.setCharacterCard(posInHand, posInField, Position.ATTACK);
         } else if (command == Command.SUMMONDEFENSE) {
             this.setCharacterCard(posInHand, posInField, Position.DEFENSE);
+        } else if (command == Command.CHANGEPOSITION) {
+            this.changePositionCharacter(posInField);
         } else if (command == Command.PLACESKILL) {
             this.setSkillCard(posInHand, posInField, target, isOnPlayer);
         } else if (command == Command.REMOVESKILL) {
-
+            this.removeSkillCard(posInField);
         } else {
             
         }
@@ -160,13 +161,13 @@ public class MainPhase extends Phase {
         character.setIsPowerUp(true);
     }
     // mengubah posisi pada kartu karakter
-    public void changePositionCharacter(int idxField) {
+    public void changePositionCharacter(int posInField) {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
         enemy = game.getEnemy();
         CharacterCard character;
-        character = player.getCharacterAtPos(idxField);
+        character = player.getCharacterAtPos(posInField);
         // kalau tidak baru menyerang pada main phase 1
         if (!character.getHasAttacked()) {
             if(character.getPosition() == Position.ATTACK){
@@ -177,18 +178,18 @@ public class MainPhase extends Phase {
         }
     }
     // menghapus kartu skill tertentu
-    public void removeSkillCard(int idxField){
+    public void removeSkillCard(int posInField){
         Player player,enemy;
         player = game.getPlayer();
         enemy = game.getEnemy();
         CharacterCard characterLink;
-        SkillCard skill = player.getSkillAtPos(idxField);
+        SkillCard skill = player.getSkillAtPos(posInField);
         characterLink = skill.getCharacterLinked();
         Position characterpos = characterLink.getPosition();
         AuraSkill aura = (AuraSkill) skill;
 
         // remove skill card
-        player.removeSkill(idxField);
+        player.removeSkill(posInField);
         
         //perubahan attack
         int att = characterLink.getAttack() - aura.getAtkPoint();

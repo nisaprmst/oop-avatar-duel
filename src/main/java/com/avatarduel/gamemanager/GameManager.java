@@ -2,6 +2,7 @@ package com.avatarduel.gamemanager;
 
 import com.avatarduel.gamemanager.phase.*;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.avatarduel.cards.*;
@@ -124,7 +125,11 @@ public class GameManager {
                 System.out.println("1. print field");
                 System.out.println("2. print cardsInHand");
                 System.out.println("3. print enemy field");
-                System.out.println("4. taruh kartu ke field");
+                System.out.println("4. taruh character ke field dalam posisi attack");
+                System.out.println("5. taruh character ke field dalam posisi defense");
+                System.out.println("6. ubah posisi character");
+                System.out.println("7. taruh skill ke field");
+                System.out.println("8. buang skill dari field");
                 int input = scanner.nextInt();
                 if (input == 0) {
                     game.nextPhase();
@@ -140,6 +145,35 @@ public class GameManager {
                     System.out.println("Masukkan index field: ");
                     int posInField = scanner.nextInt();
                     game.getPhase().process(Command.SUMMONATTACK, posInHand, posInField, 0, true);
+                } else if (input == 5) {
+                    System.out.println("Masukkan index cardsInHand: ");
+                    int posInHand = scanner.nextInt();
+                    System.out.println("Masukkan index field: ");
+                    int posInField = scanner.nextInt();
+                    game.getPhase().process(Command.SUMMONDEFENSE, posInHand, posInField, 0, true);
+                } else if (input == 6) {
+                    System.out.println("Masukkan index field: ");
+                    int posInField = scanner.nextInt();
+                    game.getPhase().process(Command.CHANGEPOSITION, 0, posInField, 0, true);
+                } else if (input == 7) {
+                    System.out.println("Masukkan index cardsInHand: ");
+                    int posInHand = scanner.nextInt();
+                    System.out.println("Masukkan index field: ");
+                    int posInField = scanner.nextInt();
+                    System.out.println("Masukkan index target di field");
+                    int target = scanner.nextInt();
+                    System.out.println("Apakah target adalah punyamu?true/false");
+                    boolean isOnPlayer = true;
+                    try {
+                        isOnPlayer = scanner.nextBoolean();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input!");
+                    }
+                    game.getPhase().process(Command.PLACESKILL, posInHand, posInField, target, isOnPlayer);
+                } else if (input == 8) {
+                    System.out.println("Masukkan index field: ");
+                    int posInField = scanner.nextInt();
+                    game.getPhase().process(Command.REMOVESKILL, 0, posInField, 0, true);
                 } else {
                     System.out.println("perintah salah!");
                 }
