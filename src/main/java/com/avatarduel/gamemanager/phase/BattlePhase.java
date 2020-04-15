@@ -11,7 +11,7 @@ public class BattlePhase extends Phase {
         super(game, PhaseType.BATTLE);
     }
     public void nextPhase() {
-        game.changePhase(new MainPhase(game));
+        game.changePhase(new DrawPhase(game));
         game.changeTurn();
         game.getPlayer().getField().resetHasAttacked();
         game.getEnemy().getField().resetHasAttacked();
