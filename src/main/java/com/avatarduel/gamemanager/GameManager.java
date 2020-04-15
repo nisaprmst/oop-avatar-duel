@@ -139,6 +139,7 @@ public class GameManager {
                 System.out.println("6. ubah posisi character");
                 System.out.println("7. taruh skill ke field");
                 System.out.println("8. buang skill dari field");
+                System.out.println("9. taruh land ke field");
                 int input = scanner.nextInt();
                 if (input == 0) {
                     game.nextPhase();
@@ -183,6 +184,12 @@ public class GameManager {
                     System.out.println("Masukkan index field: ");
                     int posInField = scanner.nextInt();
                     game.getPhase().process(Command.REMOVESKILL, 0, posInField, 0, true);
+                } else if (input == 9) {
+                    System.out.println("Masukkan index cardsInHand: ");
+                    int posInHand = scanner.nextInt();
+                    System.out.println("Masukkan index field: ");
+                    int posInField = scanner.nextInt();
+                    game.getPhase().process(Command.SUMMONLAND, posInHand, posInField, 0, true);
                 } else {
                     System.out.println("perintah salah!");
                 }

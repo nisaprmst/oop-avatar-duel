@@ -44,7 +44,9 @@ public class MainPhase extends Phase {
             } catch (NotEnoughPowerException e) {
                 System.out.println(e.getMessage());
             }
-        } else if (command == Command.CHANGEPOSITION) {
+        } else if (command == Command.SUMMONLAND) {
+            this.setLandCard(posInHand);
+        }else if (command == Command.CHANGEPOSITION) {
             this.changePositionCharacter(posInField);
         } else if (command == Command.PLACESKILL) {
             try {
@@ -141,6 +143,7 @@ public class MainPhase extends Phase {
             }
         }
     }
+
     // memilih land card pada deck
     public void setLandCard(int posInHand){
         // pilih mana player mana enemy
