@@ -2,20 +2,29 @@ package com.avatarduel.gamemanager;
 
 import com.avatarduel.gamemanager.phase.*;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import com.avatarduel.cards.*;
-
-
+/**
+ * GameManager class defines the 'getInstance' method that lets
+ * clients access the same instance of a game manager
+ * throughout the progran.
+ */
 public class GameManager {
     // attribute
     private Phase phase;
     private Player player;
     private Player enemy;
 
-    // ctor
-    GameManager() {
+    /**
+     * Applied singleton design pattern, the constructor is private
+     * to prevent direct construction calls with the 'new' operator.
+     * @throws IOException happen when construct player deck and the csv file is not found
+     * @throws URISyntaxException same as IO Exception
+     */
+    private GameManager() throws IOException, URISyntaxException {
         this.phase = new DrawPhase(this);
         this.player = new Player();
         this.enemy = new Player();
@@ -77,7 +86,7 @@ public class GameManager {
     public void nextPhase() {
         this.phase.nextPhase();
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         // instantiate game
         GameManager game = new GameManager();

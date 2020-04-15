@@ -11,27 +11,36 @@ import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.skills.*;
 import com.avatarduel.cards.*;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+/** A class that fetch the GameManager data to process MainPhase of the game. */
 public class MainPhase extends Phase {
-    // ctor
     public MainPhase(GameManager game) {
         super(game, PhaseType.MAIN);
     }
+
+    @Override
     public void nextPhase() {
         game.changePhase(new BattlePhase(game));
     }
+
+    @Override
     public void phaseInfo() {
         System.out.println("Starting main phase");
     }
+
+    @Override
     public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) {
         if (command == Command.SUMMONATTACK) {
             try {
-                this.setCharacterCard(posInHand, posInField, Position.ATTACK);
+                setCharacterCardInHandToField(posInHand, posInField, Position.ATTACK);
             } catch (NotEnoughPowerException e) {
                 System.out.println(e.getMessage());
             }
         } else if (command == Command.SUMMONDEFENSE) {
             try {
-                this.setCharacterCard(posInHand, posInField, Position.DEFENSE);
+                this.setCharacterCardInHandToField(posInHand, posInField, Position.DEFENSE);
             } catch (NotEnoughPowerException e) {
                 System.out.println(e.getMessage());
             }
@@ -45,13 +54,13 @@ public class MainPhase extends Phase {
             }
         } else if (command == Command.REMOVESKILL) {
             this.removeSkillCard(posInField);
-        } else {
-            
         }
+//        } else {
+//
+//        }
     }
-
     // meletakkan kartu karakter ke field
-    public void setCharacterCard(int posInHand, int posInField, Position pos) throws NotEnoughPowerException {
+    private void setCharacterCardInHandToField(int posInHand, int posInField, Position pos) throws NotEnoughPowerException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -77,7 +86,17 @@ public class MainPhase extends Phase {
             player.usePower(character);
         }
     }
-    // meletakkan kartu karakter ke field
+
+    /**
+     * This method place SkillCard in given index in hand
+     * to the player field in given index in player skill field
+     *
+     * @param posInHand the index of the skill card in hand
+     * @param posInField the index of skill card in field
+     * @param target the index of character card want to attach
+     * @param isOnPlayer booelan to decide whether the target index is on to player card or enemy card
+     * @throws InvalidFieldIndexException throw when the posInField or target index is invalid number
+     */
     public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer) throws NotEnoughPowerException {
         // pilih mana player mana enemy
         Player player, enemy;
@@ -91,7 +110,7 @@ public class MainPhase extends Phase {
         removed = player.removeFromHand(posInHand);
         if(removed.getCardType() == CardType.SKILL){
             skill = (SkillCard) removed;
-            if(!player.isPowerEnough(skill)){
+            if (!player.isPowerEnough(skill)) {
                 throw new NotEnoughPowerException(skill.getElement());
             }
             try {
@@ -203,7 +222,7 @@ public class MainPhase extends Phase {
 
         // remove skill card
         player.removeSkill(posInField);
-        
+
         //perubahan attack
         int att = characterLink.getAttack() - aura.getAtkPoint();
         characterLink.setAtkPoint(att);

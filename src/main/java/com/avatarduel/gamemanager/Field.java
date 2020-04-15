@@ -8,7 +8,8 @@ import com.avatarduel.exceptions.InvalidFieldIndexException;
 import java.util.*;
 
 /**
- * This class
+ * A Field is  a class that store game field of a player, consist of two rows. One row is for CharacterCard
+ * and another row is for Skill Card.
  */
 public class Field {
     private Map<Integer, CharacterCard>  characterRow;
@@ -16,17 +17,18 @@ public class Field {
     private int maximumCardsPerRow;
 
     /**
-     * Class Constructor
+     * Class Constructor. Declare each characterRow and skillRow to static array
+     * with size 'maximumCardsPerRow'.
      */
     public Field() {
         this.maximumCardsPerRow = 6;
-        this.characterRow = new HashMap<Integer, CharacterCard>();
-        this.skillRow = new HashMap<Integer, SkillCard>();
+        this.characterRow = new HashMap<>();
+        this.skillRow = new HashMap<>();
     }
     public Field(int max) {
         this.maximumCardsPerRow = max;
-        this.characterRow = new HashMap<Integer, CharacterCard>();
-        this.skillRow = new HashMap<Integer, SkillCard>();
+        this.characterRow = new HashMap<>();
+        this.skillRow = new HashMap<>();
     }
 
     /**

@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
 
+/**
+ * A Player  is  a class that store information about one player.
+ * It compose the player hp, player deck card, player card in hand, player field, player current power, and player power.
+ */
 public class Player {
     // atribut
     private String nama;
@@ -19,52 +23,19 @@ public class Player {
     private Deck deck;
     private ArrayList<Card> cardsInHand;
     private Field field;
-    private Map<Element, Integer> currPower; // untuk menyimpan nilai power saat main
-    private Map<Element, Integer> power; // untuk menyimpan nilai maksimal power
+    private Map<Element, Integer> currPower; /* To store player current power for each element when game played. */
+    private Map<Element, Integer> power; /* To store player maximum power for each element. */
 
-    // ctor 
-    public Player(String nama) {
-        this.nama = nama;
-        this.hp = 0;
-        this.deck = new Deck();
-        this.cardsInHand = new ArrayList<Card>();
-        this.field = new Field();
-        this.power = new HashMap<Element, Integer>();
-        this.currPower = new HashMap<Element, Integer>();
-        for (Element el: Element.values()) {
-            this.power.put(el, 0);
-            this.currPower.put(el, 0);
-        }
-        try {
-            CardLoader cl = new CardLoader();
-            cl.loadLandCardsFromFile("../card/data/land.csv");
-            cl.loadCharacterCardsFromFile("../card/data/character.csv");
-            cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
-
-            deck.loadDeck(cl.getLoadedCards());
-            System.out.println(deck.size());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        for (int i = 0; i < 7; i++) {
-            try {
-                this.cardsInHand.add(this.deck.drawCard());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
+    /**
+     * Class Constructor
+     */
     public Player() {
-        this.nama = "default";
         this.hp = 0;
         this.deck = new Deck();
-        this.cardsInHand = new ArrayList<Card>();
+        this.cardsInHand = new ArrayList<>();
         this.field = new Field();
-        this.power = new HashMap<Element, Integer>();
-        this.currPower = new HashMap<Element, Integer>();
+        this.power = new HashMap<>();
+        this.currPower = new HashMap<>();
         for (Element el: Element.values()) {
             this.power.put(el, 0);
             this.currPower.put(el, 0);
@@ -77,8 +48,6 @@ public class Player {
 
             deck.loadDeck(cl.getLoadedCards());
             System.out.println(deck.size());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -295,15 +264,10 @@ public class Player {
         }
         return !ret;
     }
-    public boolean canChangePos(int position) {
+    public boolean canChangePos(int position) throws InvalidFieldIndexException {
         CharacterCard card;
-        boolean ret = true;
-        try {
-            card = this.field.getCharacterInColumn(position);
-            ret = card.getHasAttacked();
-        } catch (InvalidFieldIndexException e) {
-            System.out.println(e.getMessage());
-        }
+        card = this.field.getCharacterInColumn(position);
+        boolean ret = card.getHasAttacked();
         return !ret;
     }
     public boolean isCharacterFieldEmpty() {

@@ -1,15 +1,16 @@
 package com.avatarduel.gamemanager.phase;
 
-import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.gamemanager.*;
 import com.avatarduel.cards.characters.*;
-import com.avatarduel.exceptions.InvalidFieldIndexException;
 
+/** A class that fetch the GameManager data to process the battle phase of the game. */
 public class BattlePhase extends Phase {
     // ctor
     public BattlePhase(GameManager game) {
         super(game, PhaseType.BATTLE);
     }
+
+    @Override
     public void nextPhase() {
         game.changePhase(new DrawPhase(game));
         game.changeTurn();
@@ -20,6 +21,8 @@ public class BattlePhase extends Phase {
         game.getPlayer().getField().resetJustSummoned();
         game.getEnemy().getField().resetJustSummoned();
     }
+
+    @Override
     public void phaseInfo() {
         System.out.println("Starting battle phase");
     }

@@ -53,10 +53,8 @@ public class AvatarDuel extends Application {
     CharacterCard card5 = new CharacterCard(1, "Appa", "The Last Air Bison", Element.AIR, "Appa.png", 11, 10, 3);
     AuraSkill card6 = new AuraSkill(2, "Air Scooter", "WOOHOOOO", Element.AIR, "Air Scooter.png", 10, 10, 10);
 
-
-
-    ArrayList<Card> player1hand = new ArrayList<Card>();
-    ArrayList<Card> player2hand = new ArrayList<Card>();
+    ArrayList<Card> player1hand = new ArrayList<>();
+    ArrayList<Card> player2hand = new ArrayList<>();
     player1hand.add(card1);
     player1hand.add(card2);
     player1hand.add(card3);
@@ -73,9 +71,6 @@ public class AvatarDuel extends Application {
     // BorderPane root = loader.load();
     // MainScreenController controller = loader.getController();
     StackPane root = new StackPane();
-
-
-
 
       //GameManager gameManager = new GameManager();
 
