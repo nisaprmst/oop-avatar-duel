@@ -169,4 +169,32 @@ public class MainPhase extends Phase {
             }
         }
     }
+    // menghapus kartu skill tertentu
+    public void removeSkillCard(int idxField){
+        Player player,enemy;
+        enemy = new Player();
+        player = new Player();
+        if (game.turn == 1) {
+            player = game.player1;
+            enemy = game.player2;
+        } else {
+            player = game.player2;
+            enemy = game.player1;
+        }
+        CharacterCard characterLink;
+        SkillCard skill;
+        characterLink = skill.getCharacterLinked();
+        characterpos = characterLink.getPosition();
+        AuraSkill aura = (AuraSkill) skill;
+
+        // remove skill card
+        player.removeSkill(idxField);
+        
+        //perubahan attack
+        int att = player.getAttackAtPos(characterpos) - aura.getAtkPoint();
+        characterLink.setAtkPoint(att);
+        //perubahan defense
+        int def = player.getDefenseAtPos(characterpos) - aura.getDefPoint();
+        character.setDefPoint(def);
+    }
 }
