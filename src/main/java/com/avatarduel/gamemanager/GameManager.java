@@ -186,6 +186,8 @@ public class GameManager {
                 } else {
                     System.out.println("perintah salah!");
                 }
+
+            // battle phase 
             } else {
                 game.printPhaseInfo();
                 System.out.println("daftar perintah");
@@ -203,6 +205,12 @@ public class GameManager {
                     player.printCardsInHand();
                 } else if (input == 3) {
                     enemy.getField().printCharacterRow();
+                } else if (input == 4) {
+                    System.out.println("Masukkan index field kartu untuk menyerang: ");
+                    int posInField = scanner.nextInt();
+                    System.out.println("Masukkan index field kartu target: ");
+                    int target = scanner.nextInt();
+                    game.getPhase().process(Command.ATTACKENEMY, 0, posInField, target, true);
                 } else {
                     System.out.println("perintah salah!");
                 }

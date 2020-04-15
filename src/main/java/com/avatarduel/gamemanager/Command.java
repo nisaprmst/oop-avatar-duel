@@ -5,5 +5,6 @@ public enum Command {
     SUMMONDEFENSE,
     CHANGEPOSITION,
     REMOVESKILL,
-    PLACESKILL
+    PLACESKILL,
+    ATTACKENEMY
 }
