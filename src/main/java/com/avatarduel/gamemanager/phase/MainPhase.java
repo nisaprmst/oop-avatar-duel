@@ -1,6 +1,7 @@
 package com.avatarduel.gamemanager.phase;
 
 import com.avatarduel.exceptions.InvalidFieldIndexException;
+import com.avatarduel.exceptions.NotEnoughPowerException;
 import com.avatarduel.gamemanager.GameManager;
 import com.avatarduel.gamemanager.Player;
 import com.avatarduel.gamemanager.Command;
@@ -23,13 +24,25 @@ public class MainPhase extends Phase {
     }
     public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) {
         if (command == Command.SUMMONATTACK) {
-            this.setCharacterCard(posInHand, posInField, Position.ATTACK);
+            try {
+                this.setCharacterCard(posInHand, posInField, Position.ATTACK);
+            } catch (NotEnoughPowerException e) {
+                System.out.println(e.getMessage());
+            }
         } else if (command == Command.SUMMONDEFENSE) {
-            this.setCharacterCard(posInHand, posInField, Position.DEFENSE);
+            try {
+                this.setCharacterCard(posInHand, posInField, Position.DEFENSE);
+            } catch (NotEnoughPowerException e) {
+                System.out.println(e.getMessage());
+            }
         } else if (command == Command.CHANGEPOSITION) {
             this.changePositionCharacter(posInField);
         } else if (command == Command.PLACESKILL) {
-            this.setSkillCard(posInHand, posInField, target, isOnPlayer);
+            try {
+                this.setSkillCard(posInHand, posInField, target, isOnPlayer);
+            } catch (NotEnoughPowerException e) {
+                System.out.println(e.getMessage());
+            }
         } else if (command == Command.REMOVESKILL) {
             this.removeSkillCard(posInField);
         } else {
@@ -38,7 +51,7 @@ public class MainPhase extends Phase {
     }
 
     // meletakkan kartu karakter ke field
-    public void setCharacterCard(int posInHand, int posInField, Position pos){
+    public void setCharacterCard(int posInHand, int posInField, Position pos) throws NotEnoughPowerException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -50,23 +63,22 @@ public class MainPhase extends Phase {
         removed = player.removeFromHand(posInHand);
         if(removed.getCardType() == CardType.CHARACTER){
             character = (CharacterCard) removed;
-            if(player.isPowerEnough(character)){
-                try {
-                    field.placeCharacterInColumn(character,posInField);
-                } catch (InvalidFieldIndexException e) {
-                    System.out.println(e.getMessage());
-                }
-                character.setJustSummoned(true);
-                character.setHasAttacked(false);
-                character.setPosition(pos);
-                player.usePower(character);
-            } else {
-                System.out.println("ga cukup power");
+            if(!player.isPowerEnough(character)){
+                throw new NotEnoughPowerException(character.getElement());
             }
+            try {
+                field.placeCharacterInColumn(character,posInField);
+            } catch (InvalidFieldIndexException e) {
+                System.out.println(e.getMessage());
+            }
+            character.setJustSummoned(true);
+            character.setHasAttacked(false);
+            character.setPosition(pos);
+            player.usePower(character);
         }
     }
     // meletakkan kartu karakter ke field
-    public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer) {
+    public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer) throws NotEnoughPowerException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -79,33 +91,34 @@ public class MainPhase extends Phase {
         removed = player.removeFromHand(posInHand);
         if(removed.getCardType() == CardType.SKILL){
             skill = (SkillCard) removed;
-            if(player.isPowerEnough(skill)){
-                try {
-                    field.placeSkillInColumn(skill,posInField);
-                    player.usePower(skill);
-                    if (isOnPlayer) {
-                        character = player.getCharacterAtPos(target);
-                    } else {
-                        character = enemy.getCharacterAtPos(target);
-                    }
-                    skill.setCharacterLinked(character);
-                    if (skill.getSkillType() == Skill.AURA) {
-                        character.addSkill(skill);
-                        AuraSkill aura = (AuraSkill) skill;
-                        this.addAuratoCharacter(aura, target, isOnPlayer);
-                    } else if (skill.getSkillType() == Skill.DESTROY) {
-                        DestroySkill destroy = (DestroySkill) skill;
-                        this.destroyEnemyCharacter(destroy, target, isOnPlayer);
-                        // setelah menghancurkan karakter lawan, kartu destroy card hancur
-                        player.removeSkill(posInField);
-                    } else if (skill.getSkillType() == Skill.POWER) {
-                        character.addSkill(skill);
-                        PowerUpSkill power = (PowerUpSkill) skill;
-                        this.addPowerUptoCharacter(power, target);
-                    }
-                } catch (InvalidFieldIndexException e) {
-                    System.out.println(e.getMessage());
+            if(!player.isPowerEnough(skill)){
+                throw new NotEnoughPowerException(skill.getElement());
+            }
+            try {
+                field.placeSkillInColumn(skill,posInField);
+                player.usePower(skill);
+                if (isOnPlayer) {
+                    character = player.getCharacterAtPos(target);
+                } else {
+                    character = enemy.getCharacterAtPos(target);
                 }
+                skill.setCharacterLinked(character);
+                if (skill.getSkillType() == Skill.AURA) {
+                    character.addSkill(skill);
+                    AuraSkill aura = (AuraSkill) skill;
+                    this.addAuratoCharacter(aura, target, isOnPlayer);
+                } else if (skill.getSkillType() == Skill.DESTROY) {
+                    DestroySkill destroy = (DestroySkill) skill;
+                    this.destroyEnemyCharacter(destroy, target, isOnPlayer);
+                    // setelah menghancurkan karakter lawan, kartu destroy card hancur
+                    player.removeSkill(posInField);
+                } else if (skill.getSkillType() == Skill.POWER) {
+                    character.addSkill(skill);
+                    PowerUpSkill power = (PowerUpSkill) skill;
+                    this.addPowerUptoCharacter(power, target);
+                }
+            } catch (InvalidFieldIndexException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
