@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -12,13 +13,10 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.MainScreenController">
-    <left>
-        <fx:include fx:id="cardInfo" source="CardInfo.fxml" />
-    </left>
     <center>
         <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <BorderPane prefHeight="720.0" prefWidth="980.0" style="-fx-background-color: RED;">
+                <BorderPane prefHeight="720.0" prefWidth="980.0">
                     <top>
                         <HBox alignment="TOP_RIGHT" prefHeight="362.0" prefWidth="980.0" BorderPane.alignment="CENTER">
                             <children>
@@ -27,16 +25,16 @@
                                         <HBox fx:id="player2hand" alignment="CENTER" prefHeight="112.0" prefWidth="780.0" spacing="10.0" />
                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                             <children>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player2emptyskillfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
                                                     <children>
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+                                                        <fx:include fx:id="player2skillfieldindex0" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2skillfieldindex1" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2skillfieldindex2" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2skillfieldindex3" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2skillfieldindex4" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2skillfieldindex5" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2skillfieldindex6" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2skillfieldindex7" source="FieldSpace.fxml" />
                                                     </children>
                                        <opaqueInsets>
                                           <Insets />
@@ -59,16 +57,16 @@
                                         </StackPane>
                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                             <children>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player2emptycharfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
                                                     <children>
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+                                                        <fx:include fx:id="player2charfieldindex0" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2charfieldindex1" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2charfieldindex2" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2charfieldindex3" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2charfieldindex4" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2charfieldindex5" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2charfieldindex6" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player2charfieldindex7" source="FieldSpace.fxml" />
                                                     </children>
                                        <StackPane.margin>
                                           <Insets />
@@ -100,7 +98,7 @@
                         </HBox>
                     </top>
                 </BorderPane>
-                <BorderPane prefHeight="720.0" prefWidth="980.0" style="-fx-background-color: RED;">
+                <BorderPane prefHeight="720.0" prefWidth="980.0">
                     <top>
                         <HBox alignment="TOP_RIGHT" prefHeight="362.0" prefWidth="980.0" BorderPane.alignment="CENTER">
                             <children>
@@ -108,16 +106,16 @@
                                     <children>
                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                             <children>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player1emptycharfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
                                                     <children>
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+                                                        <fx:include fx:id="player1charfieldindex0" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1charfieldindex1" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1charfieldindex2" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1charfieldindex3" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1charfieldindex4" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1charfieldindex5" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1charfieldindex6" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1charfieldindex7" source="FieldSpace.fxml" />
                                                     </children>
                                        <padding>
                                           <Insets left="10.0" />
@@ -131,16 +129,16 @@
                                         </StackPane>
                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                             <children>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player1emptyskillfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
                                                     <children>
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+                                                        <fx:include fx:id="player1skillfieldindex0" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1skillfieldindex1" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1skillfieldindex2" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1skillfieldindex3" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1skillfieldindex4" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1skillfieldindex5" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1skillfieldindex6" source="FieldSpace.fxml" />
+                                                        <fx:include fx:id="player1skillfieldindex7" source="FieldSpace.fxml" />
                                                     </children>
                                        <padding>
                                           <Insets left="10.0" />
@@ -187,8 +185,21 @@
                         <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="40.0" maxWidth="55.0" minHeight="40.0" minWidth="55.0" prefHeight="40.0" prefWidth="55.0" style="-fx-background-color: YELLOW;" text="End" />
                     </children>
                 </TilePane>
-            <Button fx:id="nextphaseButton" mnemonicParsing="false" onAction="#onNextPhaseButtonClick" text="NextPhase" />
             </children>
         </StackPane>
     </center>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+             <fx:include fx:id="cardInfo" source="CardInfo.fxml" />
+             <fx:include fx:id="battleLog" source="BattleLog.fxml" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Button fx:id="nextphaseButton" mnemonicParsing="false" onAction="#onNextPhaseButtonClick" text="NextPhase" />
+                  <Button fx:id="nextphaseButton1" mnemonicParsing="false" onAction="#onNextPhaseButtonClick" text="NextPhase" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
 </BorderPane>

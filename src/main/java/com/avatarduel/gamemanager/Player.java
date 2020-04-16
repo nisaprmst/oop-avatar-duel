@@ -12,16 +12,23 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
 
+/**
+ * A Player  is  a class that store information about one player.
+ * It compose the player hp, player deck card, player card in hand, player field, player current power, and player power.
+ */
 public class Player {
     // atribut
+    private String nama;
     private int hp;
     private Deck deck;
     private ArrayList<Card> cardsInHand;
     private Field field;
-    private Map<Element, Integer> currPower; // untuk menyimpan nilai power saat main
-    private Map<Element, Integer> power; // untuk menyimpan nilai maksimal power
+    private Map<Element, Integer> currPower; /* To store player current power for each element when game played. */
+    private Map<Element, Integer> power; /* To store player maximum power for each element. */
 
-    // ctor 
+    /**
+     * Class Constructor
+     */
     public Player() {
         this.hp = 0;
         this.deck = new Deck();
@@ -41,8 +48,6 @@ public class Player {
 
             deck.loadDeck(cl.getLoadedCards());
             System.out.println(deck.size());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -54,59 +59,136 @@ public class Player {
             }
         }
     }
-
     // getter
+    /**
+     * @return the nama
+     */
+    public String getNama() {
+        return nama;
+    }
+    /**
+     * @return the hp
+     */
     public int getHp() {
-        return this.hp;
+        return hp;
     }
+    /**
+     * @return the deck
+     */
     public Deck getDeck() {
-        return this.deck;
+        return deck;
     }
+    /**
+     * @return the cardsInHand
+     */
     public ArrayList<Card> getCardsInHand() {
-        return this.cardsInHand;
+        return cardsInHand;
     }
+    /**
+     * @return the field
+     */
     public Field getField() {
-        return this.field;
+        return field;
     }
+    /**
+     * @return the power
+     */
     public Map<Element, Integer> getPower() {
-        return this.power;
+        return power;
+    }
+    /**
+     * @return the currPower
+     */
+    public Map<Element, Integer> getCurrPower() {
+        return currPower;
     }
     public int getAttackAtPos(int pos) throws InvalidFieldIndexException {
-        return this.field.getCharacterInColumn(pos).getAttack();
+        int ret = 0;
+        ret = this.field.getCharacterInColumn(pos).getAttack();
+        return ret;
     }
     public int getDefenseAtPos(int pos) throws InvalidFieldIndexException {
-        return this.field.getCharacterInColumn(pos).getDefense();
+        int ret = 0;
+        ret = this.field.getCharacterInColumn(pos).getDefense();
+        return ret;
     }
     public Position getPositionAtPos(int pos) throws InvalidFieldIndexException {
-        return this.field.getCharacterInColumn(pos).getPosition();
+        Position ret = Position.ATTACK;
+        ret = this.field.getCharacterInColumn(pos).getPosition();
+        return ret;
     }
     public CharacterCard getCharacterAtPos(int pos) throws InvalidFieldIndexException {
-        return this.field.getCharacterInColumn(pos);
+        CharacterCard ret = new CharacterCard();
+        ret = this.field.getCharacterInColumn(pos);
+        return ret;
     }
     public SkillCard getSkillAtPos(int pos) throws InvalidFieldIndexException {
-        return this.field.getSkillInColumn(pos);
+        SkillCard ret = new SkillCard();
+        ret = this.field.getSkillInColumn(pos);
+        return ret;
     }
     public boolean getIsPowerUpAtPos(int pos) throws InvalidFieldIndexException {
-        return this.field.getCharacterInColumn(pos).getIsPowerUp();
+        boolean ret = true;
+        ret = this.field.getCharacterInColumn(pos).getIsPowerUp();
+        return ret;
     }
     // setter
+    /**
+     * @param nama the nama to set
+     */
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+    /**
+     * @param hp the hp to set
+     */
     public void setHp(int hp) {
         this.hp = hp;
     }
+    /**
+     * @param deck the deck to set
+     */
     public void setDeck(Deck deck) {
         this.deck = deck;
     }
-    public void setCardsInHand(ArrayList<Card> cards) {
-        this.cardsInHand = cards;
+    /**
+     * @param cardsInHand the cardsInHand to set
+     */
+    public void setCardsInHand(ArrayList<Card> cardsInHand) {
+        this.cardsInHand = cardsInHand;
     }
+    /**
+     * @param field the field to set
+     */
     public void setField(Field field) {
         this.field = field;
     }
+    /**
+     * @param power the power to set
+     */
     public void setPower(Map<Element, Integer> power) {
         this.power = power;
     }
+    /**
+     * @param currPower the currPower to set
+     */
+    public void setCurrPower(Map<Element, Integer> currPower) {
+        this.currPower = currPower;
+    }
 
     // method
+    public void printNama() {
+        System.out.print(this.nama);
+        System.out.println(" sedang bermain.");
+    }
+    public void printCardsInHand() {
+        for (int i = 0; i < this.getCardsInHand().size(); i++) {
+            System.out.println();
+            System.out.print("index ");
+            System.out.println(i);
+            this.getCardsInHand().get(i).printInfo();
+        }
+    }
     public void substractHp(int val) {
         this.hp -= val;
     }
@@ -139,7 +221,7 @@ public class Player {
         }
     }
     public Card removeFromHand(int idxCard) {
-        return this.deck.remove(idxCard);
+        return this.cardsInHand.remove(idxCard);
     }
     public void removeCharacter(int idxCard) {
         this.field.removeCharacter(idxCard);
@@ -147,10 +229,15 @@ public class Player {
     public void removeSkill(int idxCard) {
         this.field.removeSkill(idxCard);
     }
-    public boolean canAttack(int position) throws InvalidFieldIndexException {
+    public boolean canAttack(int position) {
         CharacterCard card;
-        card = this.field.getCharacterInColumn(position);
-        boolean ret = card.getJustSummoned();
+        boolean ret = true;
+        try {
+            card = this.field.getCharacterInColumn(position);
+            ret = card.getJustSummoned();
+        } catch (InvalidFieldIndexException e) {
+            System.out.println(e.getMessage());
+        }
         return !ret;
     }
     public boolean canChangePos(int position) throws InvalidFieldIndexException {

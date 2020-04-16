@@ -1,18 +1,19 @@
 package com.avatarduel.cards.skills;
 
 import com.avatarduel.cards.Card;
+import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.*;
 
 public class SkillCard extends Card{
     private int power;
     private Skill skillType;
-    private int idxCharacterLinked;
+    private CharacterCard characterLinked;
 
     public SkillCard(int id, String name, String description, Element element, String imagePath, int power, Skill skillType){
         super(id, name, description, element, imagePath, CardType.SKILL);
         this.power = power;
         this.skillType = skillType;
-        this.idxCharacterLinked = -1;
+        this.characterLinked = null;
     }
 
     public SkillCard() {
@@ -26,17 +27,17 @@ public class SkillCard extends Card{
         return skillType;
     }
     /**
-     * @return the idxCharacterLinked
+     * @return the characterLinked
      */
-    public int getIdxCharacterLinked() {
-        return idxCharacterLinked;
+    public CharacterCard getCharacterLinked() {
+        return characterLinked;
     }
 
     /**
-     * @param idxCharacterLinked the idxCharacterLinked to set
+     * @param characterLinked the characterLinked to set
      */
-    public void setIdxCharacterLinked(int idxCharacterLinked) {
-        this.idxCharacterLinked = idxCharacterLinked;
+    public void setCharacterLinked(CharacterCard characterLinked) {
+        this.characterLinked = characterLinked;
     }
 
     /**

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.avatarduel.cards.Card;
 import com.avatarduel.cards.CardType;
 import com.avatarduel.cards.Element;
+import com.avatarduel.cards.skills.SkillCard;
 
 /**
  * This class inherit Card class to representing additional CharacterCard data
@@ -18,7 +19,7 @@ public class CharacterCard extends Card {
     private Position position; /* Can be either ATTACK or DEFENSE */
     private boolean justSummoned; /* If is set true, the CharacterCard is just summoned to the field and can't attack */
     private boolean isPowerUp; /* If is set true, the CharacterCard is equipped with power up skill */
-    private ArrayList<Integer> idxSkillLinked; /* To store any skill cards that attach to this Card */
+    private ArrayList<SkillCard> skillLinked; /* To store any skill cards that attach to this Card */
 
     /**
      * Parameterized constructor. The fifth first argument are the same with the parent.
@@ -36,7 +37,7 @@ public class CharacterCard extends Card {
         this.hasAttacked = false;
         this.justSummoned = false;
         this.isPowerUp = false;
-        this.idxSkillLinked = new ArrayList<>();
+        this.skillLinked = new ArrayList<>();
     }
 
     public CharacterCard() {
@@ -50,7 +51,7 @@ public class CharacterCard extends Card {
     public Position getPosition() { return this.position; }
     public boolean getJustSummoned() { return this.justSummoned; }
     public boolean getIsPowerUp() { return this.isPowerUp; }
-    public ArrayList<Integer> getIdxSkillLinked() { return this.idxSkillLinked; }
+    public ArrayList<SkillCard> getSkillLinked() { return this.skillLinked; }
 
     public void setHasAttacked(boolean param) { this.hasAttacked = param; }
     public void setPosition(Position pos) { this.position = pos; }
@@ -58,15 +59,15 @@ public class CharacterCard extends Card {
     public void setDefPoint(int def) { this.defense = def; }
     public void setJustSummoned(boolean param) { this.justSummoned = param; }
     public void setIsPowerUp(boolean param) { this.isPowerUp = param; }
-    public void setIdxSkillLinked(ArrayList<Integer> idxSkillLinked) {
-        this.idxSkillLinked = idxSkillLinked;
+    public void setSkillLinked(ArrayList<SkillCard> skillLinked) {
+        this.skillLinked = skillLinked;
     }
 
-    public void addSkill(int idxSkill) {
-        this.idxSkillLinked.add(idxSkill);
+    public void addSkill(SkillCard card) {
+        this.skillLinked.add(card);
     }
-    public void removeSkill(int idxSkill) {
-        this.idxSkillLinked.remove(idxSkill);
+    public void removeSkill(SkillCard card) {
+        this.skillLinked.remove(card);
     }
 
     @Override

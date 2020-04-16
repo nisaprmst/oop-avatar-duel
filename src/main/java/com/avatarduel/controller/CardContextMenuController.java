@@ -22,7 +22,9 @@ public class CardContextMenuController implements Initializable {
     private MenuItem defense;
     private MenuItem attack;
     private MenuItem skilluse;
+    private MenuItem landuse;
     private MenuItem changeposition;
+    private MenuItem remove;
 
 
     private StringProperty command = new SimpleStringProperty("");
@@ -41,10 +43,13 @@ public class CardContextMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        summon = new MenuItem("Summon");
-        defense = new MenuItem("Defense");
+        summon = new MenuItem("Summon Attack");
+        defense = new MenuItem("Summon Defense");
         attack = new MenuItem("Attack");
-        skilluse = new MenuItem("Use");
+        skilluse = new MenuItem("Use Skill");
+        landuse = new MenuItem("Use Land");
+        changeposition = new MenuItem("Change Position");
+        remove = new MenuItem("Remove");
         summon.setOnAction(e -> setStateCommand("Summon"));
         defense.setOnAction(e -> setStateCommand("Defense"));
         attack.setOnAction(e -> setStateCommand("Attack"));
@@ -58,22 +63,29 @@ public class CardContextMenuController implements Initializable {
 
     public void setMenuItems(Phase phase, String location, String type){
         int phaseInt = determinePhase(phase);
+        cardcontextmenu.getItems().clear();
         if(!type.equals("BlankCard")){
             switch (phaseInt){
-                case 1:
+                case 1:  // Draw Phase
                     break;
-                case 2:
+                case 2:     // Main Phase
                     if(location.equals("hand")){
                         if(type.equals("CharacterCard")){
                             cardcontextmenu.getItems().addAll(summon, defense);
-                        } else{
+                        } else if(type.equals("LandCard")){
+                            cardcontextmenu.getItems().addAll(landuse);
+                        } else if(type.equals("SkillCard")){
                             cardcontextmenu.getItems().addAll(skilluse);
                         }
+                        cardcontextmenu.getItems().addAll(remove);
                     } else if(location.equals("field")){
-                        cardcontextmenu.getItems().addAll(attack);
+                        if(type.equals("CharacterCard")){
+                            cardcontextmenu.getItems().addAll(changeposition);
+                        }
+                        cardcontextmenu.getItems().addAll(remove);
                     }
                     break;
-                case 3:
+                case 3: // Battle Phase
                     if(location.equals("field")){
                         cardcontextmenu.getItems().addAll(attack);
                     }

@@ -105,12 +105,14 @@ public class CardController implements Initializable {
         contextMenuController.setMenuItems(phase, location, type);
 
         card.addEventHandler(ContextMenuEvent.CONTEXT_MENU_REQUESTED, event -> {
-            contextMenu.show(card, event.getScreenX(), event.getScreenY());
-            event.consume();
+            if(GUIState.getState() == 0){
+                contextMenu.show(card, event.getScreenX(), event.getScreenY());
+                event.consume();
+            }
         });
         card.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
             contextMenu.hide();
-            if(GUIState.state == 1){
+            if(GUIState.getState() == 1){
                 setCommandTarget();
             }
         });
@@ -127,6 +129,8 @@ public class CardController implements Initializable {
         }
         System.out.println("Source is: " + i);
         GUIState.source = i;
+        setSourceLocation(parent);
+        System.out.println("Source location is: " + GUIState.sourceLocation);
         setSource(i);
     }
 
@@ -141,9 +145,8 @@ public class CardController implements Initializable {
         System.out.println("Target is: " + i);
         GUIState.target = i;
         setTargetLocation(parent);
-        System.out.println("location is: " + GUIState.location);
+        System.out.println("location is: " + GUIState.targetLocation);
 
-        GUIState.state = 0;
         setTarget(i);
     }
 
@@ -175,10 +178,17 @@ public class CardController implements Initializable {
         return location;
     }
 
+    private void setSourceLocation(Parent parent){
+        int location = determineLocation(parent);
+
+        GUIState.sourceLocation = location;
+
+    }
+
     private void setTargetLocation(Parent parent){
         int location = determineLocation(parent);
 
-        GUIState.location = location;
+        GUIState.targetLocation = location;
 
     }
 

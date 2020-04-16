@@ -8,10 +8,13 @@ import com.avatarduel.cards.LandCard;
 import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.skills.SkillCard;
 import com.avatarduel.exceptions.InvalidFieldIndexException;
+import com.avatarduel.gamemanager.Command;
 import com.avatarduel.gamemanager.phase.BattlePhase;
 import com.avatarduel.gamemanager.phase.DrawPhase;
 import com.avatarduel.gamemanager.phase.MainPhase;
 import com.avatarduel.gamemanager.phase.Phase;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +25,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,6 +52,12 @@ public class MainScreenController implements Initializable {
     private Button nextphaseButton;
     @FXML
     private TilePane phaseindicator;
+    @FXML
+    private HBox player2emptyskillfield;
+    @FXML
+    private BattleLogController battleLogController;
+
+    private StringProperty str = new SimpleStringProperty("");
 
     FXMLLoader cardloader;
     CardController cardController;
@@ -55,10 +66,21 @@ public class MainScreenController implements Initializable {
     Phase phase = AvatarDuel.gameManager.phase;
     int player = AvatarDuel.gameManager.turn;
 
+    int count = 0;
+
     @Override
     public void initialize(URL location, ResourceBundle resources){
         updateScreen();
         GUIState.hoveredProperty().addListener((k, oldValue, newValue) -> showCard());
+        GUIState.state.addListener((k, oldValue, newValue) -> {
+            if(newValue.intValue() == 2){
+                setFieldDisable(true);
+            }
+        });
+
+        GUIState.fieldLocationProperty().addListener((k, oldValue, newValue) -> determineGUIState());
+
+        str.addListener((k, oldValue, newValue) -> System.out.println(newValue));
     }
 
     public void updateScreen(){
@@ -79,6 +101,13 @@ public class MainScreenController implements Initializable {
         player2charfield.getChildren().clear();
         player1skillfield.getChildren().clear();
         player1skillfield.getChildren().clear();
+    }
+
+    private void setFieldDisable(boolean isFieldDisabled){
+        player2skillfield.setDisable(isFieldDisabled);
+        player2charfield.setDisable(isFieldDisabled);
+        player1skillfield.setDisable(isFieldDisabled);
+        player1charfield.setDisable(isFieldDisabled);
     }
 
     public void clearhand(){
@@ -137,7 +166,9 @@ public class MainScreenController implements Initializable {
         card = cardloader.load();
         cardController = cardloader.getController();
         cardController.sourceProperty().addListener((k, oldValue, newValue) -> determineGUIState());
-        cardController.targetProperty().addListener((k, oldValue, newValue) -> processCommand());
+        cardController.targetProperty().addListener((k, oldValue, newValue) -> {
+            System.out.println("Target Chosen");
+            determineGUIState();});
         cardController.setCardImage(imagename);
         cardController.setContextMenuItem(AvatarDuel.gameManager.phase, "hand", type);
         System.out.println("masuk sini");
@@ -147,13 +178,30 @@ public class MainScreenController implements Initializable {
     }
 
     private void determineGUIState(){
-        if(GUIState.command.equals("Attack") || GUIState.command.equals("Skill")){
-            GUIState.state = 1;
+        if(GUIState.command.equals("Attack") || GUIState.command.equals("Skill") || GUIState.command.equals("Defense")){
+            System.out.println("Skill");
+            System.out.println(GUIState.getState());
+
+            if(GUIState.getState() == 0){
+                GUIState.setState(1);
+            } else if(GUIState.getState() == 1){
+                GUIState.setState(2);
+            } else if(GUIState.getState() == 2){
+                GUIState.setState(0);
+                setFieldDisable(false);
+            }
+        } else if(GUIState.command.equals("Summon")){
+            if(GUIState.getState() == 0){
+                GUIState.setState(2);
+            } else if(GUIState.getState() == 2){
+                GUIState.setState(0);
+                setFieldDisable(false);
+            }
         } else{
-            GUIState.state = 0;
+            GUIState.setState(0);
         }
 
-        if(GUIState.state == 0){
+        if(GUIState.getState() == 0){
             processCommand();
         }
     }
@@ -164,10 +212,10 @@ public class MainScreenController implements Initializable {
                 summonCommand(GUIState.source);
                 break;
             case "Attack":
-                attackCommand(GUIState.source, GUIState.location, GUIState.target);
+                attackCommand(GUIState.source, GUIState.targetLocation, GUIState.target);
                 break;
             case "Skill":
-                skillCommand(GUIState.source, GUIState.location, GUIState.target);
+                skillCommand(GUIState.source, GUIState.targetLocation, GUIState.target);
                 break;
             case "Position":
                 positionCommand(GUIState.source);
@@ -179,10 +227,24 @@ public class MainScreenController implements Initializable {
     private void summonCommand(int index){
         System.out.println("Summon card: " + index);
         System.out.println(index);
+
+        try{
+            AvatarDuel.gameManager.phase.process(Command.SUMMONATTACK, index, player1charfield.getChildren().size(), 0, false);
+        } catch (Exception e){
+            System.out.println("Gagal Summon");
+            System.out.println(e.getMessage());
+        }
+
         Node card = player1hand.getChildren().get(index);
         player1hand.getChildren().remove(index);
-
         player1charfield.getChildren().add(card);
+
+        try{
+            System.out.println(AvatarDuel.gameManager.player1.getField().getCharacterInColumn(0));
+        } catch(InvalidFieldIndexException e){
+            System.out.println("a");
+
+        }
     }
 
     private void positionCommand(int index){
