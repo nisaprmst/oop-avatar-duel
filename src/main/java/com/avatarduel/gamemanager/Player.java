@@ -102,58 +102,34 @@ public class Player {
     public Map<Element, Integer> getCurrPower() {
         return currPower;
     }
-    public int getAttackAtPos(int pos) {
+    public int getAttackAtPos(int pos) throws InvalidFieldIndexException {
         int ret = 0;
-        try {
-            ret = this.field.getCharacterInColumn(pos).getAttack();
-        } catch (InvalidFieldIndexException e) {
-            System.out.println(e.getMessage());
-        }
+        ret = this.field.getCharacterInColumn(pos).getAttack();
         return ret;
     }
-    public int getDefenseAtPos(int pos) {
+    public int getDefenseAtPos(int pos) throws InvalidFieldIndexException {
         int ret = 0;
-        try {
-            ret = this.field.getCharacterInColumn(pos).getDefense();
-        } catch (InvalidFieldIndexException e) {
-            System.out.println(e.getMessage());
-        }
+        ret = this.field.getCharacterInColumn(pos).getDefense();
         return ret;
     }
-    public Position getPositionAtPos(int pos) {
+    public Position getPositionAtPos(int pos) throws InvalidFieldIndexException {
         Position ret = Position.ATTACK;
-        try {
-            ret = this.field.getCharacterInColumn(pos).getPosition();
-        } catch (InvalidFieldIndexException e) {
-            System.out.println(e.getMessage());
-        }
+        ret = this.field.getCharacterInColumn(pos).getPosition();
         return ret;
     }
-    public CharacterCard getCharacterAtPos(int pos) {
+    public CharacterCard getCharacterAtPos(int pos) throws InvalidFieldIndexException {
         CharacterCard ret = new CharacterCard();
-        try {
-            ret = this.field.getCharacterInColumn(pos);
-        } catch (InvalidFieldIndexException e) {
-            System.out.println(e.getMessage());
-        }
+        ret = this.field.getCharacterInColumn(pos);
         return ret;
     }
-    public SkillCard getSkillAtPos(int pos) {
+    public SkillCard getSkillAtPos(int pos) throws InvalidFieldIndexException {
         SkillCard ret = new SkillCard();
-        try {
-            ret = this.field.getSkillInColumn(pos);
-        } catch (InvalidFieldIndexException e) {
-            System.out.println(e.getMessage());
-        }
+        ret = this.field.getSkillInColumn(pos);
         return ret;
     }
-    public boolean getIsPowerUpAtPos(int pos) {
+    public boolean getIsPowerUpAtPos(int pos) throws InvalidFieldIndexException {
         boolean ret = true;
-        try {
-            ret = this.field.getCharacterInColumn(pos).getIsPowerUp();
-        } catch (InvalidFieldIndexException e) {
-            System.out.println(e.getMessage());
-        }
+        ret = this.field.getCharacterInColumn(pos).getIsPowerUp();
         return ret;
     }
     // setter

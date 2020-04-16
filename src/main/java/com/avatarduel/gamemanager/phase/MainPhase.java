@@ -33,35 +33,20 @@ public class MainPhase extends Phase {
     }
 
     @Override
-    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) {
+    public void process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer) throws Exception {
         if (command == Command.SUMMONATTACK) {
-            try {
-                setCharacterCardInHandToField(posInHand, posInField, Position.ATTACK);
-            } catch (NotEnoughPowerException e) {
-                System.out.println(e.getMessage());
-            }
+            setCharacterCardInHandToField(posInHand, posInField, Position.ATTACK);
         } else if (command == Command.SUMMONDEFENSE) {
-            try {
-                this.setCharacterCardInHandToField(posInHand, posInField, Position.DEFENSE);
-            } catch (NotEnoughPowerException e) {
-                System.out.println(e.getMessage());
-            }
+            this.setCharacterCardInHandToField(posInHand, posInField, Position.DEFENSE);
         } else if (command == Command.SUMMONLAND) {
             this.setLandCard(posInHand);
         }else if (command == Command.CHANGEPOSITION) {
             this.changePositionCharacter(posInField);
         } else if (command == Command.PLACESKILL) {
-            try {
-                this.setSkillCard(posInHand, posInField, target, isOnPlayer);
-            } catch (NotEnoughPowerException e) {
-                System.out.println(e.getMessage());
-            }
+            this.setSkillCard(posInHand, posInField, target, isOnPlayer);
         } else if (command == Command.REMOVESKILL) {
             this.removeSkillCard(posInField);
         }
-//        } else {
-//
-//        }
     }
     // meletakkan kartu karakter ke field
     private void setCharacterCardInHandToField(int posInHand, int posInField, Position pos) throws NotEnoughPowerException {
@@ -160,7 +145,7 @@ public class MainPhase extends Phase {
         }
     }
 
-    public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) {
+    public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -191,7 +176,7 @@ public class MainPhase extends Phase {
             enemy.removeCharacter(pos);
         }
     }
-    public void addPowerUptoCharacter (PowerUpSkill power, int characterpos) {
+    public void addPowerUptoCharacter (PowerUpSkill power, int characterpos) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -202,7 +187,7 @@ public class MainPhase extends Phase {
         character.setIsPowerUp(true);
     }
     // mengubah posisi pada kartu karakter
-    public void changePositionCharacter(int posInField) {
+    public void changePositionCharacter(int posInField) throws InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -219,7 +204,7 @@ public class MainPhase extends Phase {
         }
     }
     // menghapus kartu skill tertentu
-    public void removeSkillCard(int posInField){
+    public void removeSkillCard(int posInField) throws InvalidFieldIndexException {
         Player player,enemy;
         player = game.getPlayer();
         enemy = game.getEnemy();
