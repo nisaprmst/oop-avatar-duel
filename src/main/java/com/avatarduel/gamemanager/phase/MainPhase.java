@@ -16,8 +16,10 @@ import java.net.URISyntaxException;
 
 /** A class that fetch the GameManager data to process MainPhase of the game. */
 public class MainPhase extends Phase {
+    private boolean hasSummonedLandCard;
     public MainPhase(GameManager game) {
         super(game, PhaseType.MAIN);
+        this.hasSummonedLandCard = false;
     }
 
     @Override
@@ -150,8 +152,12 @@ public class MainPhase extends Phase {
         Player player, enemy;
         player = game.getPlayer();
         enemy = game.getEnemy();
-        LandCard land = (LandCard) player.removeFromHand(posInHand);
-        player.addPower(land);
+        // satu main phase hanya boleh satu kali memanggil land card
+        if (!this.hasSummonedLandCard) {
+            LandCard land = (LandCard) player.removeFromHand(posInHand);
+            player.addPower(land);
+            this.hasSummonedLandCard = true;
+        }
     }
 
     public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) {
