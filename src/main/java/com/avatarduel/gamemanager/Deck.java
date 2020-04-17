@@ -14,6 +14,10 @@ public class Deck extends ArrayList<Card>{
         super();
     }
 
+    /**
+     * Take another ArrayList of Card and add all its elements to this
+     * @param cardsList other ArrayList of Card
+     */
     public void loadDeck(ArrayList<Card> cardsList) {
         this.addAll(cardsList);
     }

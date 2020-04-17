@@ -3,13 +3,9 @@ package com.avatarduel.gamemanager;
 import com.avatarduel.cards.*;
 import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.characters.Position;
-import com.avatarduel.cards.skills.AuraSkill;
-import com.avatarduel.cards.skills.DestroySkill;
-import com.avatarduel.exceptions.EmptyDeckException;
 import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.cards.skills.SkillCard;
-import java.io.IOException;
-import java.net.URISyntaxException;
+
 import java.util.*;
 
 /**
@@ -224,10 +220,10 @@ public class Player {
         return this.cardsInHand.remove(idxCard);
     }
     public void removeCharacter(int idxCard) {
-        this.field.removeCharacter(idxCard);
+        this.field.removeCharacterInColumn(idxCard);
     }
     public void removeSkill(int idxCard) {
-        this.field.removeSkill(idxCard);
+        this.field.removeSkillInColumn(idxCard);
     }
     public boolean canAttack(int position) {
         CharacterCard card;

@@ -25,6 +25,10 @@ public class Field {
         this.characterRow = new HashMap<>();
         this.skillRow = new HashMap<>();
     }
+    /**
+     * User defined Class Constructor. Declare each characterRow and skillRow to static array
+     * with size 'maximumCardsPerRow' defined by parameter.
+     */
     public Field(int max) {
         this.maximumCardsPerRow = max;
         this.characterRow = new HashMap<>();
@@ -83,31 +87,55 @@ public class Field {
         this.skillRow.put(column, card);
     }
 
+    /**
+     * Check whether the characterRow is empty
+     * @return boolean
+     */
     public boolean isCharacterEmpty() {
         return this.characterRow.isEmpty();
     }
 
+    /**
+     * Check whether the skillRow is empty
+     * @return boolean
+     */
     public boolean isSkillEmpty() {
         return this.skillRow.isEmpty();
     }
 
-    public CharacterCard removeCharacter(int position) {
-        return this.characterRow.remove(position);
+    /**
+     * Remove the CharacterCard in field at given column number
+     * @param column the number of column  position
+     * @return CharacterCard at given column if exist
+     */
+    public CharacterCard removeCharacterInColumn(int column) {
+        return this.characterRow.remove(column);
     }
 
-    public SkillCard removeSkill(int position) {
-        return this.skillRow.remove(position);
+    /**
+     * Remove the SkillCard in field at given column number
+     * @param column the number of column position
+     * @return SkillCard at given column if exist
+     */
+    public SkillCard removeSkillInColumn(int column) {
+        return this.skillRow.remove(column);
     }
+
+    /** Set all hasAttacked attribute of CharacterCard in characterRow to false */
     public void resetHasAttacked() {
         for (CharacterCard value : characterRow.values()) {
             value.setHasAttacked(false);
         }
     }
+
+    /** Set all justSummoned attribute of CharacterCard in characterRow to false */
     public void resetJustSummoned() {
         for (CharacterCard value : characterRow.values()) {
             value.setJustSummoned(false);
         }
     }
+
+    /** Print all CharacterCard in characterRow with their index to the console. */
     public void printCharacterRow() {
         for (int i = 0; i < this.maximumCardsPerRow; i++) {
             System.out.println();
