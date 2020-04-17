@@ -17,7 +17,7 @@ public class SkillCard extends Card{
     }
 
     public SkillCard() {
-        super();
+        super(-1);
     }
 
     public int getPower(){
