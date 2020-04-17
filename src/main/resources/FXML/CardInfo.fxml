@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="520.0" maxWidth="300" minHeight="520.0" minWidth="300" prefHeight="520.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.CardInfoController">
+   <children>
+      <ImageView fx:id="cardImageContainer" fitHeight="280.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <VBox.margin>
+            <Insets left="50.0" right="50.0" top="25.0" />
+         </VBox.margin>
+         <image>
+            <Image url="@../com/avatarduel/card/image/character/Azula.png" />
+         </image>
+      </ImageView>
+      <Separator disable="true" prefWidth="200.0">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </Separator>
+      <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="280.0">
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin>
+         <children>
+            <Label fx:id="cardName" alignment="CENTER" contentDisplay="CENTER" text="Azula">
+               <font>
+                  <Font name="High Tower Text" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="cardPower" alignment="CENTER" contentDisplay="CENTER" text="Power : 2">
+               <font>
+                  <Font name="High Tower Text" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="cardAttack" alignment="CENTER" contentDisplay="CENTER" text="Attack : 2">
+               <font>
+                  <Font name="High Tower Text" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="cardDefense" alignment="CENTER" contentDisplay="CENTER" text="Defense : 1">
+               <font>
+                  <Font name="High Tower Text" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="cardDescription" alignment="CENTER" contentDisplay="CENTER" text="Princess of the Fire Nation, daughter of Fire Lord Ozai." wrapText="true">
+               <font>
+                  <Font name="High Tower Text Italic" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</VBox>

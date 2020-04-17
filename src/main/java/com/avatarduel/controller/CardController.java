@@ -1,5 +1,6 @@
 package com.avatarduel.controller;
 
+import com.avatarduel.gamemanager.phase.Phase;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -59,7 +60,7 @@ public class CardController implements Initializable {
 
     public void setCardImage(String imagename){
         String path = getClass().getResource("../card/image/" + imagename).toString();
-        Image img = new Image(path, 90, 90, false, true);
+        Image img = new Image(path, 90, 126, false, true);
         card.setImage(img);
         card.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
@@ -75,7 +76,9 @@ public class CardController implements Initializable {
                     }
                 }
 
-                System.out.println(i);
+                //System.out.println(i);
+                GUIState.setHovLocation(determineLocation(parent));
+                GUIState.setHovered(i);
 
                 card.setTranslateY(card.getTranslateY() - 10);
 
@@ -88,11 +91,12 @@ public class CardController implements Initializable {
             public void handle(MouseEvent t) {
                 System.out.println("exited");
                 card.setTranslateY(card.getTranslateY() + 10);
+                GUIState.setHovered(-999);
             }
         });
     }
 
-    public void setContextMenuItem(int phase, String location, String type) throws Exception{
+    public void setContextMenuItem(Phase phase, String location, String type) throws Exception{
         FXMLLoader contextMenuLoader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/CardContextMenu.fxml"));
         ContextMenu contextMenu = contextMenuLoader.load();
         CardContextMenuController contextMenuController = contextMenuLoader.getController();
@@ -101,12 +105,14 @@ public class CardController implements Initializable {
         contextMenuController.setMenuItems(phase, location, type);
 
         card.addEventHandler(ContextMenuEvent.CONTEXT_MENU_REQUESTED, event -> {
-            contextMenu.show(card, event.getScreenX(), event.getScreenY());
-            event.consume();
+            if(GUIState.getState() == 0){
+                contextMenu.show(card, event.getScreenX(), event.getScreenY());
+                event.consume();
+            }
         });
         card.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
             contextMenu.hide();
-            if(GUIState.state == 1){
+            if(GUIState.getState() == 1){
                 setCommandTarget();
             }
         });
@@ -123,6 +129,8 @@ public class CardController implements Initializable {
         }
         System.out.println("Source is: " + i);
         GUIState.source = i;
+        setSourceLocation(parent);
+        System.out.println("Source location is: " + GUIState.sourceLocation);
         setSource(i);
     }
 
@@ -137,13 +145,12 @@ public class CardController implements Initializable {
         System.out.println("Target is: " + i);
         GUIState.target = i;
         setTargetLocation(parent);
-        System.out.println("location is: " + GUIState.location);
+        System.out.println("location is: " + GUIState.targetLocation);
 
-        GUIState.state = 0;
         setTarget(i);
     }
 
-    private void setTargetLocation(Parent parent){
+    private int determineLocation(Parent parent){
         String id = parent.getId();
         int location = 999;
 
@@ -168,7 +175,20 @@ public class CardController implements Initializable {
                 break;
         }
 
-        GUIState.location = location;
+        return location;
+    }
+
+    private void setSourceLocation(Parent parent){
+        int location = determineLocation(parent);
+
+        GUIState.sourceLocation = location;
+
+    }
+
+    private void setTargetLocation(Parent parent){
+        int location = determineLocation(parent);
+
+        GUIState.targetLocation = location;
 
     }
 

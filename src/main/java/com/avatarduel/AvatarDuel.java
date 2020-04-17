@@ -30,8 +30,9 @@ import javax.crypto.KeyAgreement;
 
 public class AvatarDuel extends Application {
   private static final String LAND_CSV_FILE_PATH = "card/data/land.csv";
-  public static Player player1;
-  public static Player player2;
+  public Player player1;
+  public Player player2;
+  public static GameManager gameManager;
 
   public void loadCards() throws IOException, URISyntaxException {
     File landCSVFile = new File(getClass().getResource(LAND_CSV_FILE_PATH).toURI());
@@ -67,10 +68,11 @@ public class AvatarDuel extends Application {
     // player1.setCardsInHand(player1hand);
     // player2.setCardsInHand(player2hand);
 
-    // FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/MainScreen.fxml"));
-    // BorderPane root = loader.load();
-    // MainScreenController controller = loader.getController();
-    StackPane root = new StackPane();
+    gameManager = new GameManager(player1, player2);
+    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/MainScreen.fxml"));
+    BorderPane root = loader.load();
+    MainScreenController controller = loader.getController();
+    //StackPane root = new StackPane();
 
       //GameManager gameManager = new GameManager();
 

@@ -18,6 +18,7 @@ public class GameManager {
     private Player player;
     private Player enemy;
 
+
     /**
      * Applied singleton design pattern, the constructor is private
      * to prevent direct construction calls with the 'new' operator.

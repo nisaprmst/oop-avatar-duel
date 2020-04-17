@@ -10,7 +10,7 @@ id	name	element	description	imagepath	attack	defense	power
 25	Kuruk	WATER	Water Tribe Avatar, predecessor of Avatar Kyoshi.	Kuruk.png	6	14	5
 26	Bato	WATER	Friend of Hakoda since childhood.	Bato.png	7	9	3
 27	Due	WATER	Waterbending master from Foggy Swamp Tribe.	Due.png	5	8	2
-28	Hahn	WATER	Career-minded soldier from Northern Water Tribe.	Hahn.png	8	3	1
+28	Hahn	WATER	Yue's fiance.	Hahn.png	8	3	1
 29	Aang	AIR	Avatar Roku's successor. Also learned how to energybending.	Aang.png	14	6	5
 30	Appa	AIR	Aang's loyal sky bison friend.	Appa.png	5	8	2
 31	Momo	AIR	Aang's loyal winged lemur friend.	Momo.png	6	5	1
@@ -29,7 +29,6 @@ id	name	element	description	imagepath	attack	defense	power
 44	Ty Lee	FIRE	Skilled acrobatic, mastering chi blocking martial arts.	Ty Lee.png	9	4	2
 45	Combustion Man	FIRE	Firebending assassin and silent bounty hunter that was hired by Zuko to eliminate Aang.	Combustion Man.png	11	4	3
 46	Chit Sang	FIRE	Inmate at the Boiling Rock prison in the Fire Nation.	Chit Sang.png	7	4	1
-47	Iroh	FIRE	Retired Fire Nation General and wise mentor to his nephew Zuko.	Iroh.png	8	8	3
 48	Zhao	FIRE	Leader of the Fire Nation Navy that is obsessed to capture Aang.	Zhao.png	8	5	2
 49	Mai	FIRE	Main ally of Princess Azula, proficient at throwing stilettos.	Mai.png	7	6	2
 50	Roku	FIRE	Avatar from Fire Nation, predecessor of Aang.	Roku.png	14	6	5
