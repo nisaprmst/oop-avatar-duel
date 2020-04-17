@@ -9,8 +9,8 @@ abstract public class Card {
     private final String imagePath;
     private final CardType cardType;
 
-    public Card() {
-        id = -1;
+    public Card(int id) {
+        this.id = id;
         name = "";
         description = "";
         element = Element.AIR;

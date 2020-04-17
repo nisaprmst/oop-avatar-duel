@@ -40,8 +40,10 @@ public class CharacterCard extends Card {
         this.skillLinked = new ArrayList<>();
     }
 
-    public CharacterCard() {
-        super();
+    public CharacterCard() { super(-1); }
+
+    public CharacterCard(int id) {
+        super(id);
     }
 
     public int getAttack() { return this.attack; }
