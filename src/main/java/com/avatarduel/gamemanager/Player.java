@@ -5,6 +5,7 @@ import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.characters.Position;
 import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.cards.skills.SkillCard;
+import com.avatarduel.exceptions.NoCardInFieldException;
 
 import java.util.*;
 
@@ -98,32 +99,32 @@ public class Player {
     public Map<Element, Integer> getCurrPower() {
         return currPower;
     }
-    public int getAttackAtPos(int pos) throws InvalidFieldIndexException {
+    public int getAttackAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
         int ret = 0;
         ret = this.field.getCharacterInColumn(pos).getAttack();
         return ret;
     }
-    public int getDefenseAtPos(int pos) throws InvalidFieldIndexException {
+    public int getDefenseAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
         int ret = 0;
         ret = this.field.getCharacterInColumn(pos).getDefense();
         return ret;
     }
-    public Position getPositionAtPos(int pos) throws InvalidFieldIndexException {
+    public Position getPositionAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
         Position ret = Position.ATTACK;
         ret = this.field.getCharacterInColumn(pos).getPosition();
         return ret;
     }
-    public CharacterCard getCharacterAtPos(int pos) throws InvalidFieldIndexException {
+    public CharacterCard getCharacterAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
         CharacterCard ret = new CharacterCard();
         ret = this.field.getCharacterInColumn(pos);
         return ret;
     }
-    public SkillCard getSkillAtPos(int pos) throws InvalidFieldIndexException {
+    public SkillCard getSkillAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
         SkillCard ret = new SkillCard();
         ret = this.field.getSkillInColumn(pos);
         return ret;
     }
-    public boolean getIsPowerUpAtPos(int pos) throws InvalidFieldIndexException {
+    public boolean getIsPowerUpAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
         boolean ret = true;
         ret = this.field.getCharacterInColumn(pos).getIsPowerUp();
         return ret;
@@ -219,10 +220,10 @@ public class Player {
     public Card removeFromHand(int idxCard) {
         return this.cardsInHand.remove(idxCard);
     }
-    public void removeCharacter(int idxCard) {
+    public void removeCharacter(int idxCard) throws NoCardInFieldException {
         this.field.removeCharacterInColumn(idxCard);
     }
-    public void removeSkill(int idxCard) {
+    public void removeSkill(int idxCard) throws NoCardInFieldException {
         this.field.removeSkillInColumn(idxCard);
     }
     public boolean canAttack(int position) {
@@ -231,12 +232,12 @@ public class Player {
         try {
             card = this.field.getCharacterInColumn(position);
             ret = card.getJustSummoned();
-        } catch (InvalidFieldIndexException e) {
+        } catch (InvalidFieldIndexException | NoCardInFieldException e) {
             System.out.println(e.getMessage());
         }
         return !ret;
     }
-    public boolean canChangePos(int position) throws InvalidFieldIndexException {
+    public boolean canChangePos(int position) throws InvalidFieldIndexException, NoCardInFieldException {
         CharacterCard card;
         card = this.field.getCharacterInColumn(position);
         boolean ret = card.getHasAttacked();

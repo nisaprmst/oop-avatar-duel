@@ -1,6 +1,7 @@
 package com.avatarduel.gamemanager.phase;
 
 import com.avatarduel.exceptions.InvalidFieldIndexException;
+import com.avatarduel.exceptions.NoCardInFieldException;
 import com.avatarduel.exceptions.NotEnoughPowerException;
 import com.avatarduel.gamemanager.GameManager;
 import com.avatarduel.gamemanager.Player;
@@ -84,7 +85,7 @@ public class MainPhase extends Phase {
      * @param posInField the index of skill card in field
      * @param target the index of character card want to attach
      * @param isOnPlayer booelan to decide whether the target index is on to player card or enemy card
-     * @throws InvalidFieldIndexException throw when the posInField or target index is invalid number
+     * @throws NotEnoughPowerException throws when player trying to use skill card when their power is not enough
      */
     public void setSkillCard(int posInHand, int posInField, int target, boolean isOnPlayer) throws NotEnoughPowerException {
         // pilih mana player mana enemy
@@ -125,7 +126,7 @@ public class MainPhase extends Phase {
                     PowerUpSkill power = (PowerUpSkill) skill;
                     this.addPowerUptoCharacter(power, target);
                 }
-            } catch (InvalidFieldIndexException e) {
+            } catch (InvalidFieldIndexException | NoCardInFieldException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -145,7 +146,7 @@ public class MainPhase extends Phase {
         }
     }
 
-    public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) throws InvalidFieldIndexException {
+    public void addAuratoCharacter (AuraSkill skill, int characterpos, boolean isOnPlayer) throws InvalidFieldIndexException, NoCardInFieldException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -164,7 +165,7 @@ public class MainPhase extends Phase {
         character.setDefPoint(def);
     }
 
-    public void destroyEnemyCharacter(DestroySkill skill, int pos, boolean isOnPlayer){
+    public void destroyEnemyCharacter(DestroySkill skill, int pos, boolean isOnPlayer) throws NoCardInFieldException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -176,7 +177,7 @@ public class MainPhase extends Phase {
             enemy.removeCharacter(pos);
         }
     }
-    public void addPowerUptoCharacter (PowerUpSkill power, int characterpos) throws InvalidFieldIndexException {
+    public void addPowerUptoCharacter (PowerUpSkill power, int characterpos) throws InvalidFieldIndexException, NoCardInFieldException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -187,7 +188,7 @@ public class MainPhase extends Phase {
         character.setIsPowerUp(true);
     }
     // mengubah posisi pada kartu karakter
-    public void changePositionCharacter(int posInField) throws InvalidFieldIndexException {
+    public void changePositionCharacter(int posInField) throws InvalidFieldIndexException, NoCardInFieldException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
@@ -204,7 +205,7 @@ public class MainPhase extends Phase {
         }
     }
     // menghapus kartu skill tertentu
-    public void removeSkillCard(int posInField) throws InvalidFieldIndexException {
+    public void removeSkillCard(int posInField) throws InvalidFieldIndexException, NoCardInFieldException {
         Player player,enemy;
         player = game.getPlayer();
         enemy = game.getEnemy();

@@ -4,6 +4,7 @@ import com.avatarduel.cards.*;
 import com.avatarduel.cards.characters.*;
 import com.avatarduel.cards.skills.*;
 import com.avatarduel.exceptions.InvalidFieldIndexException;
+import com.avatarduel.exceptions.NoCardInFieldException;
 
 import java.util.*;
 
@@ -12,7 +13,7 @@ import java.util.*;
  * and another row is for Skill Card.
  */
 public class Field {
-    private Map<Integer, CharacterCard>  characterRow;
+    private Map<Integer, CharacterCard>  characterRow; // {1: CC1, 2: CC2, 3: CC3, 4: CC4, 5: CC5, 6: CC6}
     private Map<Integer, SkillCard> skillRow;
     private int maximumCardsPerRow;
 
@@ -41,10 +42,15 @@ public class Field {
      * @return CharacterCard
      * @throws InvalidFieldIndexException given when the column argument not a valid number
      */
-    public CharacterCard getCharacterInColumn(int column) throws InvalidFieldIndexException {
-        if (column < 0 || column >= characterRow.size()) {
+    public CharacterCard getCharacterInColumn(int column) throws InvalidFieldIndexException, NoCardInFieldException {
+        if (column < 0 || column >= this.maximumCardsPerRow) {
             throw new InvalidFieldIndexException(column);
         }
+
+        if (this.characterRow.get(column) == null) {
+            throw new NoCardInFieldException(column);
+        }
+
         return this.characterRow.get(column);
     }
 
@@ -54,10 +60,15 @@ public class Field {
      * @return SkillCard
      * @throws InvalidFieldIndexException given when the column argument not a valid number
      */
-    public SkillCard getSkillInColumn(int column) throws InvalidFieldIndexException {
-        if (column < 0 || column >= skillRow.size()) {
+    public SkillCard getSkillInColumn(int column) throws InvalidFieldIndexException, NoCardInFieldException {
+        if (column < 0 || column >= this.maximumCardsPerRow) {
             throw new InvalidFieldIndexException(column);
         }
+
+        if (this.characterRow.get(column) == null) {
+            throw new NoCardInFieldException(column);
+        }
+
         return this.skillRow.get(column);
     }
 
@@ -71,6 +82,7 @@ public class Field {
         if (column < 0 || column >= this.maximumCardsPerRow) {
             throw new InvalidFieldIndexException(column);
         }
+
         this.characterRow.put(column, card);
     }
 
@@ -108,7 +120,11 @@ public class Field {
      * @param column the number of column  position
      * @return CharacterCard at given column if exist
      */
-    public CharacterCard removeCharacterInColumn(int column) {
+    public CharacterCard removeCharacterInColumn(int column) throws NoCardInFieldException {
+        if (this.characterRow.get(column) == null) {
+            throw new NoCardInFieldException(column);
+        }
+
         return this.characterRow.remove(column);
     }
 
@@ -117,7 +133,11 @@ public class Field {
      * @param column the number of column position
      * @return SkillCard at given column if exist
      */
-    public SkillCard removeSkillInColumn(int column) {
+    public SkillCard removeSkillInColumn(int column) throws NoCardInFieldException {
+        if (this.characterRow.get(column) == null) {
+            throw new NoCardInFieldException(column);
+        }
+
         return this.skillRow.remove(column);
     }
 
@@ -148,11 +168,25 @@ public class Field {
     }
 
     public static void main(String[] args) {
+    /* This is for debugging purposes. Testing code will commited soon */
         try {
+            CharacterCard card1 = new CharacterCard(1);
+            CharacterCard card2 = new CharacterCard(2);
+
             Field field = new Field();
-            CharacterCard cc = field.getCharacterInColumn(-1);
-            cc.printInfo();
-        } catch (InvalidFieldIndexException e) {
+            field.placeCharacterInColumn(card1, 0);
+            // field.placeCharacterInColumn(card2, 6); // assert e.toString() == "6 is invalid index access";
+
+            CharacterCard cc = field.getCharacterInColumn(0); // assert cc.getId() == 1;
+
+            CharacterCard ccNull = field.getCharacterInColumn(1);
+
+            // cc.printInfo();
+            ccNull.printInfo();
+            // field.printCharacterRow();
+
+        } catch (Exception e) {
+            System.out.print("Error catch: ");
             System.out.println(e.toString());
         }
     }
