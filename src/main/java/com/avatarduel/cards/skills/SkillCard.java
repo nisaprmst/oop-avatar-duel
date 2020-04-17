@@ -26,32 +26,15 @@ public class SkillCard extends Card{
     public Skill getSkillType() {
         return skillType;
     }
-    /**
-     * @return the characterLinked
-     */
     public CharacterCard getCharacterLinked() {
         return characterLinked;
     }
 
-    /**
-     * @param characterLinked the characterLinked to set
-     */
-    public void setCharacterLinked(CharacterCard characterLinked) {
-        this.characterLinked = characterLinked;
-    }
-
-    /**
-     * @param power the power to set
-     */
     public void setPower(int power) {
         this.power = power;
     }
-
-    /**
-     * @param skillType the skillType to set
-     */
-    public void setSkillType(Skill skillType) {
-        this.skillType = skillType;
+    public void setCharacterLinked(CharacterCard characterLinked) {
+        this.characterLinked = characterLinked;
     }
 
     @Override
