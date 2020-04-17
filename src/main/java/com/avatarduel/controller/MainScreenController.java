@@ -9,6 +9,7 @@ import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.skills.SkillCard;
 import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.gamemanager.Command;
+import com.avatarduel.gamemanager.Player;
 import com.avatarduel.gamemanager.phase.BattlePhase;
 import com.avatarduel.gamemanager.phase.DrawPhase;
 import com.avatarduel.gamemanager.phase.MainPhase;
@@ -63,8 +64,8 @@ public class MainScreenController implements Initializable {
     CardController cardController;
     ImageView card;
 
-    Phase phase = AvatarDuel.gameManager.phase;
-    int player = AvatarDuel.gameManager.turn;
+    Phase phase = AvatarDuel.gameManager.getPhase();
+    Player player = AvatarDuel.gameManager.getPlayer();
 
     int count = 0;
 
@@ -120,8 +121,8 @@ public class MainScreenController implements Initializable {
         String type = "";
         ObservableList player1handchildren = player1hand.getChildren();
         ObservableList player2handchildren = player2hand.getChildren();
-        for(Card c: AvatarDuel.gameManager.player1.getCardsInHand()){
-            if(AvatarDuel.gameManager.turn == 1){
+        for(Card c: AvatarDuel.gameManager.getPlayer().getCardsInHand()){
+            //if(AvatarDuel.gameManager.turn == 1){
                 if(c instanceof CharacterCard){
                     imgname = "character/" + c.getImagePath();
                     type = "CharacterCard";
@@ -132,16 +133,18 @@ public class MainScreenController implements Initializable {
                     imgname = "land/" + c.getImagePath();
                     type = "LandCard";
                 }
-            } else{
-                imgname = "BlankCard.png";
-                type = "BlankCard";
-            }
+            //} else{
+            //    imgname = "BlankCard.png";
+            //    type = "BlankCard";
+            //}
 
             renderhand(player1hand.getChildren(),imgname, type);
         }
 
-        for(Card c: AvatarDuel.gameManager.player2.getCardsInHand()){
-            if(AvatarDuel.gameManager.turn == 2){
+        for(Card c: AvatarDuel.gameManager.getEnemy().getCardsInHand()){
+            imgname = "BlankCard.png";
+            type = "BlankCard";
+            /*if(AvatarDuel.gameManager.turn == 2){
                 if(c instanceof CharacterCard){
                     imgname = "character/" + c.getImagePath();
                     type = "CharacterCard";
@@ -155,11 +158,82 @@ public class MainScreenController implements Initializable {
             } else{
                 imgname = "BlankCard.png";
                 type = "BlankCard";
-            }
+            }*/
 
             renderhand(player2hand.getChildren(), imgname, type);
         }
     }
+
+   /* public void renderfield() throws Exception{
+        String imgname ="";
+        String type = "";
+        ObservableList player1skillfieldChildren = player1skillfield.getChildren();
+        ObservableList player1charfieldChildren = player1charfield.getChildren();
+        ObservableList player2charfieldChildren = player2charfield.getChildren();
+        ObservableList player2skillfieldChildren = player2skillfield.getChildren();
+
+        for(Card c: AvatarDuel.gameManager.getPlayer().getField().getSkillInColumn(1)){
+            //if(AvatarDuel.gameManager.turn == 1){
+            if(c instanceof CharacterCard){
+                imgname = "character/" + c.getImagePath();
+                type = "CharacterCard";
+            } else if(c instanceof SkillCard){
+                imgname = "skill/" + c.getImagePath();
+                type = "SkillCard";
+            } else if(c instanceof LandCard){
+                imgname = "land/" + c.getImagePath();
+                type = "LandCard";
+            }
+            //} else{
+            //    imgname = "BlankCard.png";
+            //    type = "BlankCard";
+            //}
+
+            renderhand(player1hand.getChildren(),imgname, type);
+        }
+
+        for(Card c: AvatarDuel.gameManager.getPlayer().getCardsInHand()){
+            //if(AvatarDuel.gameManager.turn == 1){
+            if(c instanceof CharacterCard){
+                imgname = "character/" + c.getImagePath();
+                type = "CharacterCard";
+            } else if(c instanceof SkillCard){
+                imgname = "skill/" + c.getImagePath();
+                type = "SkillCard";
+            } else if(c instanceof LandCard){
+                imgname = "land/" + c.getImagePath();
+                type = "LandCard";
+            }
+            //} else{
+            //    imgname = "BlankCard.png";
+            //    type = "BlankCard";
+            //}
+
+            renderhand(player1hand.getChildren(),imgname, type);
+        }
+
+        for(Card c: AvatarDuel.gameManager.getEnemy().getCardsInHand()){
+            imgname = "BlankCard.png";
+            type = "BlankCard";
+            *//*if(AvatarDuel.gameManager.turn == 2){
+                if(c instanceof CharacterCard){
+                    imgname = "character/" + c.getImagePath();
+                    type = "CharacterCard";
+                } else if(c instanceof SkillCard){
+                    imgname = "skill/" + c.getImagePath();
+                    type = "SkillCard";
+                } else if(c instanceof LandCard){
+                    imgname = "land/" + c.getImagePath();
+                    type = "LandCard";
+                }
+            } else{
+                imgname = "BlankCard.png";
+                type = "BlankCard";
+            }*//*
+
+            renderhand(player2hand.getChildren(), imgname, type);
+        }
+    }*/
 
     public void renderhand(ObservableList handchildren, String imagename, String type) throws Exception{
         cardloader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/card.fxml"));
@@ -170,7 +244,7 @@ public class MainScreenController implements Initializable {
             System.out.println("Target Chosen");
             determineGUIState();});
         cardController.setCardImage(imagename);
-        cardController.setContextMenuItem(AvatarDuel.gameManager.phase, "hand", type);
+        cardController.setContextMenuItem(AvatarDuel.gameManager.getPhase(), "hand", type);
         System.out.println("masuk sini");
 
         handchildren.add(card);
@@ -209,7 +283,7 @@ public class MainScreenController implements Initializable {
     private void processCommand(){
         switch(GUIState.command){
             case "Summon":
-                summonCommand(GUIState.source);
+                summonCommand(GUIState.source, GUIState.targetLocation, GUIState.target);
                 break;
             case "Attack":
                 attackCommand(GUIState.source, GUIState.targetLocation, GUIState.target);
@@ -224,27 +298,26 @@ public class MainScreenController implements Initializable {
 
     }
 
-    private void summonCommand(int index){
-        System.out.println("Summon card: " + index);
-        System.out.println(index);
+    private void summonCommand(int posInHand, int posInField, int fieldLocation){
+        System.out.println("Summon card: " + posInHand);
+        System.out.println(posInHand);
 
-        try{
-            AvatarDuel.gameManager.phase.process(Command.SUMMONATTACK, index, player1charfield.getChildren().size(), 0, false);
-        } catch (Exception e){
-            System.out.println("Gagal Summon");
-            System.out.println(e.getMessage());
+        if(fieldLocation != 2){
+            battleLogController.addText("Can't Summon there");
+        } else{
+            try{
+                AvatarDuel.gameManager.getPhase().process(Command.SUMMONATTACK, posInHand, posInField, 0, false);
+            } catch (Exception e){
+                battleLogController.addText("Gagal Summon");
+                battleLogController.addText(e.getMessage());
+            }
         }
 
-        Node card = player1hand.getChildren().get(index);
+        /*Node card = player1hand.getChildren().get(index);
         player1hand.getChildren().remove(index);
-        player1charfield.getChildren().add(card);
+        player1charfield.getChildren().add(card);*/
 
-        try{
-            System.out.println(AvatarDuel.gameManager.player1.getField().getCharacterInColumn(0));
-        } catch(InvalidFieldIndexException e){
-            System.out.println("a");
 
-        }
     }
 
     private void positionCommand(int index){
@@ -267,20 +340,20 @@ public class MainScreenController implements Initializable {
 
     @FXML
     private void onNextPhaseButtonClick(){
-        AvatarDuel.gameManager.phase.nextPhase();
-        AvatarDuel.gameManager.phase.phaseInfo();
+        AvatarDuel.gameManager.getPhase().nextPhase();
+        AvatarDuel.gameManager.getPhase().phaseInfo();
         updateScreen();
     }
 
     private void renderPhaseIndicator(){
         Label prevLabel, currLabel;
-        if(AvatarDuel.gameManager.phase instanceof DrawPhase){
+        if(AvatarDuel.gameManager.getPhase() instanceof DrawPhase){
             prevLabel = (Label) phaseindicator.getChildren().get(3);
             currLabel = (Label) phaseindicator.getChildren().get(0);
-        } else if(AvatarDuel.gameManager.phase instanceof MainPhase){
+        } else if(AvatarDuel.gameManager.getPhase() instanceof MainPhase){
             prevLabel = (Label) phaseindicator.getChildren().get(0);
             currLabel = (Label) phaseindicator.getChildren().get(1);
-        } else if(AvatarDuel.gameManager.phase instanceof BattlePhase){
+        } else if(AvatarDuel.gameManager.getPhase() instanceof BattlePhase){
             prevLabel = (Label) phaseindicator.getChildren().get(1);
             currLabel = (Label) phaseindicator.getChildren().get(2);
         } else{ //End Phase
@@ -292,7 +365,7 @@ public class MainScreenController implements Initializable {
     }
 
     private void printPhase(){
-        AvatarDuel.gameManager.phase.phaseInfo();
+        AvatarDuel.gameManager.getPhase().phaseInfo();
     }
 
     private void showCard(){
@@ -306,13 +379,13 @@ public class MainScreenController implements Initializable {
             switch(location){
                 case 1:
                     locationString = "Player 1's hand";
-                    c = AvatarDuel.gameManager.player1.getCardsInHand().get(hovered);
+                    c = AvatarDuel.gameManager.getPlayer().getCardsInHand().get(hovered);
                     cardInfoController.setInfo(c);
                     break;
                 case 2:
                     locationString = "Player 1's skill field";
                     try{
-                        c = AvatarDuel.gameManager.player1.getField().getSkillInColumn(hovered);
+                        c = AvatarDuel.gameManager.getPlayer().getField().getSkillInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(InvalidFieldIndexException e){
                         System.out.println(e.getMessage());
@@ -321,7 +394,7 @@ public class MainScreenController implements Initializable {
                 case 3:
                     locationString = "Player 1's character field";
                     try{
-                        c = AvatarDuel.gameManager.player1.getField().getCharacterInColumn(hovered);
+                        c = AvatarDuel.gameManager.getPlayer().getField().getCharacterInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(InvalidFieldIndexException e){
                         System.out.println(e.getMessage());
@@ -330,7 +403,7 @@ public class MainScreenController implements Initializable {
                 case 4:
                     locationString = "Player 2's character field";
                     try{
-                        c = AvatarDuel.gameManager.player2.getField().getCharacterInColumn(hovered);
+                        c = AvatarDuel.gameManager.getEnemy().getField().getCharacterInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(InvalidFieldIndexException e){
                         System.out.println(e.getMessage());
@@ -339,17 +412,17 @@ public class MainScreenController implements Initializable {
                 case 5:
                     locationString = "Player 2's skill field";
                     try{
-                        c = AvatarDuel.gameManager.player2.getField().getSkillInColumn(hovered);
+                        c = AvatarDuel.gameManager.getEnemy().getField().getSkillInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(InvalidFieldIndexException e){
                         System.out.println(e.getMessage());
                     }
                     break;
-                case 6:
+                /*case 6:
                     locationString = "Player 2's hand";
-                    c = AvatarDuel.gameManager.player2.getCardsInHand().get(hovered);
+                    c = AvatarDuel.gameManager.getEnemy().getCardsInHand().get(hovered);
                     cardInfoController.setInfo(c);
-                    break;
+                    break;*/
             }
         } else{
             cardInfoController.setBlankInfo();
