@@ -1,5 +1,6 @@
 package com.avatarduel.gamemanager.phase;
 
+import com.avatarduel.exceptions.AlreadyPlacedCardException;
 import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.exceptions.NoCardInFieldException;
 import com.avatarduel.exceptions.NotEnoughPowerException;
@@ -67,7 +68,7 @@ public class MainPhase extends Phase {
             }
             try {
                 field.placeCharacterInColumn(character,posInField);
-            } catch (InvalidFieldIndexException e) {
+            } catch (InvalidFieldIndexException | AlreadyPlacedCardException e) {
                 System.out.println(e.getMessage());
             }
             character.setJustSummoned(true);
@@ -126,7 +127,7 @@ public class MainPhase extends Phase {
                     PowerUpSkill power = (PowerUpSkill) skill;
                     this.addPowerUptoCharacter(power, target);
                 }
-            } catch (InvalidFieldIndexException | NoCardInFieldException e) {
+            } catch (InvalidFieldIndexException | NoCardInFieldException | AlreadyPlacedCardException e) {
                 System.out.println(e.getMessage());
             }
         }

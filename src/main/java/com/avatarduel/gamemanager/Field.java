@@ -3,6 +3,7 @@ package com.avatarduel.gamemanager;
 import com.avatarduel.cards.*;
 import com.avatarduel.cards.characters.*;
 import com.avatarduel.cards.skills.*;
+import com.avatarduel.exceptions.AlreadyPlacedCardException;
 import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.exceptions.NoCardInFieldException;
 
@@ -78,9 +79,13 @@ public class Field {
      * @param column the number of column position
      * @throws InvalidFieldIndexException given when the column argument not a valid number
      */
-    public void placeCharacterInColumn(CharacterCard card, int column)throws InvalidFieldIndexException {
+    public void placeCharacterInColumn(CharacterCard card, int column) throws InvalidFieldIndexException, AlreadyPlacedCardException {
         if (column < 0 || column >= this.maximumCardsPerRow) {
             throw new InvalidFieldIndexException(column);
+        }
+
+        if (characterRow.containsKey(column)) {
+            throw new AlreadyPlacedCardException(column, characterRow.get(column));
         }
 
         this.characterRow.put(column, card);
@@ -92,10 +97,15 @@ public class Field {
      * @param column the number of column position
      * @throws InvalidFieldIndexException given when the column argument not a valid number
      */
-    public void placeSkillInColumn(SkillCard card, int column) throws InvalidFieldIndexException {
+    public void placeSkillInColumn(SkillCard card, int column) throws InvalidFieldIndexException, AlreadyPlacedCardException {
         if (column < 0 || column >= this.maximumCardsPerRow) {
             throw new InvalidFieldIndexException(column);
         }
+
+        if (characterRow.containsKey(column)) {
+            throw new AlreadyPlacedCardException(column, characterRow.get(column));
+        }
+
         this.skillRow.put(column, card);
     }
 
@@ -175,6 +185,7 @@ public class Field {
 
             Field field = new Field();
             field.placeCharacterInColumn(card1, 0);
+            field.placeCharacterInColumn(card2, 0);
             // field.placeCharacterInColumn(card2, 6); // assert e.toString() == "6 is invalid index access";
 
             CharacterCard cc = field.getCharacterInColumn(0); // assert cc.getId() == 1;

@@ -30,7 +30,7 @@ public class GameManager {
         this.player = new Player();
         this.enemy = new Player();
     }
-    GameManager(Player player, Player enemy) {
+    public GameManager(Player player, Player enemy) {
         this.phase = new DrawPhase(this);
         this.player = player;
         this.enemy = enemy;
