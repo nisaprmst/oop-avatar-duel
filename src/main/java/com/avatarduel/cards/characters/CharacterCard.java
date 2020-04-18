@@ -55,6 +55,7 @@ public class CharacterCard extends Card {
     public boolean getIsPowerUp() { return this.isPowerUp; }
     public ArrayList<SkillCard> getSkillLinked() { return this.skillLinked; }
 
+    public void setPower(int pow) { this.power = pow; }
     public void setHasAttacked(boolean param) { this.hasAttacked = param; }
     public void setPosition(Position pos) { this.position = pos; }
     public void setAtkPoint(int att) { this.attack = att; }
