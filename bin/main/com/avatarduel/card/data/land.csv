@@ -1,8 +1,8 @@
 id	name	element	description	imagepath
-1	Eastern Water Temple	AIR	One of the two temples exclusively housing female airbenders.	Eastern Water Temple.png
-2	Western Water Temple	AIR	One of the two temples exclusively housing female airbenders.	Western Water Temple.png
-3	Southern Water Temple	AIR	One of the two temples exclusively housing male airbenders. Childhood home of Avatar Aang.	Southern Water Temple.png
-4	Northern Water Temple	AIR	One of the two temples exclusively housing male airbenders.	Northern Water Temple.png
+1	Eastern Air Temple	AIR	One of the two temples exclusively housing female airbenders.	Eastern Air Temple.png
+2	Western Air Temple	AIR	One of the two temples exclusively housing female airbenders.	Western Air Temple.png
+3	Southern Air Temple	AIR	One of the two temples exclusively housing male airbenders. Childhood home of Avatar Aang.	Southern Air Temple.png
+4	Northern Air Temple	AIR	One of the two temples exclusively housing male airbenders.	Northern Air Temple.png
 5	Foggy Swamp	WATER	Place for immigrants of the Southern Water Tribe with an extensive array of fauna and flora.	Foggy Swamp.png
 6	Spirit Oasis	WATER	A verdant and lush garden located in a cave in the Northern Water Tribe's capital city at the North Pole.	Spirit Oasis.png
 7	Northern Water Tribe	WATER	The largest division of its nation and is located on an island situated near the North Pole.	Northern Water Tribe.png
