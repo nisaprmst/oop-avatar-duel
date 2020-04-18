@@ -24,7 +24,6 @@ public class CardLoader {
     public ArrayList<Card> getLoadedCards() {
         return loadedCards;
     }
-    public void setLoadedCards(ArrayList<Card> loadedCards) { this.loadedCards = loadedCards; }
 
     private List<String[]> readFromCSV(String path) throws URISyntaxException, IOException {
         File cardFile = new File(getClass().getResource(path).toURI());
@@ -43,8 +42,7 @@ public class CardLoader {
     public void loadCharacterCardsFromFile(String path) throws IOException, URISyntaxException {
         List<String[]> fileRows = readFromCSV(path);
         for (String[] row : fileRows) {
-            CharacterCard cc;
-            cc = new CharacterCard(Integer.parseInt(row[0]), row[1], row[3], Element.valueOf(row[2]), row[4],
+            CharacterCard cc = new CharacterCard(Integer.parseInt(row[0]), row[1], row[3], Element.valueOf(row[2]), row[4],
                                 Integer.parseInt(row[5]), Integer.parseInt(row[6]), Integer.parseInt(row[7]));
             loadedCards.add(cc);
         }

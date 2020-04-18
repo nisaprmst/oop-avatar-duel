@@ -55,6 +55,7 @@ public class MainPhase extends Phase {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
+        enemy = game.getEnemy();
         Field field;
         field = player.getField();
         CharacterCard character;
@@ -137,6 +138,7 @@ public class MainPhase extends Phase {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
+        enemy = game.getEnemy();
         // satu main phase hanya boleh satu kali memanggil land card
         if (!this.hasSummonedLandCard) {
             LandCard land = (LandCard) player.removeFromHand(posInHand);
@@ -157,10 +159,10 @@ public class MainPhase extends Phase {
             character = enemy.getCharacterAtPos(characterpos);
         }
         //perubahan attack karena aura skill pada karakter yang dipilih
-        int att = character.getAttack() + skill.getAtkPoint();
+        int att = player.getAttackAtPos(characterpos) + skill.getAtkPoint();
         character.setAtkPoint(att);
         //perubahan defense karena aura skill pada karakter yang dipilih
-        int def = character.getAttack() + skill.getDefPoint();
+        int def = player.getDefenseAtPos(characterpos) + skill.getDefPoint();
         character.setDefPoint(def);
     }
 
@@ -180,6 +182,7 @@ public class MainPhase extends Phase {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
+        enemy = game.getEnemy();
         CharacterCard character = player.getCharacterAtPos(characterpos);
         // cek elementnya
         //perubahan power up karena skill pada karakter yang dipilih
@@ -190,6 +193,7 @@ public class MainPhase extends Phase {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
+        enemy = game.getEnemy();
         CharacterCard character;
         character = player.getCharacterAtPos(posInField);
         // kalau tidak baru menyerang pada main phase 1
@@ -205,6 +209,7 @@ public class MainPhase extends Phase {
     public void removeSkillCard(int posInField) throws InvalidFieldIndexException, NoCardInFieldException {
         Player player,enemy;
         player = game.getPlayer();
+        enemy = game.getEnemy();
         CharacterCard characterLink;
         SkillCard skill = player.getSkillAtPos(posInField);
         characterLink = skill.getCharacterLinked();
