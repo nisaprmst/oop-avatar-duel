@@ -29,7 +29,7 @@ public class Player {
      * Class Constructor
      */
     public Player() throws URISyntaxException, IOException {
-        this.hp = 0;
+        this.hp = 100;
         this.deck = new Deck();
         this.cardsInHand = new ArrayList<>();
         this.field = new Field();
