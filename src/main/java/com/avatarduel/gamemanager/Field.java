@@ -66,7 +66,7 @@ public class Field {
             throw new InvalidFieldIndexException(column);
         }
 
-        if (this.characterRow.get(column) == null) {
+        if (this.skillRow.get(column) == null) {
             throw new NoCardInFieldException(column);
         }
 
@@ -102,8 +102,8 @@ public class Field {
             throw new InvalidFieldIndexException(column);
         }
 
-        if (characterRow.containsKey(column)) {
-            throw new AlreadyPlacedCardException(column, characterRow.get(column));
+        if (skillRow.containsKey(column)) {
+            throw new AlreadyPlacedCardException(column, skillRow.get(column));
         }
 
         this.skillRow.put(column, card);
