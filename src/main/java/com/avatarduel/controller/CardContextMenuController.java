@@ -56,7 +56,7 @@ public class CardContextMenuController implements Initializable {
         skilluse.setOnAction(e -> setStateCommand("Skill"));
         landuse.setOnAction(e -> setStateCommand("Land"));
         changeposition.setOnAction(e -> setStateCommand("Change Position"));
-        remove.setOnAction(e -> setStateCommand("Remove"));
+        remove.setOnAction(e -> setStateCommand("Remove Skill"));
     }
 
     private void setStateCommand(String commandString){
@@ -80,12 +80,12 @@ public class CardContextMenuController implements Initializable {
                         } else if(type.equals("SkillCard")){
                             cardcontextmenu.getItems().addAll(skilluse);
                         }
-                        cardcontextmenu.getItems().addAll(remove);
                     } else if(location.equals("field")){
                         if(type.equals("CharacterCard")){
                             cardcontextmenu.getItems().addAll(changeposition);
+                        } else if(type.equals("SkillCard")){
+                            cardcontextmenu.getItems().addAll(remove);
                         }
-                        cardcontextmenu.getItems().addAll(remove);
                     }
                     break;
                 case 3: // Battle Phase

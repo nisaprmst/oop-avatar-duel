@@ -286,7 +286,7 @@ public class MainScreenController implements Initializable {
                 GUIState.setState(0);
                 setFieldDisable(false);
             }
-        } else if (GUIState.command.equals("Land") || GUIState.command.equals("Change Position") || GUIState.command.equals("Remove")) {
+        } else if (GUIState.command.equals("Land") || GUIState.command.equals("Change Position") || GUIState.command.equals("Remove Skill")) {
             GUIState.setState(0);
         }
 
@@ -316,8 +316,8 @@ public class MainScreenController implements Initializable {
             case "Change Position":
                 positionCommand(GUIState.source, GUIState.sourceLocation);
                 break;
-            case "Remove":
-                //removeCommand(GUIState.source, GUIState.sourceLocation);
+            case "Remove Skill":
+                removeCommand(GUIState.source);
                 break;
         }
         updateScreen();
@@ -328,6 +328,16 @@ public class MainScreenController implements Initializable {
     private void drawCommand(){
         try{
             AvatarDuel.gameManager.getPhase().process(Command.PLACESKILL, 0, 0, 0, true);
+        }catch (Exception e){
+            battleLogController.addText(e.toString());
+        }
+    }
+
+    private void removeCommand(int posInField){
+        try{
+            battleLogController.addText("remove start remove");
+            AvatarDuel.gameManager.getPhase().process(Command.REMOVESKILL, 0, posInField, 0, true);
+
         }catch (Exception e){
             battleLogController.addText(e.toString());
         }
