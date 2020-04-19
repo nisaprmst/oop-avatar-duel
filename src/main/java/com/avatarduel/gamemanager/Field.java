@@ -66,7 +66,7 @@ public class Field {
             throw new InvalidFieldIndexException(column);
         }
 
-        if (this.characterRow.get(column) == null) {
+        if (this.skillRow.get(column) == null) {
             throw new NoCardInFieldException(column);
         }
 
@@ -102,7 +102,7 @@ public class Field {
             throw new InvalidFieldIndexException(column);
         }
 
-        if (characterRow.containsKey(column)) {
+        if (skillRow.containsKey(column)) {
             throw new AlreadyPlacedCardException(column, characterRow.get(column));
         }
 
@@ -144,7 +144,7 @@ public class Field {
      * @return SkillCard at given column if exist
      */
     public SkillCard removeSkillInColumn(int column) throws NoCardInFieldException {
-        if (this.characterRow.get(column) == null) {
+        if (this.skillRow.get(column) == null) {
             throw new NoCardInFieldException(column);
         }
 
