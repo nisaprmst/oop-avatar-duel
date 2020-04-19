@@ -387,7 +387,7 @@ public class MainScreenController implements Initializable {
                     try{
                         c = AvatarDuel.gameManager.getPlayer().getField().getSkillInColumn(hovered);
                         cardInfoController.setInfo(c);
-                    } catch(InvalidFieldIndexException e){
+                    } catch(Exception e){
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -396,7 +396,7 @@ public class MainScreenController implements Initializable {
                     try{
                         c = AvatarDuel.gameManager.getPlayer().getField().getCharacterInColumn(hovered);
                         cardInfoController.setInfo(c);
-                    } catch(InvalidFieldIndexException e){
+                    } catch(Exception e){
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -405,7 +405,7 @@ public class MainScreenController implements Initializable {
                     try{
                         c = AvatarDuel.gameManager.getEnemy().getField().getCharacterInColumn(hovered);
                         cardInfoController.setInfo(c);
-                    } catch(InvalidFieldIndexException e){
+                    } catch(Exception e){
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -414,7 +414,7 @@ public class MainScreenController implements Initializable {
                     try{
                         c = AvatarDuel.gameManager.getEnemy().getField().getSkillInColumn(hovered);
                         cardInfoController.setInfo(c);
-                    } catch(InvalidFieldIndexException e){
+                    } catch(Exception e){
                         System.out.println(e.getMessage());
                     }
                     break;
