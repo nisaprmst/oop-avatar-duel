@@ -100,8 +100,10 @@ public class CardInfoController implements Initializable {
             return "Water";
         } else if(c.getElement() == Element.FIRE){
             return "Fire";
-        } else{
+        } else if(c.getElement() == Element.EARTH) {
             return "Earth";
+        } else{
+            return "Energybending";
         }
     }
 

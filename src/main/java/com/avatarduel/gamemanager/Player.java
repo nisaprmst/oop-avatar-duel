@@ -172,8 +172,10 @@ public class Player {
         this.hp -= val;
     }
     public void draw() {
-        Card card = this.deck.drawCard();
-        this.cardsInHand.add(card);
+        if(this.cardsInHand.size() < 10){
+            Card card = this.deck.drawCard();
+            this.cardsInHand.add(card);
+        }
     }
     public void addPower(LandCard land) {
         this.power.replace(land.getElement(), this.power.get(land.getElement()) + 1);

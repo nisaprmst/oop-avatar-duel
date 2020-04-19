@@ -227,7 +227,7 @@ public class MainScreenController implements Initializable {
                 CharacterCard c = GameManager.getGameManager().getPlayer().getField().getCharacterInColumn(i);
                 imgname = "character/" + c.getImagePath();
                 type = "CharacterCard";
-                position = ( c).getPosition();
+                position =  c.getPosition();
                 renderfield((StackPane)player1charfieldChildren.get(i), imgname, type, position, c.getJustSummoned(), c.getHasAttacked());
             } catch(NoCardInFieldException e){
 
@@ -272,7 +272,7 @@ public class MainScreenController implements Initializable {
             determineGUIState();});
         System.out.println(imagename);
         cardController.setCardImage(imagename, "hand", type, Position.ATTACK);
-        cardController.setContextMenuItem(GameManager.getGameManager().getPhase(), "hand", type, false, false);
+        cardController.setContextMenuItem(GameManager.getGameManager().getPhase(), "hand", type, false, false, Position.DEFENSE);
 
         handchildren.add(card);
 
@@ -289,7 +289,7 @@ public class MainScreenController implements Initializable {
             battleLogController.addText("Target is: " + newValue.intValue());
             determineGUIState();});
         cardController.setCardImage(imagename, "field", type, position);
-        cardController.setContextMenuItem(GameManager.getGameManager().getPhase(), "field", type, hasJustSummoned, hasAttacked);
+        cardController.setContextMenuItem(GameManager.getGameManager().getPhase(), "field", type, hasJustSummoned, hasAttacked, position);
 
         fieldchildren.setNodeOrientation(NodeOrientation.INHERIT);
         fieldchildren.getChildren().add(card);

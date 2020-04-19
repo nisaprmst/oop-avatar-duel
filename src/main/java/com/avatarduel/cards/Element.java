@@ -5,5 +5,5 @@ public enum Element {
   FIRE,
   AIR,
   EARTH,
-  ENERGYBINDING
+  ENERGYBENDING
 }
