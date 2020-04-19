@@ -55,7 +55,6 @@ public class MainPhase extends Phase {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
-        enemy = game.getEnemy();
         Field field;
         field = player.getField();
         CharacterCard character;
@@ -125,7 +124,7 @@ public class MainPhase extends Phase {
                 } else if (skill.getSkillType() == Skill.POWER) {
                     character.addSkill(posInField, isOnPlayer);
                     PowerUpSkill power = (PowerUpSkill) skill;
-                    this.addPowerUptoCharacter(power, target);
+                    this.addPowerUptoCharacter(power, target, isOnPlayer);
                 }
             } catch (InvalidFieldIndexException | NoCardInFieldException | AlreadyPlacedCardException e) {
                 System.out.println(e.getMessage());
@@ -138,7 +137,6 @@ public class MainPhase extends Phase {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
-        enemy = game.getEnemy();
         // satu main phase hanya boleh satu kali memanggil land card
         if (!this.hasSummonedLandCard) {
             LandCard land = (LandCard) player.removeFromHand(posInHand);
@@ -194,12 +192,17 @@ public class MainPhase extends Phase {
             enemy.removeCharacter(pos);
         }
     }
-    public void addPowerUptoCharacter (PowerUpSkill power, int characterpos) throws InvalidFieldIndexException, NoCardInFieldException {
+    public void addPowerUptoCharacter (PowerUpSkill power, int characterpos, boolean isOnPlayer) throws InvalidFieldIndexException, NoCardInFieldException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
         enemy = game.getEnemy();
-        CharacterCard character = player.getCharacterAtPos(characterpos);
+        CharacterCard character;
+        if (isOnPlayer) {
+            character = player.getCharacterAtPos(characterpos);
+        } else {
+            character = enemy.getCharacterAtPos(characterpos);
+        }
         // cek elementnya
         //perubahan power up karena skill pada karakter yang dipilih
         character.setIsPowerUp(true);
@@ -209,7 +212,6 @@ public class MainPhase extends Phase {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
-        enemy = game.getEnemy();
         CharacterCard character;
         character = player.getCharacterAtPos(posInField);
         // kalau tidak baru menyerang pada main phase 1
@@ -225,7 +227,6 @@ public class MainPhase extends Phase {
     public void removeSkillCard(int posInField) throws InvalidFieldIndexException, NoCardInFieldException {
         Player player,enemy;
         player = game.getPlayer();
-        enemy = game.getEnemy();
         CharacterCard characterLink;
         SkillCard skill = player.getSkillAtPos(posInField);
         characterLink = skill.getCharacterLinked();
