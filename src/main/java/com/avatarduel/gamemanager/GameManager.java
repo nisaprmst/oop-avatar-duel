@@ -28,8 +28,8 @@ public final class GameManager {
      */
     private GameManager() throws IOException, URISyntaxException {
         this.phase = new DrawPhase(this);
-        this.player = new Player();
-        this.enemy = new Player();
+        /*this.player = new Player();
+        this.enemy = new Player();*/
     }
     private static GameManager createInstance() {
         try {

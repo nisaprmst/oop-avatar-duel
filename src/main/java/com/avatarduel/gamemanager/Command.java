@@ -7,5 +7,6 @@ public enum Command {
     CHANGEPOSITION,
     REMOVESKILL,
     PLACESKILL,
-    ATTACKENEMY
+    ATTACKENEMY,
+    REMOVEHAND
 }

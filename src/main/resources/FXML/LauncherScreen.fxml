@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: LIGHTGRAY;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.LauncherScreenController">
+   <children>
+      <ImageView fitHeight="100.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@../com/avatarduel/card/image/391664-min.jpg" />
+         </image>
+      </ImageView>
+      <VBox alignment="TOP_CENTER" prefHeight="237.0" prefWidth="600.0">
+         <children>
+            <Label text="Welcome to Avatar Duel Game!">
+               <font>
+                  <Font name="High Tower Text" size="24.0" />
+               </font>
+            </Label>
+            <SplitPane dividerPositions="0.5" prefHeight="207.0" prefWidth="600.0">
+               <items>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Player 1 Name :">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="player1Name" prefHeight="25.0" prefWidth="186.0" promptText="Jaina Proodmore" text="Jaina Proodmore" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+                        <TextField fx:id="player1HP" prefHeight="25.0" prefWidth="186.0" promptText="100" text="100" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Player 1 HP :" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Character CSV: " GridPane.rowIndex="2">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Land CSV :" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Skill CSVs" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Destroy :" GridPane.rowIndex="5">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Powerup :" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Aura :" GridPane.rowIndex="7">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="player1Character" prefHeight="25.0" prefWidth="186.0" promptText="character.csv" text="character.csv" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                        <TextField fx:id="player1Land" prefHeight="25.0" prefWidth="186.0" promptText="land.csv" text="land.csv" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                        <TextField fx:id="player1Destroy" prefHeight="25.0" prefWidth="186.0" promptText="skill_destroy.csv" text="skill_destroy.csv" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+                        <TextField fx:id="player1Powerup" prefHeight="25.0" prefWidth="186.0" promptText="skill_powerup.csv" text="skill_powerup.csv" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+                        <TextField fx:id="player1Aura" prefHeight="25.0" prefWidth="186.0" promptText="skill_aura.csv" text="skill_aura.csv" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+                     </children>
+                  </GridPane>
+                  <GridPane>
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Player 2 Name :">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="player2Name" prefHeight="25.0" prefWidth="186.0" promptText="Jaina Proodmore" text="Jaina Proodmore" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+                        <TextField fx:id="player2HP" prefHeight="25.0" prefWidth="186.0" promptText="100" text="100" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Player 2 HP :" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Character CSV: " GridPane.rowIndex="2">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Land CSV :" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Skill CSVs" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Destroy :" GridPane.rowIndex="5">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Powerup :" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="17.0" prefWidth="102.0" text="Aura :" GridPane.rowIndex="7">
+                           <font>
+                              <Font name="High Tower Text" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="player2Character" prefHeight="25.0" prefWidth="186.0" promptText="character.csv" text="character.csv" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                        <TextField fx:id="player2Land" prefHeight="25.0" prefWidth="186.0" promptText="land.csv" text="land.csv" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                        <TextField fx:id="player2Destroy" prefHeight="25.0" prefWidth="186.0" promptText="skill_destroy.csv" text="skill_destroy.csv" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+                        <TextField fx:id="player2Powerup" prefHeight="25.0" prefWidth="186.0" promptText="skill_powerup.csv" text="skill_powerup.csv" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+                        <TextField fx:id="player2Aura" prefHeight="25.0" prefWidth="186.0" promptText="skill_aura.csv" text="skill_aura.csv" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+               </items>
+            </SplitPane>
+         </children>
+      </VBox>
+      <Button fx:id="loadButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#onLoadButtonClicked" text="Load Data">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>
