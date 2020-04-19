@@ -30,7 +30,7 @@ public class GameManager {
         this.player = new Player();
         this.enemy = new Player();
     }
-    public GameManager(Player player, Player enemy) {
+    public GameManager(Player player, Player enemy) throws IOException, URISyntaxException{
         this.phase = new DrawPhase(this);
         this.player = player;
         this.enemy = enemy;
