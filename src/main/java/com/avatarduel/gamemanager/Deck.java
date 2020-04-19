@@ -39,8 +39,8 @@ public class Deck extends ArrayList<Card>{
 
     public void loadCardFromPath() throws IOException, URISyntaxException {
         final String LAND_CSV_FILE_PATH = "../card/data/land.csv";
-        final String CHARACTER_CSV_FILE_PATH = "../card/data/land.csv";
-        final String SKILL_CSV_FILE_PATH = "../card/data/land.csv";
+        final String CHARACTER_CSV_FILE_PATH = "../card/data/character.csv";
+        final String SKILL_CSV_FILE_PATH = "../card/data/skill_aura.csv";
         CardLoader cardLoader = new CardLoader();
 
         cardLoader.loadLandCardsFromFile(LAND_CSV_FILE_PATH);

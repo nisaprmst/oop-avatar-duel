@@ -55,7 +55,6 @@ public class CardLoader {
      * @param path path for Land Card csv file
      * @throws IOException exception when reading csv file. for example: file not found error
      * @throws URISyntaxException exception when a string could not  be parsed as a URI reference
-     * @return ArrayList of LandCard loaded from path
      */
     public void loadLandCardsFromFile(String path) throws IOException, URISyntaxException {
         List<String[]> fileRows = readFromCSV(path);
@@ -78,8 +77,14 @@ public class CardLoader {
             loadedCards.add(as);
         }
     }
-    
 
+
+    /**
+     * Read the data from csv file in given path and store the data to array list of Card
+     * @param path path for Destroy Skill Card csv file
+     * @throws IOException exception when reading csv file. for example: file not found error
+     * @throws URISyntaxException exception when a string could not be parsed as a URI reference
+     */
     public void loadDestroySkillFromFile(String path) throws IOException, URISyntaxException {
         List<String[]> fileRows = readFromCSV(path);
         for (String[] row : fileRows) {
@@ -89,7 +94,12 @@ public class CardLoader {
         }
     }
 
-
+    /**
+     * Read the data from csv file in given path and store the data to array list of Card
+     * @param path path for Power Up SKill Card csv file
+     * @throws IOException exception when reading csv file. for example: file not found error
+     * @throws URISyntaxException exception when a string could not be parsed as a URI reference
+     */
     public void loadPowerUpSkillFromFile(String path) throws IOException, URISyntaxException{
         List<String[]> fileRows = readFromCSV(path);
         for (String[] row : fileRows) {

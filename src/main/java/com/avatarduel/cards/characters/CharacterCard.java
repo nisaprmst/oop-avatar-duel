@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.avatarduel.cards.Card;
 import com.avatarduel.cards.CardType;
 import com.avatarduel.cards.Element;
-import com.avatarduel.cards.skills.SkillCard;
 
 /**
  * This class inherit Card class to representing additional CharacterCard data
