@@ -80,7 +80,14 @@ public class CardInfoController implements Initializable {
         if(c.getCardType() == CardType.CHARACTER){
             return "Character";
         } else if(c.getCardType() == CardType.SKILL){
-            return "Skill";
+            SkillCard skill = (SkillCard) c;
+            if(skill.getSkillType() == Skill.AURA){
+                return "Aura Skill";
+            } else if(skill.getSkillType() == Skill.POWER){
+                return "Power Up Skill";
+            } else{
+                return "Destroy Skill";
+            }
         } else{
             return "Land";
         }

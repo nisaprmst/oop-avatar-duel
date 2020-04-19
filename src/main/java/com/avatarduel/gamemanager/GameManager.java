@@ -18,6 +18,13 @@ public class GameManager {
     private Player player;
     private Player enemy;
 
+    /** HAPUS INI KALO UDAH KELAR WKWKWK
+     *  buat singleton yang penting kelas2 lain bisa akses instancenya dari mana aja sih,
+     *  perlakuannya sama kayak gw bikin gameManager static di AvatarDuel,
+     *  jadinya bisa gw panggil dr mana aja.
+     *  thanksssss
+     */
+
 
     /**
      * Applied singleton design pattern, the constructor is private
