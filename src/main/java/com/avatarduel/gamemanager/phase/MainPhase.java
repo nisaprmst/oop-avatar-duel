@@ -166,15 +166,31 @@ public class MainPhase extends Phase {
         character.setDefPoint(def);
     }
 
-    public void destroyEnemyCharacter(DestroySkill skill, int pos, boolean isOnPlayer) throws NoCardInFieldException {
+    public void destroyEnemyCharacter(DestroySkill skill, int pos, boolean isOnPlayer) throws NoCardInFieldException, InvalidFieldIndexException {
         // pilih mana player mana enemy
         Player player, enemy;
         player = game.getPlayer();
         enemy = game.getEnemy();
         // menghancurkan kartu karakter
         if (isOnPlayer) {
+            // setelah diserang, kartu karakter lawan mati dan seluruh skill dihapus
+            CharacterCard characterEnemy = player.getCharacterAtPos(pos);
+            for (int idxCard : characterEnemy.getSkillLinkedAtEnemy()) {
+                enemy.removeSkill(idxCard);
+            }
+            for (int idxCard : characterEnemy.getSkillLinkedAtPlayer()) {
+                player.removeSkill(idxCard);
+            }
             player.removeCharacter(pos);
         } else {
+            // setelah diserang, kartu karakter lawan mati dan seluruh skill dihapus
+            CharacterCard characterEnemy = enemy.getCharacterAtPos(pos);
+            for (int idxCard : characterEnemy.getSkillLinkedAtEnemy()) {
+                player.removeSkill(idxCard);
+            }
+            for (int idxCard : characterEnemy.getSkillLinkedAtPlayer()) {
+                enemy.removeSkill(idxCard);
+            }
             enemy.removeCharacter(pos);
         }
     }
