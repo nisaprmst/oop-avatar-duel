@@ -83,6 +83,9 @@ public class MainScreenController implements Initializable {
     public void initialize(URL location, ResourceBundle resources){
         isGame = new SimpleBooleanProperty(true);
         battleLogController.addText("WELCOME TO AVATAR DUEL!");
+        battleLogController.addText("Guide for navigation:");
+        battleLogController.addText("1. Right click to open card's menu");
+        battleLogController.addText("2. Left click for choosing");
         initializeListeners();
         drawCommand();
         updateGameCondition();
