@@ -55,16 +55,13 @@ public class CardLoader {
      * @throws URISyntaxException exception when a string could not  be parsed as a URI reference
      * @return ArrayList of LandCard loaded from path
      */
-    public ArrayList<LandCard> loadLandCardsFromFile(String path) throws IOException, URISyntaxException {
+    public void loadLandCardsFromFile(String path) throws IOException, URISyntaxException {
         List<String[]> fileRows = readFromCSV(path);
-        ArrayList<LandCard> loadedLandCards = new ArrayList<>();
         for (String[] row : fileRows) {
             LandCard lc = new LandCard(Integer.parseInt(row[0]), row[1], row[3], Element.valueOf(row[2]), row[4]);
-            loadedLandCards.add(lc);
+            loadedCards.add(lc);
         }
-        return loadedLandCards;
     }
-
     /**
      * Read the data from csv file in given path and store the data to array list of Card
      * @param path path for Character Card csv file
