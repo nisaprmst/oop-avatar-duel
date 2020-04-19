@@ -18,6 +18,19 @@ Repo: https://github.com/nisaprmst/OOP-Avatar-Duel
 * Javafx - Already provided if you have installed JDK 8
 * IntelliJ - It is recomended to build the project using IntelliJ IDEA if you are using Windows
 
+### File Structure
+
+com
+  |- avatarduel
+  |   |- cards
+  |   |   |- characters
+  |   |   |- skills
+  |   |- controller
+  |   |- exceptions
+  |   |- gamemanager
+  |   |   |- phase
+  |   |- util
+
 ### Building and Running
 
 Before pulling or running the project, it is necessary to install the following:
@@ -50,9 +63,7 @@ user@userComputer:~/dir git clone https://github.com/nisaprmst/OOP-Avatar-Duel
 
 ## Testing
 
-For this project, we use JUnit Testing that is stored in src/test. To run the testing you can use the command below
-```
-```
+For this project, we use JUnit Testing that is stored in src/test. You can run the test using IntelliJ IDEA.
 
 ## Documentation
 

@@ -15,6 +15,12 @@ import javafx.scene.control.MenuItem;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * CardContextMenuController is a Controller for card's ContextMenu
+ * <p>
+ *     It holds all the possible menu for the card including its interaction with the MainScreen
+ * </p>
+ */
 public class CardContextMenuController implements Initializable {
     @FXML
     private ContextMenu cardcontextmenu;
@@ -28,7 +34,9 @@ public class CardContextMenuController implements Initializable {
     private MenuItem remove;
     private MenuItem removehand;
 
-
+    /**
+     * An String Property to be listened for command type
+     */
     private StringProperty command = new SimpleStringProperty("");
 
     public String getCommand() {
@@ -43,6 +51,12 @@ public class CardContextMenuController implements Initializable {
         this.command.set(command);
     }
 
+
+    /**
+     * Initializes CardContextMenuController by initializing MenuItems
+     * @param location location URL
+     * @param resources resource bundle
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources){
         summon = new MenuItem("Summon Attack");
@@ -63,11 +77,25 @@ public class CardContextMenuController implements Initializable {
         removehand.setOnAction(e -> setStateCommand("Remove Hand"));
     }
 
+
+    /**
+     * Setting the command in GUIState
+     * @param commandString The command type
+     */
     private void setStateCommand(String commandString){
         GUIState.command = commandString;
         setCommand(commandString);
     }
 
+    /**
+     * Set Menu Items of the card according to several parameters
+     * @param phase The current phase
+     * @param location The location of the card (field or hand)
+     * @param type The type of the card
+     * @param hasJustSummoned Whether this card has just been summoned
+     * @param hasAttacked Whether this card has just attacked
+     * @param position The position of this card (attack or defense)
+     */
     public void setMenuItems(Phase phase, String location, String type, boolean hasJustSummoned, boolean hasAttacked, Position position){
         int phaseInt = determinePhase(phase);
         cardcontextmenu.getItems().clear();
@@ -110,6 +138,11 @@ public class CardContextMenuController implements Initializable {
 
     }
 
+    /**
+     * Determine a phase with number
+     * @param phase Current Phase
+     * @return Integer identification of phase
+     */
     private int determinePhase(Phase phase){
         if(phase instanceof DrawPhase){
             return 1;

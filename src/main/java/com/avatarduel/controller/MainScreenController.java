@@ -6,7 +6,6 @@ import com.avatarduel.cards.skills.*;
 import com.avatarduel.exceptions.*;
 import com.avatarduel.gamemanager.*;
 import com.avatarduel.gamemanager.phase.*;
-import com.avatarduel.util.AlertBox;
 import com.avatarduel.util.ConfirmBox;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -26,6 +25,17 @@ import javafx.scene.paint.Color;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * MainScreenController is a Controller for MainScreen
+ * <p>
+ *     Main Screen holds the controlling ability of the components inside including:
+ *     1. Hand
+ *     2. Field
+ *     3. Card Info
+ *     4. Player Status
+ *     5. Battle Log and Phase Indicator
+ * </p>
+ */
 public class MainScreenController implements Initializable {
     @FXML
     private CardInfoController cardInfoController;
@@ -53,21 +63,37 @@ public class MainScreenController implements Initializable {
     private PlayerStatusController enemyStatusController;
     @FXML
     private PlayerStatusController playerStatusController;
-    private StringProperty str = new SimpleStringProperty("");
     private FXMLLoader cardloader;
     private CardController cardController;
     private ImageView card;
+
+
+    /**
+     * A BooleanProperty to be listened indicating if the game is still running
+     */
     private SimpleBooleanProperty isGame;
 
+
+    /**
+     * Initialize the MainScreenController by setting listeners, variables and render the screen for the first time
+     * @param location location URL
+     * @param resources resource bundle
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources){
         isGame = new SimpleBooleanProperty(true);
         battleLogController.addText("WELCOME TO AVATAR DUEL!");
+        battleLogController.addText("Guide for navigation:");
+        battleLogController.addText("1. Right click to open card's menu");
+        battleLogController.addText("2. Left click for choosing");
         initializeListeners();
         drawCommand();
         updateGameCondition();
     }
 
+    /**
+     * Initialize the listeners needed to be initialized in the beginning
+     */
     private void initializeListeners(){
         GUIState.hoveredProperty().addListener((k, oldValue, newValue) -> showCard());
         GUIState.state.addListener((k, oldValue, newValue) -> {
@@ -82,6 +108,10 @@ public class MainScreenController implements Initializable {
         });
     }
 
+
+    /**
+     * Update game condition by checking win state and rendering the screen
+     */
     private void updateGameCondition(){
         int win;
         Player player, enemy;
@@ -107,6 +137,13 @@ public class MainScreenController implements Initializable {
         }
     }
 
+
+    /**
+     * Determine which player wins the game
+     * @param player The current PLayer
+     * @param enemy The current Enemy
+     * @return
+     */
     private int determineWin(Player player, Player enemy){
         if(player.getHp() <= 0 || player.getDeck().size() <= 0){
             return 2;
@@ -115,6 +152,13 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Render Game Screen by the process
+     * 1. Clearing field and hand
+     * 2. Render field and hand
+     * 3. Render Phase Indicator
+     * 4. Render Players' status
+     */
     private void updateScreen(){
         clearfield();
         clearhand();
@@ -129,7 +173,10 @@ public class MainScreenController implements Initializable {
 
     }
 
-    public void clearfield(){
+    /**
+     * Clear the field rows from the card images
+     */
+    private void clearfield(){
         for (Node node: player1charfield.getChildren()) {
             ((StackPane) node).getChildren().clear();
         }
@@ -144,6 +191,10 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Set fields' for card disabled attribute
+     * @param isFieldDisabled
+     */
     private void setFieldDisable(boolean isFieldDisabled){
         player2skillfield.setDisable(isFieldDisabled);
         player2charfield.setDisable(isFieldDisabled);
@@ -151,12 +202,20 @@ public class MainScreenController implements Initializable {
         player1charfield.setDisable(isFieldDisabled);
     }
 
-    public void clearhand(){
+    /**
+     * Clear player's hand from the card images
+     */
+    private void clearhand(){
         player1hand.getChildren().clear();
         player2hand.getChildren().clear();
     }
 
-    public void renderplayerhand() throws Exception{
+
+    /**
+     * Render player's hand by iterating through the hand array, render accordingly, and also set contextMenuItem
+     * @throws Exception If there is any error from loading the image or accessing the arrays
+     */
+    private void renderplayerhand() throws Exception{
         String imgname ="";
         String type = "";
         ObservableList player1handchildren = player1hand.getChildren();
@@ -183,7 +242,11 @@ public class MainScreenController implements Initializable {
         }
     }
 
-    public void renderplayerfield() throws Exception{
+    /**
+     * Render players' field by iterating through the field array, render accordingly, and also set contextMenuItem
+     * @throws Exception If there is any error from loading the image or accessing the arrays
+     */
+    private void renderplayerfield() throws Exception{
         String imgname ="";
         String type = "";
         ObservableList player1skillfieldChildren = player1skillfield.getChildren();
@@ -243,7 +306,14 @@ public class MainScreenController implements Initializable {
         }
     }
 
-    public void renderhand(ObservableList handchildren, String imagename, String type) throws Exception{
+    /**
+     * Render each card in hand individually and setting its context menu
+     * @param handchildren The container of the image
+     * @param imagename The imagename
+     * @param type The card type
+     * @throws Exception if there is any error from loading the FXML, image or accessing array
+     */
+    private void renderhand(ObservableList handchildren, String imagename, String type) throws Exception{
         cardloader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/card.fxml"));
         card = cardloader.load();
         cardController = cardloader.getController();
@@ -258,7 +328,17 @@ public class MainScreenController implements Initializable {
 
     }
 
-    public void renderfield(StackPane fieldchildren, String imagename, String type, Position position, boolean hasJustSummoned, boolean hasAttacked) throws Exception{
+    /**
+     * Render each card in hand individually and setting its context menu
+     * @param fieldchildren The container of the image
+     * @param imagename The imagename
+     * @param type The card type
+     * @param position The card's position
+     * @param hasJustSummoned Whether this card is just summoned
+     * @param hasAttacked Whether this card has just attacked
+     * @throws Exception if there is any error from loading the FXML, image or accessing array
+     */
+    private void renderfield(StackPane fieldchildren, String imagename, String type, Position position, boolean hasJustSummoned, boolean hasAttacked) throws Exception{
         cardloader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/card.fxml"));
         card = cardloader.load();
         cardController = cardloader.getController();
@@ -274,6 +354,10 @@ public class MainScreenController implements Initializable {
 
     }
 
+    /**
+     *  Determine GUI State according to command in GUIState and current State.
+     *  This state is used for mapping interactions
+     */
     private void determineGUIState(){
         if(GUIState.command.equals("Attack") && GUIState.getState() == 0 && GameManager.getGameManager().getEnemy().isCharacterFieldEmpty()){
             battleLogController.addText("Begin attack processing...");
@@ -330,6 +414,10 @@ public class MainScreenController implements Initializable {
 
     }
 
+
+    /**
+     * Process commands when the input state is already done
+     */
     private void processCommand(){
         switch(GUIState.command){
             case "Summon":
@@ -362,6 +450,10 @@ public class MainScreenController implements Initializable {
 
     }
 
+
+    /**
+     * Process the Draw Command
+     */
     private void drawCommand(){
         try{
             GameManager.getGameManager().getPhase().process(Command.PLACESKILL, 0, 0, 0, true);
@@ -369,6 +461,10 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Process the Remove Skill Command
+     * @param posInField Skill's position on skill field
+     */
     private void removeCommand(int posInField){
         try{
             GameManager.getGameManager().getPhase().process(Command.REMOVESKILL, 0, posInField, 0, true);
@@ -377,6 +473,10 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Process the Remove Hand Command
+     * @param posInHand Card's position on hand
+     */
     private void removeHandCommand(int posInHand){
         try{
             GameManager.getGameManager().getPhase().process(Command.REMOVEHAND, posInHand, 0, 0, true);
@@ -385,6 +485,13 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Process the Summon command
+     * @param posInHand  Card's position on hand
+     * @param posInField Card's to be put position on field
+     * @param fieldLocation Which field the card is put
+     * @param summonPosition In what position will the card be summoned
+     */
     private void summonCommand(int posInHand, int posInField, int fieldLocation, Position summonPosition){
         Command command;
 
@@ -393,7 +500,6 @@ public class MainScreenController implements Initializable {
         } else{
             command = Command.SUMMONDEFENSE;
         }
-
         if(fieldLocation != 2){
             battleLogController.addText("Can't Summon there!");
         } else{
@@ -406,6 +512,11 @@ public class MainScreenController implements Initializable {
         }
     }
 
+
+    /**
+     * Process the Summon Land Command
+     * @param index Card's position on hand
+     */
     private void landCommand(int index){
         try{
             String element = GameManager.getGameManager().getPlayer().getCardsInHand().get(index).getElement().toString().toLowerCase();
@@ -416,6 +527,11 @@ public class MainScreenController implements Initializable {
         }
     }
 
+
+    /**
+     * Process the Change Position Command
+     * @param index Card's position in character field
+     */
     private void positionCommand(int index){
         try{
             GameManager.getGameManager().getPhase().process(Command.CHANGEPOSITION, 0, index, 0, true);
@@ -426,6 +542,13 @@ public class MainScreenController implements Initializable {
         }
     }
 
+
+    /**
+     * Process the Attack command
+     * @param source The location of attacker
+     * @param target The location of attacked
+     * @param targetLocation The row of where the attacked is
+     */
     private void attackCommand(int source, int target, int targetLocation){
         if(GameManager.getGameManager().getEnemy().isCharacterFieldEmpty()){
             try{
@@ -445,6 +568,14 @@ public class MainScreenController implements Initializable {
 
     }
 
+    /**
+     * Process the Skill Command
+     * @param posInHand Card's position on hand
+     * @param target Target's position on field
+     * @param targetLocation Target's row location
+     * @param fieldIndex In which index will the card be put
+     * @param fieldLocation In which row will the card be put
+     */
     private void skillCommand(int posInHand, int target, int targetLocation, int fieldIndex, int fieldLocation){
         boolean isOnPlayer = targetLocation == 3;
 
@@ -471,6 +602,9 @@ public class MainScreenController implements Initializable {
 
     }
 
+    /**
+     * Handle Next Phase Button Click
+     */
     @FXML
     private void onNextPhaseButtonClick(){
         if(GUIState.getState() == 0){
@@ -496,6 +630,10 @@ public class MainScreenController implements Initializable {
 
     }
 
+
+    /**
+     * Handle Cancel Button Click
+     */
     @FXML
     private void onCancelButtonClick(){
         if(GUIState.getState() != 0){
@@ -506,6 +644,10 @@ public class MainScreenController implements Initializable {
         }
     }
 
+
+    /**
+     * Render phase indicator according the the current phase
+     */
     private void renderPhaseIndicator(){
         Label prevLabel, currLabel;
         if(GameManager.getGameManager().getPhase().getType() == PhaseType.DRAW){
@@ -525,6 +667,10 @@ public class MainScreenController implements Initializable {
         currLabel.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+
+    /**
+     * Show card information
+     */
     private void showCard(){
         Card c;
         int location = GUIState.getHovLocation();
