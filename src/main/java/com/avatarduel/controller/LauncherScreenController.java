@@ -10,6 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 
+/**
+ * LauncherScreenController is a Controller for the game launcher
+ * <p>
+ *     The launcher itself is initiated after running the game.
+ *     Giving the opportunity for players to costumize name, hp, and deck.
+ * </p>
+ */
 public class LauncherScreenController {
     @FXML
     private TextField player1Name;
@@ -41,9 +48,11 @@ public class LauncherScreenController {
     private TextField player2Aura;
     @FXML
     private Button loadButton;
+
+    /**
+     * A BooleanProperty signaling is the game ready to start.
+     */
     BooleanProperty isGameReady = new SimpleBooleanProperty(false);
-    Player player1;
-    Player player2;
 
     public boolean isIsGameReady() {
         return isGameReady.get();
@@ -57,8 +66,18 @@ public class LauncherScreenController {
         this.isGameReady.set(isGameReady);
     }
 
+
+    /**
+     * Initiates player status and file loading from the input parameters.
+     * <p>
+     *     The method will catch for any exception from the input and ask the player to input again if caught.
+     *     If succeed, it will set the Player attribute of GameManager, indicating it is ready to start.
+     * </p>
+     */
     @FXML
     private void onLoadButtonClicked(){
+        Player player1;
+        Player player2;
         try{
             player1 = new Player(player1Character.getText(), player1Land.getText(), player1Destroy.getText(), player1Powerup.getText(), player1Aura.getText());
             player1.setNama(player1Name.getText());
@@ -77,6 +96,9 @@ public class LauncherScreenController {
 
     }
 
+    /**
+     * Setting isGameReady Property to true
+     */
     private void readyConfirm(){
         setIsGameReady(ConfirmBox.display("Success", "File is loaded!\n Player 1 please click below when ready"));
         System.out.println(isGameReadyProperty().getValue());

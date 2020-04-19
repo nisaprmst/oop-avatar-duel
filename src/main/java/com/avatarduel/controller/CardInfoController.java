@@ -20,6 +20,16 @@ import javafx.scene.text.TextFlow;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * CardInfoController is a Controller for CardInfo
+ * <p>
+ *     It holds all information about a card including:
+ *     1. Image
+ *     2. Name
+ *     3. Type and Element
+ *     4. Status (Power, Attack, Defense) if available
+ * </p>
+ */
 public class CardInfoController implements Initializable {
     @FXML
     ImageView cardImageContainer;
@@ -30,11 +40,21 @@ public class CardInfoController implements Initializable {
     @FXML
     Label cardDescription;
 
+
+    /**
+     * Initialize CardInfoController by setting blank info
+     * @param location location URL
+     * @param resources resource bundle
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setBlankInfo();
     }
 
+    /**
+     * Set the info for a specific card
+     * @param c Card to render the info
+     */
     public void setInfo(Card c){
         String imagePath = "";
         if(c instanceof CharacterCard){
@@ -50,24 +70,39 @@ public class CardInfoController implements Initializable {
         setDescription(c);
     }
 
+    /**
+     * Set blank info
+     */
     public void setBlankInfo(){
         String imagePath = "BlankCard.png";
         setcardImage(imagePath);
         clearInfo();
     }
 
+    /**
+     * Clear the current info for replace purpose
+     */
     private void clearInfo(){
         cardName.setText("");
         cardDescription.setText("");
         cardStatus.getChildren().clear();
     }
 
-    public void setcardImage(String imagepath){
+    /**
+     * Set card image to specific image
+     * @param imagepath The path to the corresponding card image
+     */
+    private void setcardImage(String imagepath){
         String path = getClass().getResource("../card/image/" + imagepath).toString();
         Image img = new Image(path, 250, 350, false, true);
         cardImageContainer.setImage(img);
     }
 
+
+    /**
+     * Apply a certain style to the label
+     * @param label FXML label component to be styled
+     */
     private void setLabelStyle(Label label){
         label.setMinHeight(22);
         label.setMaxHeight(22);
@@ -76,6 +111,12 @@ public class CardInfoController implements Initializable {
         label.setFont(cardDescription.getFont());
     }
 
+
+    /**
+     * Determine the type of certain card
+     * @param c Card to be determined type
+     * @return String of the Card Type
+     */
     private String determineType(Card c){
         if(c.getCardType() == CardType.CHARACTER){
             return "Character";
@@ -93,6 +134,11 @@ public class CardInfoController implements Initializable {
         }
     }
 
+    /**
+     * Determine the element of certain card
+     * @param c Card to be determined element
+     * @return String of the Card Element
+     */
     private String determineElement(Card c){
         if(c.getElement() == Element.AIR){
             return "Air";
@@ -107,6 +153,10 @@ public class CardInfoController implements Initializable {
         }
     }
 
+    /**
+     * Set card status to a card's status
+     * @param c Card to be shown the status
+     */
     private void setCardStatus(Card c){
         String type = determineType(c);
         String element = determineElement(c);
@@ -140,11 +190,19 @@ public class CardInfoController implements Initializable {
 
     }
 
-    public void setName(Card c){
+    /**
+     * Set card name to a card's name
+     * @param c Card to be shown the name
+     */
+    private void setName(Card c){
         cardName.setText(c.getName());
     }
 
-    public void setDescription(Card c){
+    /**
+     * Set card description to a card's description
+     * @param c Card to be shown the description
+     */
+    private void setDescription(Card c){
         cardDescription.setText(c.getDescription());
     }
 }

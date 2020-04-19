@@ -19,17 +19,29 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CardController implements Initializable {
+/**
+ * CardController is a Controller for Card
+ * <p>
+ *     It holds everything needed for a card to work, including
+ *     1. Image
+ *     2. Context Menu
+ *     3. Listeners and method for location card in the GUI
+ * </p>
+ */
+public class CardController {
     @FXML
     private ImageView card;
 
+
+    /**
+     * An Integer Property to be listened for command source
+     */
     private IntegerProperty source  = new SimpleIntegerProperty(999);
 
+    /**
+     * An Integer Property to be listened for command target
+     */
     private IntegerProperty target  = new SimpleIntegerProperty(999);
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
 
     public int getSource() {
         return source.get();
@@ -55,6 +67,14 @@ public class CardController implements Initializable {
         this.target.set(target);
     }
 
+
+    /**
+     * Set Card Image to a certain card image
+     * @param imagename The name of the image
+     * @param location The location of the card (hand, or field)
+     * @param type The type of the card
+     * @param position The position of the card (Attack or Defense)
+     */
     public void setCardImage(String imagename, String location, String type, Position position){
         int requestedWidth, requestedHeight;
         String path = getClass().getResource("../card/image/" + imagename).toString();
@@ -110,6 +130,16 @@ public class CardController implements Initializable {
         });
     }
 
+    /**
+     * Set Context Menu Items for the card
+     * @param phase Current Phase
+     * @param location The location of the card (hand or field)
+     * @param type The Type of the card
+     * @param hasJustSummoned Whether this card has just been summoned
+     * @param hasAttacked Whether this card has just attacked
+     * @param position The position of the card (Attack or Defense)
+     * @throws Exception if there are any error in loading FXML
+     */
     public void setContextMenuItem(Phase phase, String location, String type, boolean hasJustSummoned, boolean hasAttacked, Position position) throws Exception{
         FXMLLoader contextMenuLoader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/CardContextMenu.fxml"));
         ContextMenu contextMenu = contextMenuLoader.load();
@@ -133,6 +163,9 @@ public class CardController implements Initializable {
 
     }
 
+    /**
+     * Set command source in GUIState to where this card is
+     */
     private void setCommandSource(){
         int i;
         Parent parent = card.getParent();
@@ -156,6 +189,10 @@ public class CardController implements Initializable {
         setSource(i);
     }
 
+
+    /**
+     * Set command target in GUIState to where this card is
+     */
     private void setCommandTarget(){
         Parent parent = card.getParent().getParent();
         int i;
@@ -170,6 +207,12 @@ public class CardController implements Initializable {
         setTarget(i);
     }
 
+
+    /**
+     * Determine location of this card
+     * @param parent The parent of the card
+     * @return In which field or hand is this card
+     */
     private int determineLocation(Parent parent){
         String id = parent.getId();
         if(id == null){
@@ -201,6 +244,10 @@ public class CardController implements Initializable {
         return location;
     }
 
+    /**
+     * Set source location in GUIState the this card's location
+     * @param parent The parent of this card
+     */
     private void setSourceLocation(Parent parent){
         int location = determineLocation(parent);
 
@@ -208,6 +255,10 @@ public class CardController implements Initializable {
 
     }
 
+    /**
+     * Set target location in GUIState the this card's location
+     * @param parent The parent of this card
+     */
     private void setTargetLocation(Parent parent){
         int location = determineLocation(parent);
 
