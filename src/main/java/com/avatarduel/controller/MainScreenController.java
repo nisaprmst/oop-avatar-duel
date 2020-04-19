@@ -13,6 +13,7 @@ import com.avatarduel.exceptions.NoCardInFieldException;
 import com.avatarduel.gamemanager.Command;
 import com.avatarduel.gamemanager.Player;
 import com.avatarduel.gamemanager.phase.*;
+import com.avatarduel.util.ConfirmBox;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
@@ -68,13 +69,9 @@ public class MainScreenController implements Initializable {
     CardController cardController;
     ImageView card;
 
-    Phase phase = AvatarDuel.gameManager.getPhase();
-    Player player = AvatarDuel.gameManager.getPlayer();
-
-    int count = 0;
-
     @Override
     public void initialize(URL location, ResourceBundle resources){
+        ConfirmBox.display("Are you sure?", "yes?");
         GUIState.hoveredProperty().addListener((k, oldValue, newValue) -> showCard());
         GUIState.state.addListener((k, oldValue, newValue) -> {
             if(newValue.intValue() == 2){
@@ -235,6 +232,7 @@ public class MainScreenController implements Initializable {
         cardController.targetProperty().addListener((k, oldValue, newValue) -> {
             battleLogController.addText("Target is: " + newValue.intValue());
             determineGUIState();});
+        System.out.println(imagename);
         cardController.setCardImage(imagename, "hand", type, Position.ATTACK);
         cardController.setContextMenuItem(AvatarDuel.gameManager.getPhase(), "hand", type, false, false);
 
@@ -467,6 +465,7 @@ public class MainScreenController implements Initializable {
         if(AvatarDuel.gameManager.getPhase().getType() == PhaseType.DRAW){
             try{
                 AvatarDuel.gameManager.getPhase().process(Command.SUMMONLAND, 0, 0, 0, true);
+                battleLogController.addText(AvatarDuel.gameManager.getPlayer().getDeck().size() + "");
             } catch (Exception e){
                 battleLogController.addText("Cant draw");
             }

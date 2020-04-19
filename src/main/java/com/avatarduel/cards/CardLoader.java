@@ -2,6 +2,8 @@ package com.avatarduel.cards;
 
 import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.skills.AuraSkill;
+import com.avatarduel.cards.skills.DestroySkill;
+import com.avatarduel.cards.skills.PowerUpSkill;
 import com.avatarduel.util.CSVReader;
 
 import java.io.File;
@@ -77,13 +79,23 @@ public class CardLoader {
         }
     }
     
-    // TODO: 4/10/2020 Implement the body of loadDestroySkillFromFile
-    public void loadDestroySkillFromFile(String path) {
 
+    public void loadDestroySkillFromFile(String path) throws IOException, URISyntaxException {
+        List<String[]> fileRows = readFromCSV(path);
+        for (String[] row : fileRows) {
+            DestroySkill as = new DestroySkill(Integer.parseInt(row[0]), row[1], row[3], Element.valueOf(row[2]),
+                    row[4], Integer.parseInt(row[5]));
+            loadedCards.add(as);
+        }
     }
 
-    // TODO: 4/10/2020 Implement the body of loadPowerUpSkillFromFile
-    public void loadPowerUpSkillFromFile(String path) {
-        
+
+    public void loadPowerUpSkillFromFile(String path) throws IOException, URISyntaxException{
+        List<String[]> fileRows = readFromCSV(path);
+        for (String[] row : fileRows) {
+            PowerUpSkill as = new PowerUpSkill(Integer.parseInt(row[0]), row[1], row[3], Element.valueOf(row[2]),
+                    row[4], Integer.parseInt(row[5]));
+            loadedCards.add(as);
+        }
     }
 }

@@ -42,6 +42,8 @@ public class Player {
             cl.loadLandCardsFromFile("../card/data/land.csv");
             cl.loadCharacterCardsFromFile("../card/data/character.csv");
             cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
+            cl.loadDestroySkillFromFile("../card/data/skill_destroy.csv");
+            cl.loadPowerUpSkillFromFile("../card/data/skill_powerup.csv");
 
             deck.loadDeck(cl.getLoadedCards());
             System.out.println(deck.size());

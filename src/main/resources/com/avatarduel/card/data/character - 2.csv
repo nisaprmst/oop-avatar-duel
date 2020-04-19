@@ -1,0 +1,22 @@
+id	name	element	description	imagepath	attack	defense	power
+17	Katara	WATER	Waterbending master from Southern Water Tribe, sister of Sokka, and friend of Aang.	Katara.png	13	7	5
+18	Sokka	WATER	Water Tribe warrior of the Southern Water Tribe.	Sokka.png	6	10	3
+19	Yue	WATER	Princess of the Northern Water Tribe.	Yue.png	4	9	2
+20	Hakoda	WATER	Father of Sokka and Katara, leading the Invasion of the Fire Nation.	Hakoda.png	7	11	4
+21	Huu	WATER	Waterbending master from Foggy Swamp Tribe.	Huu.png	8	5	2
+22	Hama	WATER	Developer of bloodbending.	Hama.png	12	6	4
+23	Pakku	WATER	Aang's teacher for waterbending at Northern Water Tribe.	Pakku.png	10	6	3
+24	Arnook	WATER	Chief of the Northern Water Tribe.	Arnook.png	4	7	1
+25	Kuruk	WATER	Water Tribe Avatar, predecessor of Avatar Kyoshi.	Kuruk.png	6	14	5
+26	Bato	WATER	Friend of Hakoda since childhood.	Bato.png	7	9	3
+27	Due	WATER	Waterbending master from Foggy Swamp Tribe.	Due.png	5	8	2
+28	Hahn	WATER	Yue's fiance.	Hahn.png	8	3	1
+29	Aang	AIR	Avatar Roku's successor. Also learned how to energybending.	Aang.png	14	6	5
+30	Appa	AIR	Aang's loyal sky bison friend.	Appa.png	5	8	2
+31	Momo	AIR	Aang's loyal winged lemur friend.	Momo.png	6	5	1
+32	Gyatso	AIR	Aang's guardian, mentor, and father figure.	Gyatso.png	5	10	3
+33	Teo	AIR	Paraplegic Earth Kingdom boy who lived in the Northern Air Temple with his father, the mechanist.	Teo.png	5	6	1
+34	Yangchen	AIR	Air Nomad Avatar before Aang, predecessor of Kuruk.	Yangchen.png	10	8	4
+35	Afiko	AIR	Airbender of Southern Air Temple that revealed the location of his home to the Fire Nation.	Afiko.png	7	6	2
+36	Iio	AIR	Air Nomad nun and the Mother Superior of the Eastern Air Temple.	Iio.png	5	8	2
+37	Pathik	AIR	A nomadic supercentenarian who possessed great knowledge of the Spirit World.	Pathik.png	9	9	4
