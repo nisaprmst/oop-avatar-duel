@@ -518,7 +518,7 @@ public class MainScreenController implements Initializable {
                         c = AvatarDuel.gameManager.getPlayer().getField().getSkillInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(Exception e){
-                        battleLogController.addText(e.getMessage());
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case 3:
@@ -527,7 +527,7 @@ public class MainScreenController implements Initializable {
                         c = AvatarDuel.gameManager.getPlayer().getField().getCharacterInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(Exception e){
-                        battleLogController.addText(e.getMessage());
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case 4:
@@ -536,7 +536,7 @@ public class MainScreenController implements Initializable {
                         c = AvatarDuel.gameManager.getEnemy().getField().getCharacterInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(Exception e){
-                        battleLogController.addText(e.getMessage());
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case 5:
@@ -545,7 +545,7 @@ public class MainScreenController implements Initializable {
                         c = AvatarDuel.gameManager.getEnemy().getField().getSkillInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(Exception e){
-                        battleLogController.addText(e.getMessage());
+                        System.out.println(e.getMessage());
                     }
                     break;
                 /*case 6:

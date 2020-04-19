@@ -19,8 +19,8 @@ public class CharacterCard extends Card {
     private Position position; /* Can be either ATTACK or DEFENSE */
     private boolean justSummoned; /* If is set true, the CharacterCard is just summoned to the field and can't attack */
     private boolean isPowerUp; /* If is set true, the CharacterCard is equipped with power up skill */
-    private ArrayList<SkillCard> skillLinked; /* To store any skill cards that attach to this Card */
-
+    private ArrayList<Integer> skillLinkedAtPlayer;
+    private ArrayList<Integer> skillLinkedAtEnemy;
     /**
      * Parameterized constructor. The fifth first argument are the same with the parent.
      * @param attack The integer value of character attack point.
@@ -37,7 +37,8 @@ public class CharacterCard extends Card {
         this.hasAttacked = false;
         this.justSummoned = false;
         this.isPowerUp = false;
-        this.skillLinked = new ArrayList<>();
+        this.skillLinkedAtPlayer = new ArrayList<>();
+        this.skillLinkedAtEnemy = new ArrayList<>();
     }
 
     public CharacterCard() { super(-1); }
@@ -53,7 +54,8 @@ public class CharacterCard extends Card {
     public Position getPosition() { return this.position; }
     public boolean getJustSummoned() { return this.justSummoned; }
     public boolean getIsPowerUp() { return this.isPowerUp; }
-    public ArrayList<SkillCard> getSkillLinked() { return this.skillLinked; }
+    public ArrayList<Integer> getSkillLinkedAtEnemy() { return skillLinkedAtEnemy; }
+    public ArrayList<Integer> getSkillLinkedAtPlayer() { return skillLinkedAtPlayer; }
 
     public void setHasAttacked(boolean param) { this.hasAttacked = param; }
     public void setPosition(Position pos) { this.position = pos; }
@@ -61,15 +63,26 @@ public class CharacterCard extends Card {
     public void setDefPoint(int def) { this.defense = def; }
     public void setJustSummoned(boolean param) { this.justSummoned = param; }
     public void setIsPowerUp(boolean param) { this.isPowerUp = param; }
-    public void setSkillLinked(ArrayList<SkillCard> skillLinked) {
-        this.skillLinked = skillLinked;
+    public void setSkillLinkedAtEnemy(ArrayList<Integer> skillLinkedAtEnemy) {
+        this.skillLinkedAtEnemy = skillLinkedAtEnemy;
+    }
+    public void setSkillLinkedAtPlayer(ArrayList<Integer> skillLinkedAtPlayer) {
+        this.skillLinkedAtPlayer = skillLinkedAtPlayer;
     }
 
-    public void addSkill(SkillCard card) {
-        this.skillLinked.add(card);
+    public void addSkill(int index, boolean isOnPlayer) {
+        if (isOnPlayer) {
+            this.skillLinkedAtPlayer.add(index);
+        } else {
+            this.skillLinkedAtEnemy.add(index);
+        }
     }
-    public void removeSkill(SkillCard card) {
-        this.skillLinked.remove(card);
+    public void removeSkill(int index, boolean isOnPlayer) {
+        if (isOnPlayer) {
+            this.skillLinkedAtPlayer.remove(index);
+        } else {
+            this.skillLinkedAtEnemy.remove(index);
+        }
     }
 
     @Override

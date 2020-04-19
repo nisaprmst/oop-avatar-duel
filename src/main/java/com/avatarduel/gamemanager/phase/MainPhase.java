@@ -114,7 +114,7 @@ public class MainPhase extends Phase {
                 }
                 skill.setCharacterLinked(character);
                 if (skill.getSkillType() == Skill.AURA) {
-                    character.addSkill(skill);
+                    character.addSkill(posInField, isOnPlayer);
                     AuraSkill aura = (AuraSkill) skill;
                     this.addAuratoCharacter(aura, target, isOnPlayer);
                 } else if (skill.getSkillType() == Skill.DESTROY) {
@@ -123,7 +123,7 @@ public class MainPhase extends Phase {
                     // setelah menghancurkan karakter lawan, kartu destroy card hancur
                     player.removeSkill(posInField);
                 } else if (skill.getSkillType() == Skill.POWER) {
-                    character.addSkill(skill);
+                    character.addSkill(posInField, isOnPlayer);
                     PowerUpSkill power = (PowerUpSkill) skill;
                     this.addPowerUptoCharacter(power, target);
                 }

@@ -48,11 +48,18 @@ public class BattlePhase extends Phase {
                 // kalo attack lebih besar dan posisi enemy bukan bertahan maka HP enemy berkurang
                 if (enemy.getPositionAtPos(posEnemy) == Position.ATTACK || player.getIsPowerUpAtPos(posPlayer)) {
                     enemy.substractHp(att);
+                } 
+                // setelah diserang, kartu karakter lawan mati dan seluruh skill dihapus
+                CharacterCard characterEnemy = enemy.getCharacterAtPos(posEnemy);
+                for (int idxCard : characterEnemy.getSkillLinkedAtEnemy()) {
+                    player.removeSkill(idxCard);
                 }
-                // setelah diserang, kartu karakter lawan mati
+                for (int idxCard : characterEnemy.getSkillLinkedAtPlayer()) {
+                    enemy.removeSkill(idxCard);
+                }
                 enemy.removeCharacter(posEnemy);
-                CharacterCard character = player.getCharacterAtPos(posPlayer);
-                character.setHasAttacked(true); // satu karakter hanya bisa menyerang 1x tiap turn
+                CharacterCard characterPlayer = player.getCharacterAtPos(posPlayer);
+                characterPlayer.setHasAttacked(true); // satu karakter hanya bisa menyerang 1x tiap turn
             }
         }
     }
