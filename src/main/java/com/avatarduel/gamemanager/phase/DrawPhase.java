@@ -19,6 +19,13 @@ public class DrawPhase extends Phase {
         player = game.getPlayer();
         player.draw();
         player.resetPower();
+        for(int i = 0; i < 6; i++){
+            try{
+                player.getCharacterAtPos(i).setJustSummoned(false);
+            } catch (Exception e){
+
+            }
+        }
     }
 
 }
