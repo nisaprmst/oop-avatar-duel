@@ -19,7 +19,11 @@ public class PlayerTest {
 
     @Before
     public void setUp() {
-        player = new Player();
+        try {
+            player = new Player();
+        } catch (Exception e) {
+
+        }
         player.setNama("Panji");
         LandCard land = new LandCard(1, "entah", "coba", Element.AIR, "cobs");
         player.addPower(land);
@@ -99,18 +103,50 @@ public class PlayerTest {
 
     @Test
     public void removeFromHand() {
+        player.removeFromHand(2);
+        assertEquals((int) 6, (int)player.getCardsInHand().size());
     }
 
     @Test
     public void removeCharacter() {
+        CharacterCard characterCard = new CharacterCard();
+        boolean thrown = false;
+        try {
+            player.getField().placeCharacterInColumn(characterCard, 2);
+            player.removeCharacter(2);
+        } catch (NoCardInFieldException e) {
+            thrown = true;
+        } catch (Exception e) {
+
+        }
+        assertFalse(thrown);
     }
 
     @Test
     public void removeSkill() {
+        SkillCard skillCard = new SkillCard();
+        boolean thrown = false;
+        try {
+            player.getField().placeSkillInColumn(skillCard, 2);
+            player.removeSkill(2);
+        } catch (NoCardInFieldException e) {
+            thrown = true;
+        } catch (Exception e) {
+
+        }
+        assertFalse(thrown);
     }
 
     @Test
     public void canAttack() {
+        CharacterCard characterCard = new CharacterCard();
+        try {
+            player.getField().placeCharacterInColumn(characterCard, 2);
+        } catch (Exception e) {
+
+        }
+        assertTrue(player.canAttack(2));
+
     }
 
     @Test
