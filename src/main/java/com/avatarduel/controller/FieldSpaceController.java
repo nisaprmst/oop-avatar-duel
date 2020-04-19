@@ -3,6 +3,7 @@ package com.avatarduel.controller;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
@@ -23,6 +24,8 @@ public class FieldSpaceController implements Initializable {
                 determineLocation();
             }
         });
+
+        rect.setCursor(Cursor.HAND);
 
 
     }

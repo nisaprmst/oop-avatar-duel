@@ -54,6 +54,9 @@ public class CardContextMenuController implements Initializable {
         defense.setOnAction(e -> setStateCommand("Defense"));
         attack.setOnAction(e -> setStateCommand("Attack"));
         skilluse.setOnAction(e -> setStateCommand("Skill"));
+        landuse.setOnAction(e -> setStateCommand("Land"));
+        changeposition.setOnAction(e -> setStateCommand("Change Position"));
+        remove.setOnAction(e -> setStateCommand("Remove Skill"));
     }
 
     private void setStateCommand(String commandString){
@@ -61,7 +64,7 @@ public class CardContextMenuController implements Initializable {
         setCommand(commandString);
     }
 
-    public void setMenuItems(Phase phase, String location, String type){
+    public void setMenuItems(Phase phase, String location, String type, boolean hasJustSummoned, boolean hasAttacked){
         int phaseInt = determinePhase(phase);
         cardcontextmenu.getItems().clear();
         if(!type.equals("BlankCard")){
@@ -77,17 +80,22 @@ public class CardContextMenuController implements Initializable {
                         } else if(type.equals("SkillCard")){
                             cardcontextmenu.getItems().addAll(skilluse);
                         }
-                        cardcontextmenu.getItems().addAll(remove);
                     } else if(location.equals("field")){
                         if(type.equals("CharacterCard")){
                             cardcontextmenu.getItems().addAll(changeposition);
+                        } else if(type.equals("SkillCard")){
+                            cardcontextmenu.getItems().addAll(remove);
                         }
-                        cardcontextmenu.getItems().addAll(remove);
                     }
                     break;
                 case 3: // Battle Phase
                     if(location.equals("field")){
-                        cardcontextmenu.getItems().addAll(attack);
+                        if(type.equals("CharacterCard")){
+                            if(!hasJustSummoned && !hasAttacked){
+                                cardcontextmenu.getItems().addAll(attack);
+                            }
+                        }
+
                     }
                     break;
                 case 4:

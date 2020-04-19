@@ -24,7 +24,7 @@
             <Insets top="20.0" />
          </VBox.margin>
       </Separator>
-      <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="280.0">
+      <VBox fx:id="cardInfoDetaill" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="280.0">
          <VBox.margin>
             <Insets left="10.0" />
          </VBox.margin>
@@ -34,22 +34,8 @@
                   <Font name="High Tower Text" size="22.0" />
                </font>
             </Label>
-            <Label fx:id="cardPower" alignment="CENTER" contentDisplay="CENTER" text="Power : 2">
-               <font>
-                  <Font name="High Tower Text" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="cardAttack" alignment="CENTER" contentDisplay="CENTER" text="Attack : 2">
-               <font>
-                  <Font name="High Tower Text" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="cardDefense" alignment="CENTER" contentDisplay="CENTER" text="Defense : 1">
-               <font>
-                  <Font name="High Tower Text" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="cardDescription" alignment="CENTER" contentDisplay="CENTER" text="Princess of the Fire Nation, daughter of Fire Lord Ozai." wrapText="true">
+            <TextFlow fx:id="cardStatus" maxHeight="90.0" maxWidth="280.0" minHeight="90.0" minWidth="280.0" prefHeight="90.0" prefWidth="280.0" />
+            <Label fx:id="cardDescription" alignment="CENTER" contentDisplay="CENTER" text="orin" wrapText="true">
                <font>
                   <Font name="High Tower Text Italic" size="18.0" />
                </font>

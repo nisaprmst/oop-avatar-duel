@@ -6,14 +6,13 @@ import com.avatarduel.cards.CardType;
 import com.avatarduel.cards.Element;
 import com.avatarduel.cards.LandCard;
 import com.avatarduel.cards.characters.CharacterCard;
+import com.avatarduel.cards.characters.Position;
 import com.avatarduel.cards.skills.SkillCard;
 import com.avatarduel.exceptions.InvalidFieldIndexException;
+import com.avatarduel.exceptions.NoCardInFieldException;
 import com.avatarduel.gamemanager.Command;
 import com.avatarduel.gamemanager.Player;
-import com.avatarduel.gamemanager.phase.BattlePhase;
-import com.avatarduel.gamemanager.phase.DrawPhase;
-import com.avatarduel.gamemanager.phase.MainPhase;
-import com.avatarduel.gamemanager.phase.Phase;
+import com.avatarduel.gamemanager.phase.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
@@ -21,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -57,6 +57,10 @@ public class MainScreenController implements Initializable {
     private HBox player2emptyskillfield;
     @FXML
     private BattleLogController battleLogController;
+    @FXML
+    private PlayerStatusController enemyStatusController;
+    @FXML
+    private PlayerStatusController playerStatusController;
 
     private StringProperty str = new SimpleStringProperty("");
 
@@ -71,37 +75,53 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        updateScreen();
         GUIState.hoveredProperty().addListener((k, oldValue, newValue) -> showCard());
         GUIState.state.addListener((k, oldValue, newValue) -> {
             if(newValue.intValue() == 2){
+                battleLogController.addText("Field disabled");
                 setFieldDisable(true);
             }
         });
 
-        GUIState.fieldLocationProperty().addListener((k, oldValue, newValue) -> determineGUIState());
+        GUIState.fieldLocationProperty().addListener((k, oldValue, newValue) -> {
+            battleLogController.addText("Location is: " + newValue.intValue());
+            if(newValue.intValue() != 999){
+                determineGUIState();
+            }
+        });
 
-        str.addListener((k, oldValue, newValue) -> System.out.println(newValue));
+        drawCommand();
+        updateScreen();
+
     }
-
     public void updateScreen(){
         clearfield();
         clearhand();
         try{
             renderplayerhand();
+            renderplayerfield();
         } catch (Exception e){
-            System.out.print(e.getMessage());
+            System.out.print(e);
         }
-        //fillfield()
         renderPhaseIndicator();
+        enemyStatusController.setStatus(AvatarDuel.gameManager.getEnemy());
+        playerStatusController.setStatus(AvatarDuel.gameManager.getPlayer());
 
     }
 
     public void clearfield(){
-        player1charfield.getChildren().clear();
-        player2charfield.getChildren().clear();
-        player1skillfield.getChildren().clear();
-        player1skillfield.getChildren().clear();
+        for (Node node: player1charfield.getChildren()) {
+            ((StackPane) node).getChildren().clear();
+        }
+        for (Node node: player2charfield.getChildren()) {
+            ((StackPane) node).getChildren().clear();
+        }
+        for (Node node: player1skillfield.getChildren()) {
+            ((StackPane) node).getChildren().clear();
+        }
+        for (Node node: player2skillfield.getChildren()) {
+            ((StackPane) node).getChildren().clear();
+        }
     }
 
     private void setFieldDisable(boolean isFieldDisabled){
@@ -133,10 +153,6 @@ public class MainScreenController implements Initializable {
                     imgname = "land/" + c.getImagePath();
                     type = "LandCard";
                 }
-            //} else{
-            //    imgname = "BlankCard.png";
-            //    type = "BlankCard";
-            //}
 
             renderhand(player1hand.getChildren(),imgname, type);
         }
@@ -144,172 +160,211 @@ public class MainScreenController implements Initializable {
         for(Card c: AvatarDuel.gameManager.getEnemy().getCardsInHand()){
             imgname = "BlankCard.png";
             type = "BlankCard";
-            /*if(AvatarDuel.gameManager.turn == 2){
-                if(c instanceof CharacterCard){
-                    imgname = "character/" + c.getImagePath();
-                    type = "CharacterCard";
-                } else if(c instanceof SkillCard){
-                    imgname = "skill/" + c.getImagePath();
-                    type = "SkillCard";
-                } else if(c instanceof LandCard){
-                    imgname = "land/" + c.getImagePath();
-                    type = "LandCard";
-                }
-            } else{
-                imgname = "BlankCard.png";
-                type = "BlankCard";
-            }*/
 
             renderhand(player2hand.getChildren(), imgname, type);
         }
     }
 
-   /* public void renderfield() throws Exception{
+    public void renderplayerfield() throws Exception{
         String imgname ="";
         String type = "";
         ObservableList player1skillfieldChildren = player1skillfield.getChildren();
         ObservableList player1charfieldChildren = player1charfield.getChildren();
         ObservableList player2charfieldChildren = player2charfield.getChildren();
         ObservableList player2skillfieldChildren = player2skillfield.getChildren();
-
-        for(Card c: AvatarDuel.gameManager.getPlayer().getField().getSkillInColumn(1)){
-            //if(AvatarDuel.gameManager.turn == 1){
-            if(c instanceof CharacterCard){
-                imgname = "character/" + c.getImagePath();
-                type = "CharacterCard";
-            } else if(c instanceof SkillCard){
+        // Render Player Skill Field
+        for(int i = 0; i < 6; i++) { // 6 is the max space
+            Position position = Position.ATTACK;
+            try{
+                Card c = AvatarDuel.gameManager.getPlayer().getField().getSkillInColumn(i);
                 imgname = "skill/" + c.getImagePath();
                 type = "SkillCard";
-            } else if(c instanceof LandCard){
-                imgname = "land/" + c.getImagePath();
-                type = "LandCard";
-            }
-            //} else{
-            //    imgname = "BlankCard.png";
-            //    type = "BlankCard";
-            //}
+                renderfield((StackPane) player1skillfieldChildren.get(i), imgname, type, position, false, false);
+            } catch(NoCardInFieldException e){
 
-            renderhand(player1hand.getChildren(),imgname, type);
+            }
         }
 
-        for(Card c: AvatarDuel.gameManager.getPlayer().getCardsInHand()){
-            //if(AvatarDuel.gameManager.turn == 1){
-            if(c instanceof CharacterCard){
+        // Render Player Character Field
+        for(int i = 0; i < 6; i++) { // 6 is the max space
+            Position position = Position.ATTACK;
+            try{
+                CharacterCard c = AvatarDuel.gameManager.getPlayer().getField().getCharacterInColumn(i);
                 imgname = "character/" + c.getImagePath();
                 type = "CharacterCard";
-            } else if(c instanceof SkillCard){
+                position = ( c).getPosition();
+                renderfield((StackPane)player1charfieldChildren.get(i), imgname, type, position, c.getJustSummoned(), c.getHasAttacked());
+            } catch(NoCardInFieldException e){
+
+            }
+        }
+
+        // Render Enemy Character Field
+        for(int i = 0; i < 6; i++) { // 6 is the max space
+            Position position = Position.ATTACK;
+            try{
+                CharacterCard c = AvatarDuel.gameManager.getEnemy().getField().getCharacterInColumn(i);
+                imgname = "character/" + c.getImagePath();
+                type = "CharacterCard";
+                position = (c).getPosition();
+                renderfield((StackPane)player2charfieldChildren.get(i), imgname, type, position, c.getJustSummoned(), c.getHasAttacked());
+            } catch(NoCardInFieldException e){
+            }
+        }
+
+        // Render Enemy Skill Field
+        for(int i = 0; i < 6; i++) { // 6 is the max space
+            Position position = Position.ATTACK;
+            try{
+                Card c = AvatarDuel.gameManager.getEnemy().getField().getSkillInColumn(i);
                 imgname = "skill/" + c.getImagePath();
                 type = "SkillCard";
-            } else if(c instanceof LandCard){
-                imgname = "land/" + c.getImagePath();
-                type = "LandCard";
+                renderfield((StackPane)player2skillfieldChildren.get(i), imgname, type, position, false, false);
+            } catch(NoCardInFieldException e){
             }
-            //} else{
-            //    imgname = "BlankCard.png";
-            //    type = "BlankCard";
-            //}
-
-            renderhand(player1hand.getChildren(),imgname, type);
         }
-
-        for(Card c: AvatarDuel.gameManager.getEnemy().getCardsInHand()){
-            imgname = "BlankCard.png";
-            type = "BlankCard";
-            *//*if(AvatarDuel.gameManager.turn == 2){
-                if(c instanceof CharacterCard){
-                    imgname = "character/" + c.getImagePath();
-                    type = "CharacterCard";
-                } else if(c instanceof SkillCard){
-                    imgname = "skill/" + c.getImagePath();
-                    type = "SkillCard";
-                } else if(c instanceof LandCard){
-                    imgname = "land/" + c.getImagePath();
-                    type = "LandCard";
-                }
-            } else{
-                imgname = "BlankCard.png";
-                type = "BlankCard";
-            }*//*
-
-            renderhand(player2hand.getChildren(), imgname, type);
-        }
-    }*/
+    }
 
     public void renderhand(ObservableList handchildren, String imagename, String type) throws Exception{
         cardloader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/card.fxml"));
         card = cardloader.load();
         cardController = cardloader.getController();
-        cardController.sourceProperty().addListener((k, oldValue, newValue) -> determineGUIState());
-        cardController.targetProperty().addListener((k, oldValue, newValue) -> {
-            System.out.println("Target Chosen");
+        cardController.sourceProperty().addListener((k, oldValue, newValue) -> {
+            battleLogController.addText("Source is: " + newValue.intValue());
             determineGUIState();});
-        cardController.setCardImage(imagename);
-        cardController.setContextMenuItem(AvatarDuel.gameManager.getPhase(), "hand", type);
-        System.out.println("masuk sini");
+        cardController.targetProperty().addListener((k, oldValue, newValue) -> {
+            battleLogController.addText("Target is: " + newValue.intValue());
+            determineGUIState();});
+        cardController.setCardImage(imagename, "hand", type, Position.ATTACK);
+        cardController.setContextMenuItem(AvatarDuel.gameManager.getPhase(), "hand", type, false, false);
 
         handchildren.add(card);
 
     }
 
-    private void determineGUIState(){
-        if(GUIState.command.equals("Attack") || GUIState.command.equals("Skill") || GUIState.command.equals("Defense")){
-            System.out.println("Skill");
-            System.out.println(GUIState.getState());
+    public void renderfield(StackPane fieldchildren, String imagename, String type, Position position, boolean hasJustSummoned, boolean hasAttacked) throws Exception{
+        cardloader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/card.fxml"));
+        card = cardloader.load();
+        cardController = cardloader.getController();
+        cardController.sourceProperty().addListener((k, oldValue, newValue) -> {
+            battleLogController.addText("Source is: " + newValue.intValue());
+            determineGUIState();});
+        cardController.targetProperty().addListener((k, oldValue, newValue) -> {
+            battleLogController.addText("Target is: " + newValue.intValue());
+            determineGUIState();});
+        cardController.setCardImage(imagename, "field", type, position);
+        cardController.setContextMenuItem(AvatarDuel.gameManager.getPhase(), "field", type, hasJustSummoned, hasAttacked);
 
-            if(GUIState.getState() == 0){
+        fieldchildren.setNodeOrientation(NodeOrientation.INHERIT);
+        fieldchildren.getChildren().add(card);
+
+    }
+
+    private void determineGUIState(){
+        if(GUIState.command.equals("Attack") && GUIState.getState() == 0 && AvatarDuel.gameManager.getEnemy().isCharacterFieldEmpty()){
+            battleLogController.addText("Can attack direct");
+        } else if (GUIState.command.equals("Attack")) {
+            if (GUIState.getState() == 0) {
                 GUIState.setState(1);
-            } else if(GUIState.getState() == 1){
+            } else if (GUIState.getState() == 1) {
+                GUIState.setState(0);
+            }
+        }  else if (GUIState.command.equals("Skill")) {
+            if (GUIState.getState() == 0) {
+                GUIState.setState(1);
+            } else if (GUIState.getState() == 1) {
                 GUIState.setState(2);
-            } else if(GUIState.getState() == 2){
+            } else if (GUIState.getState() == 2) {
                 GUIState.setState(0);
                 setFieldDisable(false);
             }
-        } else if(GUIState.command.equals("Summon")){
-            if(GUIState.getState() == 0){
+        } else if (GUIState.command.equals("Summon") || GUIState.command.equals("Defense")) {
+            if (GUIState.getState() == 0) {
                 GUIState.setState(2);
-            } else if(GUIState.getState() == 2){
+            } else if (GUIState.getState() == 2) {
+                battleLogController.addText("Keluar state 2 summon");
                 GUIState.setState(0);
                 setFieldDisable(false);
             }
-        } else{
+        } else if (GUIState.command.equals("Land") || GUIState.command.equals("Change Position") || GUIState.command.equals("Remove Skill")) {
             GUIState.setState(0);
         }
 
-        if(GUIState.getState() == 0){
+        if (GUIState.getState() == 0) {
             processCommand();
         }
+
     }
 
     private void processCommand(){
         switch(GUIState.command){
             case "Summon":
-                summonCommand(GUIState.source, GUIState.targetLocation, GUIState.target);
+                summonCommand(GUIState.source, GUIState.fieldIndexProperty().getValue(), GUIState.fieldLocationProperty().getValue(), Position.ATTACK);
+                break;
+            case "Defense":
+                summonCommand(GUIState.source, GUIState.fieldIndexProperty().getValue(), GUIState.fieldLocationProperty().getValue(), Position.DEFENSE);
+                break;
+            case "Land":
+                landCommand(GUIState.source);
                 break;
             case "Attack":
-                attackCommand(GUIState.source, GUIState.targetLocation, GUIState.target);
+                attackCommand(GUIState.source, GUIState.target, GUIState.targetLocation);
                 break;
             case "Skill":
-                skillCommand(GUIState.source, GUIState.targetLocation, GUIState.target);
+                skillCommand(GUIState.source, GUIState.target, GUIState.targetLocation, GUIState.fieldIndexProperty().getValue(), GUIState.fieldLocationProperty().getValue());
                 break;
-            case "Position":
-                positionCommand(GUIState.source);
+            case "Change Position":
+                positionCommand(GUIState.source, GUIState.sourceLocation);
+                break;
+            case "Remove Skill":
+                removeCommand(GUIState.source);
                 break;
         }
+        updateScreen();
+        GUIState.resetVariables();
 
     }
 
-    private void summonCommand(int posInHand, int posInField, int fieldLocation){
+    private void drawCommand(){
+        try{
+            AvatarDuel.gameManager.getPhase().process(Command.PLACESKILL, 0, 0, 0, true);
+        }catch (Exception e){
+            battleLogController.addText(e.toString());
+        }
+    }
+
+    private void removeCommand(int posInField){
+        try{
+            battleLogController.addText("remove start remove");
+            AvatarDuel.gameManager.getPhase().process(Command.REMOVESKILL, 0, posInField, 0, true);
+
+        }catch (Exception e){
+            battleLogController.addText(e.toString());
+        }
+    }
+
+    private void summonCommand(int posInHand, int posInField, int fieldLocation, Position summonPosition){
+        Command command;
         System.out.println("Summon card: " + posInHand);
         System.out.println(posInHand);
+
+        System.out.println("FIELD LOCATION : " + fieldLocation);
+
+        if(summonPosition == Position.ATTACK){
+            command = Command.SUMMONATTACK;
+        } else{
+            command = Command.SUMMONDEFENSE;
+        }
 
         if(fieldLocation != 2){
             battleLogController.addText("Can't Summon there");
         } else{
             try{
-                AvatarDuel.gameManager.getPhase().process(Command.SUMMONATTACK, posInHand, posInField, 0, false);
+                System.out.println(AvatarDuel.gameManager.getPlayer().getCurrPower());
+                AvatarDuel.gameManager.getPhase().process(command, posInHand, posInField, 0, true);
             } catch (Exception e){
                 battleLogController.addText("Gagal Summon");
-                battleLogController.addText(e.getMessage());
+                System.out.println(e);
             }
         }
 
@@ -320,40 +375,124 @@ public class MainScreenController implements Initializable {
 
     }
 
-    private void positionCommand(int index){
+    private void landCommand(int index){
+        try{
+            AvatarDuel.gameManager.getPhase().process(Command.SUMMONLAND, index, 0, 0, true);
+        } catch (Exception e){
+            battleLogController.addText("Gagal Summon Land");
+        }
+    }
+
+    private void positionCommand(int index, int location){
+        try{
+            AvatarDuel.gameManager.getPhase().process(Command.CHANGEPOSITION, 0, index, 0, true);
+        } catch (Exception e){
+            battleLogController.addText("Gagal change position");
+        }
+    }
+
+    private void attackCommand(int source, int target, int targetLocation){
+        battleLogController.addText("Character: " + source);
+        battleLogController.addText("tried to attack: " + target);
+
+        if(AvatarDuel.gameManager.getEnemy().isCharacterFieldEmpty()){
+            try{
+                AvatarDuel.gameManager.getPhase().process(Command.ATTACKENEMY, 0, source, 0, false);
+            } catch (Exception e){
+                battleLogController.addText("Fail Attack kosong");
+            }
+        } else{
+            try{
+                AvatarDuel.gameManager.getPhase().process(Command.ATTACKENEMY, 0, source, target, false);
+            } catch (Exception e){
+                battleLogController.addText(e.toString());
+            }
+        }
 
     }
 
-    private void attackCommand(int source, int targetlocation, int target){
+    private void skillCommand(int posInHand, int target, int targetLocation, int fieldIndex, int fieldLocation){
 
-    }
-
-    private void skillCommand(int source, int targetlocation, int target){
-        System.out.print("Skill card: " + source);
-        System.out.print(" used for character card: " + target);
-        System.out.println(" in: " + targetlocation);
-        Node card = player1hand.getChildren().get(source);
+        /*Node card = player1hand.getChildren().get(source);
         player1hand.getChildren().remove(source);
 
-        player1skillfield.getChildren().add(card);
+        player1skillfield.getChildren().add(card);*/
+
+        // Check if the target is player or not
+        boolean isOnPlayer = targetLocation == 3;
+
+        // Check if target location is in character field
+        if(targetLocation != 3 && targetLocation != 4) {
+            battleLogController.addText("Can't use skill there");
+            return;
+        }
+
+        // Check if field location (where the skill will be put) is skill field
+        if(fieldLocation != 1){
+            return;
+        }
+
+        // If the card is used for player, then the skill field has to be player's skill field
+        if(targetLocation == 3 && fieldLocation != 1){
+            battleLogController.addText("Wrong Position");
+            return;
+        }
+
+        // If the card is used for enemy, then the skill field has to be enemy's skill field
+        if(targetLocation == 4 && fieldLocation != 1){
+            battleLogController.addText("Wrong Position");
+            return;
+        }
+
+        // All the prequisite is right
+        battleLogController.addText("Skill card: " + posInHand);
+        battleLogController.addText(" used for character card: " + target);
+        battleLogController.addText(" in: " + targetLocation);
+        battleLogController.addText("Put on " + fieldLocation);
+        battleLogController.addText(" on index " + fieldIndex);
+        battleLogController.addText(" isUsedonPlayer? " + isOnPlayer);
+
+        //process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer)
+        try{
+            AvatarDuel.gameManager.getPhase().process(Command.PLACESKILL, posInHand, fieldIndex, target, isOnPlayer);
+        } catch(Exception e){
+            battleLogController.addText(e.toString());
+        }
+
     }
 
     @FXML
     private void onNextPhaseButtonClick(){
         AvatarDuel.gameManager.getPhase().nextPhase();
+        if(AvatarDuel.gameManager.getPhase().getType() == PhaseType.DRAW){
+            try{
+                AvatarDuel.gameManager.getPhase().process(Command.SUMMONLAND, 0, 0, 0, true);
+            } catch (Exception e){
+                battleLogController.addText("Cant draw");
+            }
+        }
+
         AvatarDuel.gameManager.getPhase().phaseInfo();
+        updateScreen();
+    }
+
+    @FXML
+    private void onCancelButtonClick(){
+        GUIState.setState(0);
+        GUIState.resetVariables();
+        battleLogController.addText("Action Canceled");
         updateScreen();
     }
 
     private void renderPhaseIndicator(){
         Label prevLabel, currLabel;
-        if(AvatarDuel.gameManager.getPhase() instanceof DrawPhase){
-            prevLabel = (Label) phaseindicator.getChildren().get(3);
+        if(AvatarDuel.gameManager.getPhase().getType() == PhaseType.DRAW){
+            prevLabel = (Label) phaseindicator.getChildren().get(2);
             currLabel = (Label) phaseindicator.getChildren().get(0);
-        } else if(AvatarDuel.gameManager.getPhase() instanceof MainPhase){
+        } else if(AvatarDuel.gameManager.getPhase().getType() == PhaseType.MAIN){
             prevLabel = (Label) phaseindicator.getChildren().get(0);
             currLabel = (Label) phaseindicator.getChildren().get(1);
-        } else if(AvatarDuel.gameManager.getPhase() instanceof BattlePhase){
+        } else if(AvatarDuel.gameManager.getPhase().getType() == PhaseType.BATTLE){
             prevLabel = (Label) phaseindicator.getChildren().get(1);
             currLabel = (Label) phaseindicator.getChildren().get(2);
         } else{ //End Phase
@@ -362,6 +501,7 @@ public class MainScreenController implements Initializable {
         }
         prevLabel.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
         currLabel.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+        battleLogController.addText("draw Phase");
     }
 
     private void printPhase(){
@@ -429,8 +569,12 @@ public class MainScreenController implements Initializable {
         }
 
 
-        System.out.println("Card " + (hovered + 1) + " on " + locationString + " hovered");
+        //System.out.println("Card " + (hovered + 1) + " on " + locationString + " hovered");
 
+
+    }
+
+    private void test(){
 
     }
 }
