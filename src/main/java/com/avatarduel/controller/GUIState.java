@@ -3,8 +3,20 @@ package com.avatarduel.controller;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+
+/**
+ * GUIState is a public class managing the GUI State of the program.
+ * <p>
+ *     It holds all the information of what command is currently processed,
+ *     the source, target, and more information
+ * </p>
+ */
 public class GUIState {
 
+
+    /**
+     *  An Integer Property to be listened about GUIState
+     */
     public static IntegerProperty state = new SimpleIntegerProperty(0);
     // State 2 -> Waiting for Field Input
     // State 1 -> Waiting For Target Input
@@ -20,13 +32,24 @@ public class GUIState {
     // Location 5 -> player 2's skillfield
     // Location 6 -> player 2's hand
 
+    /**
+     * An Integer Property to be listened about the field index
+     */
     private static IntegerProperty fieldIndex = new SimpleIntegerProperty(999);
+
+    /**
+     *  An Integer Property to be listened about the field location
+     */
     private static IntegerProperty fieldLocation = new SimpleIntegerProperty(999);
     // Location 1 -> player 1's skillfield
     // Location 2 -> player 1's charfield
     // Location 3 -> player 2's charfield
     // Location 4 -> player 2's skillfield
 
+
+    /**
+     * Set the PropertyVariables to the initialized value
+     */
     public static void resetVariables(){
         setFieldLocation(999);
         setFieldIndex(999);

@@ -9,7 +9,16 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PlayerStatusController implements Initializable {
+/**
+ * PlayerStatusController is a Controller for PlayerStatus
+ * <p>
+ *     It holds all the information of player including:
+ *     1. HP
+ *     2. Power Count
+ *     3. Card left in Deck
+ * </p>
+ */
+public class PlayerStatusController {
     @FXML
     private Label playerName;
     @FXML
@@ -27,12 +36,10 @@ public class PlayerStatusController implements Initializable {
     @FXML
     private Label deckCount;
 
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
+    /**
+     * The player's status will be shown in the viewport
+     * @param p Player to be shown the status
+     */
     public void setStatus(Player p){
         playerName.setText(p.getNama());
         playerHP.setText("" + p.getHp() + " HP");
