@@ -27,6 +27,13 @@ public class GUIState {
     // Location 3 -> player 2's charfield
     // Location 4 -> player 2's skillfield
 
+    public static void resetVariables(){
+        setFieldLocation(999);
+        setFieldIndex(999);
+        setHovLocation(999);
+        setHovered(999);
+    }
+
 
     public static int getFieldIndex() {
         return fieldIndex.get();

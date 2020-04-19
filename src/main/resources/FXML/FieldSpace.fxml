@@ -7,8 +7,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="90.0" maxWidth="90.0" minHeight="90.0" minWidth="90.0" prefHeight="90.0" prefWidth="90.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.FieldSpaceController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.FieldSpaceController">
    <children>
-      <Rectangle fx:id="rect" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+      <Rectangle fx:id="rect" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="100.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
    </children>
 </Pane>

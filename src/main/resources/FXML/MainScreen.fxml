@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -20,12 +21,12 @@
                     <top>
                         <HBox alignment="TOP_RIGHT" prefHeight="362.0" prefWidth="980.0" BorderPane.alignment="CENTER">
                             <children>
-                                <VBox prefHeight="362.0" prefWidth="788.0">
+                                <VBox alignment="BOTTOM_LEFT" prefHeight="362.0" prefWidth="788.0">
                                     <children>
-                                        <HBox fx:id="player2hand" alignment="CENTER" prefHeight="112.0" prefWidth="780.0" spacing="10.0" />
-                                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                                        <HBox fx:id="player2hand" alignment="CENTER" maxHeight="126.0" maxWidth="780.0" minHeight="126.0" prefHeight="126.0" prefWidth="780.0" spacing="10.0" />
+                                        <StackPane maxHeight="100.0" minHeight="100.0" prefHeight="100.0" prefWidth="200.0">
                                             <children>
-                                                <HBox fx:id="player2emptyskillfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player2emptyskillfield" alignment="CENTER" maxWidth="600.0" minWidth="600.0" prefHeight="142.0" prefWidth="600.0">
                                                     <children>
                                                         <fx:include fx:id="player2skillfieldindex0" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player2skillfieldindex1" source="FieldSpace.fxml" />
@@ -33,8 +34,6 @@
                                                         <fx:include fx:id="player2skillfieldindex3" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player2skillfieldindex4" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player2skillfieldindex5" source="FieldSpace.fxml" />
-                                                        <fx:include fx:id="player2skillfieldindex6" source="FieldSpace.fxml" />
-                                                        <fx:include fx:id="player2skillfieldindex7" source="FieldSpace.fxml" />
                                                     </children>
                                        <opaqueInsets>
                                           <Insets />
@@ -43,21 +42,29 @@
                                           <Insets left="10.0" />
                                        </padding>
                                                 </HBox>
-                                                <HBox fx:id="player2skillfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player2skillfield" alignment="CENTER" maxWidth="600.0" minWidth="600.0" prefHeight="142.0" prefWidth="600.0">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
                                        <padding>
                                           <Insets left="10.0" />
-                                       </padding></HBox>
+                                       </padding>
+                                       <children>
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                       </children></HBox>
                                             </children>
                                             <VBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets bottom="10.0" />
                                             </VBox.margin>
                                         </StackPane>
-                                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                                        <StackPane maxHeight="100.0" minHeight="100.0" prefHeight="100.0" prefWidth="200.0">
                                             <children>
-                                                <HBox fx:id="player2emptycharfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player2emptycharfield" alignment="CENTER" maxWidth="600.0" minWidth="600.0" prefHeight="142.0" prefWidth="600.0">
                                                     <children>
                                                         <fx:include fx:id="player2charfieldindex0" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player2charfieldindex1" source="FieldSpace.fxml" />
@@ -65,35 +72,40 @@
                                                         <fx:include fx:id="player2charfieldindex3" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player2charfieldindex4" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player2charfieldindex5" source="FieldSpace.fxml" />
-                                                        <fx:include fx:id="player2charfieldindex6" source="FieldSpace.fxml" />
-                                                        <fx:include fx:id="player2charfieldindex7" source="FieldSpace.fxml" />
                                                     </children>
                                        <StackPane.margin>
-                                          <Insets />
+                                          <Insets bottom="20.0" />
                                        </StackPane.margin>
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding>
                                                 </HBox>
-                                                <HBox fx:id="player2charfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player2charfield" alignment="CENTER" maxWidth="600.0" minWidth="600.0" prefHeight="142.0" prefWidth="600.0">
                                        <padding>
                                           <Insets left="10.0" />
-                                       </padding></HBox>
+                                       </padding>
+                                       <children>
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets bottom="20.0" />
+                                       </StackPane.margin></HBox>
                                             </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
                                         </StackPane>
                                     </children>
+                           <HBox.margin>
+                              <Insets bottom="10.0" />
+                           </HBox.margin>
                                 </VBox>
-                                <VBox prefHeight="362.0" prefWidth="156.0">
-                                    <children>
-                                        <Label alignment="TOP_LEFT" text="Player 1" />
-                                        <Label alignment="TOP_LEFT" text="HP : 80" />
-                                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                        <Label text="Fire : 0/0" />
-                                        <Label text="Water : 0/0" />
-                                        <Label text="Air : 0/0" />
-                                        <Label text="Earth : 0/0" />
-                                    </children>
-                                </VBox>
+                                <fx:include fx:id="enemyStatus" source="PlayerStatus.fxml" />
                             </children>
                         </HBox>
                     </top>
@@ -104,9 +116,9 @@
                             <children>
                                 <VBox prefHeight="362.0" prefWidth="788.0">
                                     <children>
-                                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                                        <StackPane maxHeight="100.0" minHeight="100.0" prefHeight="100.0" prefWidth="200.0">
                                             <children>
-                                                <HBox fx:id="player1emptycharfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player1emptycharfield" alignment="CENTER" maxWidth="600.0" minWidth="600.0" prefHeight="142.0" prefWidth="600.0">
                                                     <children>
                                                         <fx:include fx:id="player1charfieldindex0" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player1charfieldindex1" source="FieldSpace.fxml" />
@@ -114,22 +126,37 @@
                                                         <fx:include fx:id="player1charfieldindex3" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player1charfieldindex4" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player1charfieldindex5" source="FieldSpace.fxml" />
-                                                        <fx:include fx:id="player1charfieldindex6" source="FieldSpace.fxml" />
-                                                        <fx:include fx:id="player1charfieldindex7" source="FieldSpace.fxml" />
                                                     </children>
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding>
+                                       <StackPane.margin>
+                                          <Insets top="20.0" />
+                                       </StackPane.margin>
                                                 </HBox>
-                                                <HBox fx:id="player1charfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player1charfield" alignment="CENTER" maxWidth="600.0" minWidth="600.0" prefHeight="142.0" prefWidth="600.0">
                                        <padding>
                                           <Insets left="10.0" />
-                                       </padding></HBox>
+                                       </padding>
+                                       <children>
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets top="20.0" />
+                                       </StackPane.margin></HBox>
                                             </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
                                         </StackPane>
-                                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                                        <StackPane maxHeight="100.0" minHeight="100.0" prefHeight="100.0" prefWidth="200.0">
                                             <children>
-                                                <HBox fx:id="player1emptyskillfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player1emptyskillfield" alignment="CENTER" maxWidth="600.0" minWidth="600.0" prefHeight="142.0" prefWidth="600.0">
                                                     <children>
                                                         <fx:include fx:id="player1skillfieldindex0" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player1skillfieldindex1" source="FieldSpace.fxml" />
@@ -137,36 +164,38 @@
                                                         <fx:include fx:id="player1skillfieldindex3" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player1skillfieldindex4" source="FieldSpace.fxml" />
                                                         <fx:include fx:id="player1skillfieldindex5" source="FieldSpace.fxml" />
-                                                        <fx:include fx:id="player1skillfieldindex6" source="FieldSpace.fxml" />
-                                                        <fx:include fx:id="player1skillfieldindex7" source="FieldSpace.fxml" />
                                                     </children>
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding>
                                                 </HBox>
-                                                <HBox fx:id="player1skillfield" alignment="CENTER_LEFT" prefHeight="142.0" prefWidth="780.0" spacing="5.0">
+                                                <HBox fx:id="player1skillfield" alignment="CENTER" maxWidth="600.0" minWidth="600.0" prefHeight="142.0" prefWidth="600.0">
                                        <padding>
                                           <Insets left="10.0" />
-                                       </padding></HBox>
+                                       </padding>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                       <children>
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                          <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" />
+                                       </children></HBox>
                                             </children>
                                             <VBox.margin>
                                                 <Insets top="10.0" />
                                             </VBox.margin>
                                         </StackPane>
-                                        <HBox fx:id="player1hand" alignment="CENTER" prefHeight="112.0" prefWidth="780.0" spacing="10.0" />
+                                        <HBox fx:id="player1hand" alignment="CENTER" maxWidth="780.0" prefHeight="112.0" prefWidth="780.0" spacing="10.0" />
                                     </children>
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
                                 </VBox>
-                                <VBox prefHeight="310.0" prefWidth="200.0">
-                                    <children>
-                                        <Label text="Fire : 0/0" />
-                                        <Label text="Water : 0/0" />
-                                        <Label text="Air : 0/0" />
-                                        <Label text="Earth : 0/0" />
-                                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                        <Label alignment="TOP_LEFT" text="Player 1" />
-                                        <Label alignment="TOP_LEFT" text="HP : 80" />
-                                    </children>
-                                </VBox>
+                                <fx:include fx:id="playerStatus" source="PlayerStatus.fxml" />
                             </children>
                         </HBox>
                     </top>
@@ -195,11 +224,20 @@
              <fx:include fx:id="battleLog" source="BattleLog.fxml" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button fx:id="nextphaseButton" mnemonicParsing="false" onAction="#onNextPhaseButtonClick" text="NextPhase" />
-                  <Button fx:id="nextphaseButton1" mnemonicParsing="false" onAction="#onNextPhaseButtonClick" text="NextPhase" />
+                  <Button fx:id="nextPhaseButton" mnemonicParsing="false" onAction="#onNextPhaseButtonClick" text="Next Phase">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel">
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor></Button>
                </children>
             </HBox>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </left>
 </BorderPane>

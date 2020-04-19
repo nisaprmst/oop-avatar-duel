@@ -8,4 +8,4 @@
 <?import javafx.scene.layout.*?>
 
 
-<ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:id="card" fx:controller="com.avatarduel.controller.CardController"/>
+<ImageView fx:id="card" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.CardController"/>
