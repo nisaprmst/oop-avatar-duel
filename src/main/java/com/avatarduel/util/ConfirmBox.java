@@ -24,18 +24,17 @@ public class ConfirmBox {
         window.setMinWidth(250.0D);
         Label label = new Label();
         label.setText(message);
-        Button yesButton = new Button("Yes");
-        Button noButton = new Button("No");
+        Button yesButton = new Button("OK");
         yesButton.setOnAction((e) -> {
             answer = true;
             window.close();
-        });
+        });/*
         noButton.setOnAction((e) -> {
             answer = false;
             window.close();
-        });
+        });*/
         VBox layout = new VBox(10.0D);
-        layout.getChildren().addAll(new Node[]{label, yesButton, noButton});
+        layout.getChildren().addAll(new Node[]{label, yesButton});
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout);
         window.setScene(scene);

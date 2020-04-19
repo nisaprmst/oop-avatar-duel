@@ -28,7 +28,31 @@ public class Player {
     /**
      * Class Constructor
      */
-    public Player() throws URISyntaxException, IOException {
+    public Player(String characterFilePath, String landFilePath, String destroyFilePath, String powerupFilePath, String auraFilePath) throws URISyntaxException, IOException {
+        String path = "../card/data/";
+        this.hp = 0;
+        this.deck = new Deck();
+        this.cardsInHand = new ArrayList<>();
+        this.field = new Field();
+        this.power = new HashMap<>();
+        this.currPower = new HashMap<>();
+        for (Element el: Element.values()) {
+            this.power.put(el, 0);
+            this.currPower.put(el, 0);
+        }
+        CardLoader cl = new CardLoader();
+        cl.loadLandCardsFromFile(path + landFilePath);
+        cl.loadCharacterCardsFromFile(path + characterFilePath);
+        cl.loadAuraSkillFromFile(path + auraFilePath);
+        cl.loadDestroySkillFromFile(path + destroyFilePath);
+        cl.loadPowerUpSkillFromFile(path + powerupFilePath);
+        deck.loadDeck(cl.getLoadedCards());
+        for (int i = 0; i < 7; i++) {
+            this.cardsInHand.add(this.deck.drawCard());
+        }
+    }
+    /*public Player(String characterFilePath, String landFilePath, String destroyFilePath, String powerupFilePath, String auraFilePath) throws URISyntaxException, IOException {
+        String path = "../card/data/";
         this.hp = 0;
         this.deck = new Deck();
         this.cardsInHand = new ArrayList<>();
@@ -49,7 +73,8 @@ public class Player {
         for (int i = 0; i < 7; i++) {
             this.cardsInHand.add(this.deck.drawCard());
         }
-    }
+    }*/
+
     // getter
     /**
      * @return the nama

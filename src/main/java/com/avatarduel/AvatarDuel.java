@@ -10,8 +10,10 @@ import com.avatarduel.cards.Card;
 import com.avatarduel.cards.characters.CharacterCard;
 import com.avatarduel.cards.skills.AuraSkill;
 import com.avatarduel.cards.skills.SkillCard;
+import com.avatarduel.controller.LauncherScreenController;
 import com.avatarduel.controller.MainScreenController;
 import com.avatarduel.gamemanager.*;
+import com.avatarduel.util.ConfirmBox;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -52,7 +54,7 @@ public class AvatarDuel extends Application {
     LandCard air = new LandCard(1, "Fire", "aflkanffa", Element.AIR, "asu.png");
     LandCard water = new LandCard(1, "Fire", "aflkanffa", Element.WATER, "asu.png");
 
-    player1 = new Player();
+    /*player1 = new Player();
     player2 = new Player();
     for(int i = 0; i < 20; i++){
       player1.addPower(fire);
@@ -77,17 +79,46 @@ public class AvatarDuel extends Application {
     GameManager.getGameManager().setPlayer(player1);
     GameManager.getGameManager().setEnemy(player2);
     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/MainScreen.fxml"));
-    BorderPane root = loader.load();
-    MainScreenController controller = loader.getController();
+    StackPane root = loader.load();
+    MainScreenController controller = loader.getController();*/
 
+    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/LauncherScreen.fxml"));
+    VBox launcherRoot = loader.load();
+    LauncherScreenController launcherController = loader.getController();
 
+    launcherController.isGameReadyProperty().addListener((k, oldValue, newValue) -> {
+      if(newValue.booleanValue()){
+        try{
+          startGame(stage);
+        } catch (Exception e){
+          System.out.println("Start game failed");
+        }
+      }
+    });
 
-    Scene scene = new Scene(root, 1280 , 720);
+    Scene scene = new Scene(launcherRoot, 600 , 400);
 
     stage.setTitle("Avatar Duel");
     stage.setScene(scene);
     stage.show();
 
+  }
+
+  private void startGame(Stage stage) throws Exception{
+    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/MainScreen.fxml"));
+    StackPane root = loader.load();
+    MainScreenController controller = loader.getController();
+
+    /*controller.isGameProperty().addListener((k, oldValue, newValue) -> {
+      if(!newValue.booleanValue()){
+        ConfirmBox.display("Game end", "Thanks for playing!");
+        stage.close();
+      }
+    });*/
+    Scene scene = new Scene(root, 1280 , 720);
+    stage.setTitle("Avatar Duel");
+    stage.setScene(scene);
+    stage.show();
   }
 
   public static void main(String[] args) {

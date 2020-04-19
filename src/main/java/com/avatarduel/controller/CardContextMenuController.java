@@ -26,6 +26,7 @@ public class CardContextMenuController implements Initializable {
     private MenuItem landuse;
     private MenuItem changeposition;
     private MenuItem remove;
+    private MenuItem removehand;
 
 
     private StringProperty command = new SimpleStringProperty("");
@@ -51,6 +52,7 @@ public class CardContextMenuController implements Initializable {
         landuse = new MenuItem("Use Land");
         changeposition = new MenuItem("Change Position");
         remove = new MenuItem("Remove");
+        removehand = new MenuItem("Remove");
         summon.setOnAction(e -> setStateCommand("Summon"));
         defense.setOnAction(e -> setStateCommand("Defense"));
         attack.setOnAction(e -> setStateCommand("Attack"));
@@ -58,6 +60,7 @@ public class CardContextMenuController implements Initializable {
         landuse.setOnAction(e -> setStateCommand("Land"));
         changeposition.setOnAction(e -> setStateCommand("Change Position"));
         remove.setOnAction(e -> setStateCommand("Remove Skill"));
+        removehand.setOnAction(e -> setStateCommand("Remove Hand"));
     }
 
     private void setStateCommand(String commandString){
@@ -81,6 +84,7 @@ public class CardContextMenuController implements Initializable {
                         } else if(type.equals("SkillCard")){
                             cardcontextmenu.getItems().addAll(skilluse);
                         }
+                        cardcontextmenu.getItems().addAll(removehand);
                     } else if(location.equals("field")){
                         if(type.equals("CharacterCard")){
                             cardcontextmenu.getItems().addAll(changeposition);

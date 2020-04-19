@@ -24,11 +24,12 @@ public class PlayerStatusController implements Initializable {
     private Label earthPowerCount;
     @FXML
     private Label energyPowerCount;
+    @FXML
+    private Label deckCount;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Initialized");
 
     }
 
@@ -40,5 +41,6 @@ public class PlayerStatusController implements Initializable {
         airPowerCount.setText(p.getCurrPower().get(Element.AIR) + "/" + p.getPower().get(Element.AIR));
         earthPowerCount.setText(p.getCurrPower().get(Element.EARTH) + "/" + p.getPower().get(Element.EARTH));
         energyPowerCount.setText(p.getCurrPower().get(Element.ENERGYBENDING) + "/" + p.getPower().get(Element.ENERGYBENDING));
+        deckCount.setText("Deck Count: " + p.getDeck().size());
     }
 }
