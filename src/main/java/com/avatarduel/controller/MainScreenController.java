@@ -11,8 +11,10 @@ import com.avatarduel.cards.skills.SkillCard;
 import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.exceptions.NoCardInFieldException;
 import com.avatarduel.gamemanager.Command;
+import com.avatarduel.gamemanager.GameManager;
 import com.avatarduel.gamemanager.Player;
 import com.avatarduel.gamemanager.phase.*;
+import com.avatarduel.util.AlertBox;
 import com.avatarduel.util.ConfirmBox;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -68,6 +70,7 @@ public class MainScreenController implements Initializable {
     FXMLLoader cardloader;
     CardController cardController;
     ImageView card;
+    boolean isGame;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -88,10 +91,45 @@ public class MainScreenController implements Initializable {
         });
 
         drawCommand();
-        updateScreen();
+        updateGameCondition();
+        //updateScreen();
 
     }
-    public void updateScreen(){
+
+    private void updateGameCondition(){
+        Player player, enemy;
+        int win;
+        player = GameManager.getGameManager().getPlayer();
+        enemy = GameManager.getGameManager().getEnemy();
+        isGame = (player.getHp() > 0 && enemy.getHp() > 0 && player.getDeck().size() > 0 && enemy.getDeck().size() > 0);
+
+        updateScreen();
+        if(!isGame){
+            win = determineWin(player, enemy);
+            String winner, loser;
+            if(win == 1){
+                winner = player.getNama();
+                loser = enemy.getNama();
+            } else{
+                loser = player.getNama();
+                winner = enemy.getNama();
+
+            }
+            ConfirmBox.display("Win", winner + " win against " + loser);
+
+        }
+
+    }
+
+    private int determineWin(Player player, Player enemy){
+        if(player.getHp() <= 0 || player.getDeck().size() <= 0){
+            return 2;
+        } else{
+            return 1;
+        }
+    }
+
+    private void updateScreen(){
         clearfield();
         clearhand();
         try{
@@ -101,8 +139,8 @@ public class MainScreenController implements Initializable {
             System.out.print(e);
         }
         renderPhaseIndicator();
-        enemyStatusController.setStatus(AvatarDuel.gameManager.getEnemy());
-        playerStatusController.setStatus(AvatarDuel.gameManager.getPlayer());
+        enemyStatusController.setStatus(GameManager.getGameManager().getEnemy());
+        playerStatusController.setStatus(GameManager.getGameManager().getPlayer());
 
     }
 
@@ -138,8 +176,8 @@ public class MainScreenController implements Initializable {
         String type = "";
         ObservableList player1handchildren = player1hand.getChildren();
         ObservableList player2handchildren = player2hand.getChildren();
-        for(Card c: AvatarDuel.gameManager.getPlayer().getCardsInHand()){
-            //if(AvatarDuel.gameManager.turn == 1){
+        for(Card c: GameManager.getGameManager().getPlayer().getCardsInHand()){
+            //if(GameManager.getGameManager().turn == 1){
                 if(c instanceof CharacterCard){
                     imgname = "character/" + c.getImagePath();
                     type = "CharacterCard";
@@ -154,7 +192,7 @@ public class MainScreenController implements Initializable {
             renderhand(player1hand.getChildren(),imgname, type);
         }
 
-        for(Card c: AvatarDuel.gameManager.getEnemy().getCardsInHand()){
+        for(Card c: GameManager.getGameManager().getEnemy().getCardsInHand()){
             imgname = "BlankCard.png";
             type = "BlankCard";
 
@@ -173,7 +211,7 @@ public class MainScreenController implements Initializable {
         for(int i = 0; i < 6; i++) { // 6 is the max space
             Position position = Position.ATTACK;
             try{
-                Card c = AvatarDuel.gameManager.getPlayer().getField().getSkillInColumn(i);
+                Card c = GameManager.getGameManager().getPlayer().getField().getSkillInColumn(i);
                 imgname = "skill/" + c.getImagePath();
                 type = "SkillCard";
                 renderfield((StackPane) player1skillfieldChildren.get(i), imgname, type, position, false, false);
@@ -186,7 +224,7 @@ public class MainScreenController implements Initializable {
         for(int i = 0; i < 6; i++) { // 6 is the max space
             Position position = Position.ATTACK;
             try{
-                CharacterCard c = AvatarDuel.gameManager.getPlayer().getField().getCharacterInColumn(i);
+                CharacterCard c = GameManager.getGameManager().getPlayer().getField().getCharacterInColumn(i);
                 imgname = "character/" + c.getImagePath();
                 type = "CharacterCard";
                 position = ( c).getPosition();
@@ -200,7 +238,7 @@ public class MainScreenController implements Initializable {
         for(int i = 0; i < 6; i++) { // 6 is the max space
             Position position = Position.ATTACK;
             try{
-                CharacterCard c = AvatarDuel.gameManager.getEnemy().getField().getCharacterInColumn(i);
+                CharacterCard c = GameManager.getGameManager().getEnemy().getField().getCharacterInColumn(i);
                 imgname = "character/" + c.getImagePath();
                 type = "CharacterCard";
                 position = (c).getPosition();
@@ -213,7 +251,7 @@ public class MainScreenController implements Initializable {
         for(int i = 0; i < 6; i++) { // 6 is the max space
             Position position = Position.ATTACK;
             try{
-                Card c = AvatarDuel.gameManager.getEnemy().getField().getSkillInColumn(i);
+                Card c = GameManager.getGameManager().getEnemy().getField().getSkillInColumn(i);
                 imgname = "skill/" + c.getImagePath();
                 type = "SkillCard";
                 renderfield((StackPane)player2skillfieldChildren.get(i), imgname, type, position, false, false);
@@ -234,7 +272,7 @@ public class MainScreenController implements Initializable {
             determineGUIState();});
         System.out.println(imagename);
         cardController.setCardImage(imagename, "hand", type, Position.ATTACK);
-        cardController.setContextMenuItem(AvatarDuel.gameManager.getPhase(), "hand", type, false, false);
+        cardController.setContextMenuItem(GameManager.getGameManager().getPhase(), "hand", type, false, false);
 
         handchildren.add(card);
 
@@ -251,7 +289,7 @@ public class MainScreenController implements Initializable {
             battleLogController.addText("Target is: " + newValue.intValue());
             determineGUIState();});
         cardController.setCardImage(imagename, "field", type, position);
-        cardController.setContextMenuItem(AvatarDuel.gameManager.getPhase(), "field", type, hasJustSummoned, hasAttacked);
+        cardController.setContextMenuItem(GameManager.getGameManager().getPhase(), "field", type, hasJustSummoned, hasAttacked);
 
         fieldchildren.setNodeOrientation(NodeOrientation.INHERIT);
         fieldchildren.getChildren().add(card);
@@ -259,7 +297,7 @@ public class MainScreenController implements Initializable {
     }
 
     private void determineGUIState(){
-        if(GUIState.command.equals("Attack") && GUIState.getState() == 0 && AvatarDuel.gameManager.getEnemy().isCharacterFieldEmpty()){
+        if(GUIState.command.equals("Attack") && GUIState.getState() == 0 && GameManager.getGameManager().getEnemy().isCharacterFieldEmpty()){
             battleLogController.addText("Can attack direct");
         } else if (GUIState.command.equals("Attack")) {
             if (GUIState.getState() == 0) {
@@ -318,14 +356,14 @@ public class MainScreenController implements Initializable {
                 removeCommand(GUIState.source);
                 break;
         }
-        updateScreen();
+        updateGameCondition();
         GUIState.resetVariables();
 
     }
 
     private void drawCommand(){
         try{
-            AvatarDuel.gameManager.getPhase().process(Command.PLACESKILL, 0, 0, 0, true);
+            GameManager.getGameManager().getPhase().process(Command.PLACESKILL, 0, 0, 0, true);
         }catch (Exception e){
             battleLogController.addText(e.toString());
         }
@@ -334,7 +372,7 @@ public class MainScreenController implements Initializable {
     private void removeCommand(int posInField){
         try{
             battleLogController.addText("remove start remove");
-            AvatarDuel.gameManager.getPhase().process(Command.REMOVESKILL, 0, posInField, 0, true);
+            GameManager.getGameManager().getPhase().process(Command.REMOVESKILL, 0, posInField, 0, true);
 
         }catch (Exception e){
             battleLogController.addText(e.toString());
@@ -358,8 +396,8 @@ public class MainScreenController implements Initializable {
             battleLogController.addText("Can't Summon there");
         } else{
             try{
-                System.out.println(AvatarDuel.gameManager.getPlayer().getCurrPower());
-                AvatarDuel.gameManager.getPhase().process(command, posInHand, posInField, 0, true);
+                System.out.println(GameManager.getGameManager().getPlayer().getCurrPower());
+                GameManager.getGameManager().getPhase().process(command, posInHand, posInField, 0, true);
             } catch (Exception e){
                 battleLogController.addText("Gagal Summon");
                 System.out.println(e);
@@ -375,7 +413,7 @@ public class MainScreenController implements Initializable {
 
     private void landCommand(int index){
         try{
-            AvatarDuel.gameManager.getPhase().process(Command.SUMMONLAND, index, 0, 0, true);
+            GameManager.getGameManager().getPhase().process(Command.SUMMONLAND, index, 0, 0, true);
         } catch (Exception e){
             battleLogController.addText("Gagal Summon Land");
         }
@@ -383,7 +421,7 @@ public class MainScreenController implements Initializable {
 
     private void positionCommand(int index, int location){
         try{
-            AvatarDuel.gameManager.getPhase().process(Command.CHANGEPOSITION, 0, index, 0, true);
+            GameManager.getGameManager().getPhase().process(Command.CHANGEPOSITION, 0, index, 0, true);
         } catch (Exception e){
             battleLogController.addText("Gagal change position");
         }
@@ -393,15 +431,15 @@ public class MainScreenController implements Initializable {
         battleLogController.addText("Character: " + source);
         battleLogController.addText("tried to attack: " + target);
 
-        if(AvatarDuel.gameManager.getEnemy().isCharacterFieldEmpty()){
+        if(GameManager.getGameManager().getEnemy().isCharacterFieldEmpty()){
             try{
-                AvatarDuel.gameManager.getPhase().process(Command.ATTACKENEMY, 0, source, 0, false);
+                GameManager.getGameManager().getPhase().process(Command.ATTACKENEMY, 0, source, 0, false);
             } catch (Exception e){
                 battleLogController.addText("Fail Attack kosong");
             }
         } else{
             try{
-                AvatarDuel.gameManager.getPhase().process(Command.ATTACKENEMY, 0, source, target, false);
+                GameManager.getGameManager().getPhase().process(Command.ATTACKENEMY, 0, source, target, false);
             } catch (Exception e){
                 battleLogController.addText(e.toString());
             }
@@ -452,7 +490,7 @@ public class MainScreenController implements Initializable {
 
         //process(Command command, int posInHand, int posInField, int target, boolean isOnPlayer)
         try{
-            AvatarDuel.gameManager.getPhase().process(Command.PLACESKILL, posInHand, fieldIndex, target, isOnPlayer);
+            GameManager.getGameManager().getPhase().process(Command.PLACESKILL, posInHand, fieldIndex, target, isOnPlayer);
         } catch(Exception e){
             battleLogController.addText(e.toString());
         }
@@ -461,18 +499,18 @@ public class MainScreenController implements Initializable {
 
     @FXML
     private void onNextPhaseButtonClick(){
-        AvatarDuel.gameManager.getPhase().nextPhase();
-        if(AvatarDuel.gameManager.getPhase().getType() == PhaseType.DRAW){
+        GameManager.getGameManager().getPhase().nextPhase();
+        if(GameManager.getGameManager().getPhase().getType() == PhaseType.DRAW){
             try{
-                AvatarDuel.gameManager.getPhase().process(Command.SUMMONLAND, 0, 0, 0, true);
-                battleLogController.addText(AvatarDuel.gameManager.getPlayer().getDeck().size() + "");
+                GameManager.getGameManager().getPhase().process(Command.SUMMONLAND, 0, 0, 0, true);
+                battleLogController.addText("Deck size of " + GameManager.getGameManager().getPlayer().getNama() + "is " + GameManager.getGameManager().getPlayer().getDeck().size());
             } catch (Exception e){
                 battleLogController.addText("Cant draw");
             }
         }
 
-        AvatarDuel.gameManager.getPhase().phaseInfo();
-        updateScreen();
+        GameManager.getGameManager().getPhase().phaseInfo();
+        updateGameCondition();
     }
 
     @FXML
@@ -480,18 +518,18 @@ public class MainScreenController implements Initializable {
         GUIState.setState(0);
         GUIState.resetVariables();
         battleLogController.addText("Action Canceled");
-        updateScreen();
+        updateGameCondition();
     }
 
     private void renderPhaseIndicator(){
         Label prevLabel, currLabel;
-        if(AvatarDuel.gameManager.getPhase().getType() == PhaseType.DRAW){
+        if(GameManager.getGameManager().getPhase().getType() == PhaseType.DRAW){
             prevLabel = (Label) phaseindicator.getChildren().get(2);
             currLabel = (Label) phaseindicator.getChildren().get(0);
-        } else if(AvatarDuel.gameManager.getPhase().getType() == PhaseType.MAIN){
+        } else if(GameManager.getGameManager().getPhase().getType() == PhaseType.MAIN){
             prevLabel = (Label) phaseindicator.getChildren().get(0);
             currLabel = (Label) phaseindicator.getChildren().get(1);
-        } else if(AvatarDuel.gameManager.getPhase().getType() == PhaseType.BATTLE){
+        } else if(GameManager.getGameManager().getPhase().getType() == PhaseType.BATTLE){
             prevLabel = (Label) phaseindicator.getChildren().get(1);
             currLabel = (Label) phaseindicator.getChildren().get(2);
         } else{ //End Phase
@@ -504,7 +542,7 @@ public class MainScreenController implements Initializable {
     }
 
     private void printPhase(){
-        AvatarDuel.gameManager.getPhase().phaseInfo();
+        GameManager.getGameManager().getPhase().phaseInfo();
     }
 
     private void showCard(){
@@ -518,13 +556,13 @@ public class MainScreenController implements Initializable {
             switch(location){
                 case 1:
                     locationString = "Player 1's hand";
-                    c = AvatarDuel.gameManager.getPlayer().getCardsInHand().get(hovered);
+                    c = GameManager.getGameManager().getPlayer().getCardsInHand().get(hovered);
                     cardInfoController.setInfo(c);
                     break;
                 case 2:
                     locationString = "Player 1's skill field";
                     try{
-                        c = AvatarDuel.gameManager.getPlayer().getField().getSkillInColumn(hovered);
+                        c = GameManager.getGameManager().getPlayer().getField().getSkillInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(Exception e){
                         System.out.println(e.getMessage());
@@ -533,7 +571,7 @@ public class MainScreenController implements Initializable {
                 case 3:
                     locationString = "Player 1's character field";
                     try{
-                        c = AvatarDuel.gameManager.getPlayer().getField().getCharacterInColumn(hovered);
+                        c = GameManager.getGameManager().getPlayer().getField().getCharacterInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(Exception e){
                         System.out.println(e.getMessage());
@@ -542,7 +580,7 @@ public class MainScreenController implements Initializable {
                 case 4:
                     locationString = "Player 2's character field";
                     try{
-                        c = AvatarDuel.gameManager.getEnemy().getField().getCharacterInColumn(hovered);
+                        c = GameManager.getGameManager().getEnemy().getField().getCharacterInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(Exception e){
                         System.out.println(e.getMessage());
@@ -551,7 +589,7 @@ public class MainScreenController implements Initializable {
                 case 5:
                     locationString = "Player 2's skill field";
                     try{
-                        c = AvatarDuel.gameManager.getEnemy().getField().getSkillInColumn(hovered);
+                        c = GameManager.getGameManager().getEnemy().getField().getSkillInColumn(hovered);
                         cardInfoController.setInfo(c);
                     } catch(Exception e){
                         System.out.println(e.getMessage());
@@ -559,7 +597,7 @@ public class MainScreenController implements Initializable {
                     break;
                 /*case 6:
                     locationString = "Player 2's hand";
-                    c = AvatarDuel.gameManager.getEnemy().getCardsInHand().get(hovered);
+                    c = GameManager.getGameManager().getEnemy().getCardsInHand().get(hovered);
                     cardInfoController.setInfo(c);
                     break;*/
             }
