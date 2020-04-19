@@ -2,7 +2,6 @@ package com.avatarduel.controller;
 
 import com.avatarduel.cards.characters.Position;
 import com.avatarduel.gamemanager.phase.Phase;
-import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
@@ -10,16 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -81,7 +76,6 @@ public class CardController implements Initializable {
         card.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent t) {
-                //System.out.println("entered");
                 Parent parent = card.getParent();
                 int location = determineLocation(parent);
                 int i;
@@ -99,10 +93,6 @@ public class CardController implements Initializable {
                         }
                     }
                 }
-
-
-
-                //System.out.println(i);
                 GUIState.setHovLocation(determineLocation(parent));
                 GUIState.setHovered(i);
 
@@ -112,10 +102,8 @@ public class CardController implements Initializable {
         });
 
         card.setOnMouseExited(new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent t) {
-                //System.out.println("exited");
                 card.setTranslateY(card.getTranslateY() + 10);
                 GUIState.setHovered(-999);
             }
@@ -163,10 +151,8 @@ public class CardController implements Initializable {
                 }
             }
         }
-        //System.out.println("Source is: " + i);
         GUIState.source = i;
         setSourceLocation(parent);
-        //System.out.println("Source location is: " + GUIState.sourceLocation);
         setSource(i);
     }
 
@@ -178,10 +164,8 @@ public class CardController implements Initializable {
                 break;
             }
         }
-        //System.out.println("Target is: " + i);
         GUIState.target = i;
         setTargetLocation(parent);
-        //System.out.println("location is: " + GUIState.targetLocation);
 
         setTarget(i);
     }
@@ -191,7 +175,6 @@ public class CardController implements Initializable {
         if(id == null){
             id = parent.getParent().getId();
         }
-        System.out.println(id);
         int location = 999;
 
         switch (id){

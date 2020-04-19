@@ -9,108 +9,121 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.PlayerStatusController">
    <children>
-      <Label fx:id="playerName" alignment="CENTER" contentDisplay="CENTER" text="Player">
-         <font>
-            <Font name="High Tower Text" size="22.0" />
-         </font>
-      </Label>
-      <Label fx:id="playerHP" alignment="CENTER" contentDisplay="CENTER" text="80 HP">
-         <font>
-            <Font name="High Tower Text" size="22.0" />
-         </font>
-      </Label>
-      <VBox prefHeight="149.0" prefWidth="200.0">
+      <StackPane prefHeight="362.0" prefWidth="200.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Element Count:">
-               <font>
-                  <Font name="High Tower Text" size="20.0" />
-               </font>
-            </Label>
-            <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+            <Pane opacity="0.8" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" />
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../com/avatarduel/card/image/Phrexian Symbol/Fire.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="firePowerCount" alignment="CENTER" contentDisplay="CENTER" text="0/0" wrapText="true">
+                  <Label fx:id="playerName" alignment="CENTER" contentDisplay="CENTER" text="Player">
                      <font>
-                        <Font name="High Tower Text Italic" size="18.0" />
+                        <Font name="High Tower Text" size="22.0" />
                      </font>
                   </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../com/avatarduel/card/image/Phrexian Symbol/Water.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="waterPowerCount" alignment="CENTER" contentDisplay="CENTER" text="0/0" wrapText="true">
+                  <Label fx:id="playerHP" alignment="CENTER" contentDisplay="CENTER" text="80 HP">
                      <font>
-                        <Font name="High Tower Text Italic" size="18.0" />
+                        <Font name="High Tower Text" size="22.0" />
                      </font>
                   </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../com/avatarduel/card/image/Phrexian Symbol/P.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="airPowerCount" alignment="CENTER" contentDisplay="CENTER" text="0/0" wrapText="true">
+                  <VBox prefHeight="149.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Element Count:">
+                           <font>
+                              <Font name="High Tower Text" size="20.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../com/avatarduel/card/image/Phrexian Symbol/Fire.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="firePowerCount" alignment="CENTER" contentDisplay="CENTER" text="0/0" wrapText="true">
+                                 <font>
+                                    <Font name="High Tower Text Italic" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../com/avatarduel/card/image/Phrexian Symbol/Water.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="waterPowerCount" alignment="CENTER" contentDisplay="CENTER" text="0/0" wrapText="true">
+                                 <font>
+                                    <Font name="High Tower Text Italic" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../com/avatarduel/card/image/Phrexian Symbol/P.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="airPowerCount" alignment="CENTER" contentDisplay="CENTER" text="0/0" wrapText="true">
+                                 <font>
+                                    <Font name="High Tower Text Italic" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../com/avatarduel/card/image/Phrexian Symbol/BP-svg.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="earthPowerCount" alignment="CENTER" contentDisplay="CENTER" text="0/0" wrapText="true">
+                                 <font>
+                                    <Font name="High Tower Text Italic" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../com/avatarduel/card/image/Phrexian Symbol/Earth.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="energyPowerCount" alignment="CENTER" contentDisplay="CENTER" text="0/0" wrapText="true">
+                                 <font>
+                                    <Font name="High Tower Text Italic" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </VBox>
+                  <Label fx:id="deckCount" alignment="CENTER" contentDisplay="CENTER" text="Deck Count: ">
                      <font>
-                        <Font name="High Tower Text Italic" size="18.0" />
+                        <Font name="High Tower Text" size="20.0" />
                      </font>
                   </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="137.0" fitWidth="100.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../com/avatarduel/card/image/Phrexian Symbol/BP-svg.png" />
+                        <Image url="@../com/avatarduel/card/image/BlankCard.png" />
                      </image>
+                     <VBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </VBox.margin>
                   </ImageView>
-                  <Label fx:id="earthPowerCount" alignment="CENTER" contentDisplay="CENTER" text="0/0" wrapText="true">
-                     <font>
-                        <Font name="High Tower Text Italic" size="18.0" />
-                     </font>
-                  </Label>
                </children>
-            </HBox>
-            <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../com/avatarduel/card/image/Phrexian Symbol/Earth.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="energyPowerCount" alignment="CENTER" contentDisplay="CENTER" text="0/0" wrapText="true">
-                     <font>
-                        <Font name="High Tower Text Italic" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
+            </VBox>
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </VBox>
-      <ImageView fitHeight="164.0" fitWidth="120.0" pickOnBounds="true">
-         <image>
-            <Image url="@../com/avatarduel/card/image/BlankCard.png" />
-         </image>
-         <VBox.margin>
-            <Insets left="40.0" right="40.0" />
-         </VBox.margin>
-      </ImageView>
+      </StackPane>
    </children>
 </VBox>

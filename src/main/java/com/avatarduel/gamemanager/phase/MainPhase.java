@@ -48,6 +48,8 @@ public class MainPhase extends Phase {
             this.setSkillCard(posInHand, posInField, target, isOnPlayer);
         } else if (command == Command.REMOVESKILL) {
             this.removeSkillCard(posInField);
+        } else if (command == Command.REMOVEHAND){
+            this.removeHand(posInHand);
         }
     }
     // meletakkan kartu karakter ke field
@@ -59,13 +61,16 @@ public class MainPhase extends Phase {
         field = player.getField();
         CharacterCard character;
         Card removed;
-        removed = player.removeFromHand(posInHand);
+        removed = player.getCardsInHand().get(posInHand);
         if(removed.getCardType() == CardType.CHARACTER){
             character = (CharacterCard) removed;
             if(!player.isPowerEnough(character)){
+                System.out.println("Kena sini");
                 throw new NotEnoughPowerException(character.getElement());
             }
             try {
+                removed = player.removeFromHand(posInHand);
+                character = (CharacterCard) removed;
                 field.placeCharacterInColumn(character,posInField);
             } catch (InvalidFieldIndexException | AlreadyPlacedCardException e) {
                 System.out.println(e.getMessage());
@@ -97,13 +102,15 @@ public class MainPhase extends Phase {
         SkillCard skill;
         CharacterCard character;
         Card removed;
-        removed = player.removeFromHand(posInHand);
+        removed = player.getCardsInHand().get(posInHand);
         if(removed.getCardType() == CardType.SKILL){
             skill = (SkillCard) removed;
             if (!player.isPowerEnough(skill)) {
                 throw new NotEnoughPowerException(skill.getElement());
             }
             try {
+                removed = player.removeFromHand(posInHand);
+                skill = (SkillCard) removed;
                 field.placeSkillInColumn(skill,posInField);
                 player.usePower(skill);
                 if (isOnPlayer) {
@@ -244,5 +251,11 @@ public class MainPhase extends Phase {
             int def = characterLink.getDefense() - aura.getDefPoint();
             characterLink.setDefPoint(def);
         }
+    }
+
+    public void removeHand(int posInHand) throws InvalidFieldIndexException, NoCardInFieldException {
+        Player player;
+        player = game.getPlayer();
+        player.removeFromHand(posInHand);
     }
 }
