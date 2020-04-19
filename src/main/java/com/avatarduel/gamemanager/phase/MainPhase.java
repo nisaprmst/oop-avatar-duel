@@ -159,10 +159,10 @@ public class MainPhase extends Phase {
             character = enemy.getCharacterAtPos(characterpos);
         }
         //perubahan attack karena aura skill pada karakter yang dipilih
-        int att = player.getAttackAtPos(characterpos) + skill.getAtkPoint();
+        int att = character.getAttack() + skill.getAtkPoint();
         character.setAtkPoint(att);
         //perubahan defense karena aura skill pada karakter yang dipilih
-        int def = player.getDefenseAtPos(characterpos) + skill.getDefPoint();
+        int def = character.getDefense() + skill.getDefPoint();
         character.setDefPoint(def);
     }
 

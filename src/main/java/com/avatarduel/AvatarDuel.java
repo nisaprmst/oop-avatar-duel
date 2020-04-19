@@ -13,12 +13,13 @@ import com.avatarduel.cards.skills.SkillCard;
 import com.avatarduel.controller.MainScreenController;
 import com.avatarduel.gamemanager.*;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -63,8 +64,30 @@ public class AvatarDuel extends Application {
     player2hand.add(card5);
     player2hand.add(card6);
 
+    LandCard fire = new LandCard(1, "Fire", "aflkanffa", Element.FIRE, "asu.png");
+    LandCard earth = new LandCard(1, "Fire", "aflkanffa", Element.EARTH, "asu.png");
+    LandCard air = new LandCard(1, "Fire", "aflkanffa", Element.AIR, "asu.png");
+    LandCard water = new LandCard(1, "Fire", "aflkanffa", Element.WATER, "asu.png");
+
     player1 = new Player();
     player2 = new Player();
+    for(int i = 0; i < 20; i++){
+      player1.addPower(fire);
+      player1.addPower(earth);
+      player1.addPower(air);
+      player1.addPower(water);
+      player2.addPower(fire);
+      player2.addPower(earth);
+      player2.addPower(air);
+      player2.addPower(water);
+    }
+    player1.resetPower();
+    player2.resetPower();
+    player1.setNama("Azula");
+    player2.setNama("Jaina Proodmore");
+    player1.setHp(80);
+    player2.setHp(80);
+    //System.out.println(player1.getCurrPower());
     // player1.setCardsInHand(player1hand);
     // player2.setCardsInHand(player2hand);
 
@@ -76,6 +99,30 @@ public class AvatarDuel extends Application {
 
       //GameManager gameManager = new GameManager();
 
+    Rectangle rect = new Rectangle(126, 126);
+    Rectangle rect2 = new Rectangle(126, 126);
+    for(int i = 0; i < 6; i++){
+      Pane pane = new Pane();
+      pane.setMinSize(126,126);
+      pane.setMaxSize(126,126);
+      root.getChildren().add(pane);
+    }
+
+    HBox hbox = new HBox();
+    hbox.setMinSize(792, 126);
+    hbox.setMaxSize(792, 126);
+    for(int i = 0; i < 6; i++){
+      Pane pane = new Pane();
+      pane.setMinSize(126,126);
+      pane.setMaxSize(126,126);
+      hbox.getChildren().add(pane);
+    }
+    Pane tilePaneIndex0 = (Pane) hbox.getChildren().get(0);
+    tilePaneIndex0.getChildren().add(rect);
+    Pane tilePaneIndex2 = (Pane) hbox.getChildren().get(2);
+    tilePaneIndex2.getChildren().add(rect2);
+
+    System.out.println(hbox.getChildren());
     Scene scene = new Scene(root, 1280 , 720);
 
     stage.setTitle("Avatar Duel");
