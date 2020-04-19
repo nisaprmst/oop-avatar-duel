@@ -91,7 +91,9 @@ public class AvatarDuel extends Application {
     // player1.setCardsInHand(player1hand);
     // player2.setCardsInHand(player2hand);
 
-    gameManager = new GameManager(player1, player2);
+    gameManager = GameManager.getGameManager();
+    gameManager.setPlayer(player1);
+    gameManager.setEnemy(player2);
     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/MainScreen.fxml"));
     BorderPane root = loader.load();
     MainScreenController controller = loader.getController();

@@ -12,19 +12,13 @@ import java.util.Scanner;
  * clients access the same instance of a game manager
  * throughout the progran.
  */
-public class GameManager {
+public final class GameManager {
     // attribute
     private Phase phase;
     private Player player;
     private Player enemy;
 
-    /** HAPUS INI KALO UDAH KELAR WKWKWK
-     *  buat singleton yang penting kelas2 lain bisa akses instancenya dari mana aja sih,
-     *  perlakuannya sama kayak gw bikin gameManager static di AvatarDuel,
-     *  jadinya bisa gw panggil dr mana aja.
-     *  thanksssss
-     */
-
+    private static final GameManager gameManager = createInstance();
 
     /**
      * Applied singleton design pattern, the constructor is private
@@ -37,11 +31,21 @@ public class GameManager {
         this.player = new Player();
         this.enemy = new Player();
     }
-    public GameManager(Player player, Player enemy) throws IOException, URISyntaxException{
-        this.phase = new DrawPhase(this);
-        this.player = player;
-        this.enemy = enemy;
+    private static GameManager createInstance() {
+        try {
+            return new GameManager();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
+    /**
+     * @return the gameManager
+     */
+    public static GameManager getGameManager() {
+        return gameManager;
+    }
+
     /**
      * @return the phase
      */
@@ -229,6 +233,12 @@ public class GameManager {
                 } else {
                     System.out.println("perintah salah!");
                 }
+            }
+            // check kondisi menang
+            if (enemy.getHp() == 0) {
+                endGame = true;
+                System.out.print("Pemenangnya adalah");
+                System.out.println(player.getNama());
             }
         }
 

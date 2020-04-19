@@ -7,6 +7,8 @@ import com.avatarduel.exceptions.InvalidFieldIndexException;
 import com.avatarduel.cards.skills.SkillCard;
 import com.avatarduel.exceptions.NoCardInFieldException;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 /**
@@ -26,7 +28,7 @@ public class Player {
     /**
      * Class Constructor
      */
-    public Player() {
+    public Player() throws URISyntaxException, IOException {
         this.hp = 0;
         this.deck = new Deck();
         this.cardsInHand = new ArrayList<>();
@@ -37,25 +39,15 @@ public class Player {
             this.power.put(el, 0);
             this.currPower.put(el, 0);
         }
-        try {
-            CardLoader cl = new CardLoader();
-            cl.loadLandCardsFromFile("../card/data/land.csv");
-            cl.loadCharacterCardsFromFile("../card/data/character.csv");
-            cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
-            cl.loadDestroySkillFromFile("../card/data/skill_destroy.csv");
-            cl.loadPowerUpSkillFromFile("../card/data/skill_powerup.csv");
-
-            deck.loadDeck(cl.getLoadedCards());
-            System.out.println(deck.size());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        CardLoader cl = new CardLoader();
+        cl.loadLandCardsFromFile("../card/data/land.csv");
+        cl.loadCharacterCardsFromFile("../card/data/character.csv");
+        cl.loadAuraSkillFromFile("../card/data/skill_aura.csv");
+        cl.loadDestroySkillFromFile("../card/data/skill_destroy.csv");
+        cl.loadPowerUpSkillFromFile("../card/data/skill_powerup.csv");
+        deck.loadDeck(cl.getLoadedCards());
         for (int i = 0; i < 7; i++) {
-            try {
-                this.cardsInHand.add(this.deck.drawCard());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            this.cardsInHand.add(this.deck.drawCard());
         }
     }
     // getter
@@ -102,34 +94,22 @@ public class Player {
         return currPower;
     }
     public int getAttackAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
-        int ret = 0;
-        ret = this.field.getCharacterInColumn(pos).getAttack();
-        return ret;
+        return this.field.getCharacterInColumn(pos).getAttack();
     }
     public int getDefenseAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
-        int ret = 0;
-        ret = this.field.getCharacterInColumn(pos).getDefense();
-        return ret;
+        return this.field.getCharacterInColumn(pos).getDefense();
     }
     public Position getPositionAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
-        Position ret = Position.ATTACK;
-        ret = this.field.getCharacterInColumn(pos).getPosition();
-        return ret;
+        return this.field.getCharacterInColumn(pos).getPosition();
     }
     public CharacterCard getCharacterAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
-        CharacterCard ret = new CharacterCard();
-        ret = this.field.getCharacterInColumn(pos);
-        return ret;
+        return this.field.getCharacterInColumn(pos);
     }
     public SkillCard getSkillAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
-        SkillCard ret = new SkillCard();
-        ret = this.field.getSkillInColumn(pos);
-        return ret;
+        return this.field.getSkillInColumn(pos);
     }
     public boolean getIsPowerUpAtPos(int pos) throws InvalidFieldIndexException, NoCardInFieldException {
-        boolean ret = true;
-        ret = this.field.getCharacterInColumn(pos).getIsPowerUp();
-        return ret;
+        return this.field.getCharacterInColumn(pos).getIsPowerUp();
     }
     // setter
     /**
