@@ -29,8 +29,6 @@ import com.avatarduel.cards.Element;
 import com.avatarduel.cards.LandCard;
 import com.avatarduel.util.CSVReader;
 
-import javax.crypto.KeyAgreement;
-
 public class AvatarDuel extends Application {
   @Override
   public void start(Stage stage) throws Exception{
