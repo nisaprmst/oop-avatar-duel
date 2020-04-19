@@ -1,9 +1,10 @@
 id	name	element	description	imagepath	power
-70	Glider	AIR	Aerial transportation made by Mechanist, inspired from Air nomad gliders.	Glider.png	1
+70	Glider	AIR	Aerial transportation made by Mechanist, inspired from Air nomad gliders.	Glider.png	3
 71	Hot Air Balloon	AIR	Air balloon created by Mechanist, originally developed for the Fire Nation	Hot Air Balloon.png	3
-76	Rock Gloves	EARTH	Favored weapons of Ba Sing Se's secret police force, known as the Dai Li.	Rock Gloves.png	1
+76	Rock Gloves	EARTH	Favored weapons of Ba Sing Se's secret police force, known as the Dai Li.	Rock Gloves.png	3
 77	Slinky Tank	EARTH	Stone vehicles provided both transportation and protection during the invasion of the Fire Nation.	Slinky Tank.png	3
-84	Trebuchets	FIRE	Large weapons to conduct long-range artilery warfare.	Trebuchets.png	2
+84	Trebuchets	FIRE	Large weapons to conduct long-range artilery warfare.	Trebuchets.png	3
 85	Wall of Flames	FIRE	Wall of concentrated flames acts as a barrier to incoming attacks.	Wall of Flames.png	3
 89	Ice Claws	WATER	Drawing water around the fingers and freezing it.	Ice Claws.png	3
-91	Tangle Mine	WATER	Military weapons invented by Hakoda to aid the Southern Water Tribe's quest to defeat the Fire Nation.	Tangle Mine.png	2
+91	Tangle Mine	WATER	Military weapons invented by Hakoda to aid the Southern Water Tribe's quest to defeat the Fire Nation.	Tangle Mine.png	3
+104	Astral Projection	ENERGYBENDING	Project your spirit outside your body.	Astral Projection.png	5

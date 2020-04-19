@@ -122,13 +122,13 @@ public class CardController implements Initializable {
         });
     }
 
-    public void setContextMenuItem(Phase phase, String location, String type, boolean hasJustSummoned, boolean hasAttacked) throws Exception{
+    public void setContextMenuItem(Phase phase, String location, String type, boolean hasJustSummoned, boolean hasAttacked, Position position) throws Exception{
         FXMLLoader contextMenuLoader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/CardContextMenu.fxml"));
         ContextMenu contextMenu = contextMenuLoader.load();
         CardContextMenuController contextMenuController = contextMenuLoader.getController();
         contextMenuController.commandProperty().addListener((k, oldValue, newValue) -> setCommandSource());
 
-        contextMenuController.setMenuItems(phase, location, type, hasJustSummoned, hasAttacked);
+        contextMenuController.setMenuItems(phase, location, type, hasJustSummoned, hasAttacked, position);
 
         card.addEventHandler(ContextMenuEvent.CONTEXT_MENU_REQUESTED, event -> {
             if(GUIState.getState() == 0){

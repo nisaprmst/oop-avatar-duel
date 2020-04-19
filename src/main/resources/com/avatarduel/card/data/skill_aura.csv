@@ -11,3 +11,4 @@ id	name	element	description	imagepath	power	attack	defense
 86	Bloodbending	WATER	Ability that allows waterbender to manipulate person's movement.	Bloodbending.png	4	4	1
 88	Full Moon	WATER	Enhance the ability of water bending.	Full Moon.png	4	4	2
 92	Wolf Armor	WATER	Protective battle gear worn by the warriors of the Southern Water Tribe.	Wolf Armor.png	2	2	1
+103	Simultaneous Bending	ENERGYBENDING	Gain the ability to unleash 4 elements at once.	Simultaneous Bending.png	7	10	10

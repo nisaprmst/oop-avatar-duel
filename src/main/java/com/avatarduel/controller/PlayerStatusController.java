@@ -39,6 +39,6 @@ public class PlayerStatusController implements Initializable {
         waterPowerCount.setText(p.getCurrPower().get(Element.WATER) + "/" + p.getPower().get(Element.WATER));
         airPowerCount.setText(p.getCurrPower().get(Element.AIR) + "/" + p.getPower().get(Element.AIR));
         earthPowerCount.setText(p.getCurrPower().get(Element.EARTH) + "/" + p.getPower().get(Element.EARTH));
-        energyPowerCount.setText(p.getCurrPower().get(Element.ENERGYBINDING) + "/" + p.getPower().get(Element.ENERGYBINDING));
+        energyPowerCount.setText(p.getCurrPower().get(Element.ENERGYBENDING) + "/" + p.getPower().get(Element.ENERGYBENDING));
     }
 }

@@ -1,5 +1,6 @@
 package com.avatarduel.controller;
 
+import com.avatarduel.cards.characters.Position;
 import com.avatarduel.gamemanager.phase.BattlePhase;
 import com.avatarduel.gamemanager.phase.DrawPhase;
 import com.avatarduel.gamemanager.phase.MainPhase;
@@ -64,7 +65,7 @@ public class CardContextMenuController implements Initializable {
         setCommand(commandString);
     }
 
-    public void setMenuItems(Phase phase, String location, String type, boolean hasJustSummoned, boolean hasAttacked){
+    public void setMenuItems(Phase phase, String location, String type, boolean hasJustSummoned, boolean hasAttacked, Position position){
         int phaseInt = determinePhase(phase);
         cardcontextmenu.getItems().clear();
         if(!type.equals("BlankCard")){
@@ -91,7 +92,7 @@ public class CardContextMenuController implements Initializable {
                 case 3: // Battle Phase
                     if(location.equals("field")){
                         if(type.equals("CharacterCard")){
-                            if(!hasJustSummoned && !hasAttacked){
+                            if(!hasJustSummoned && !hasAttacked && position == Position.ATTACK){
                                 cardcontextmenu.getItems().addAll(attack);
                             }
                         }
