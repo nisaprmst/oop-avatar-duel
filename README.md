@@ -19,7 +19,7 @@ Repo: https://github.com/nisaprmst/OOP-Avatar-Duel
 * IntelliJ - It is recomended to build the project using IntelliJ IDEA if you are using Windows
 
 ### File Structure
-
+```
 com
   |- avatarduel
   |   |- cards
@@ -30,7 +30,7 @@ com
   |   |- gamemanager
   |   |   |- phase
   |   |- util
-
+```
 ### Building and Running
 
 Before pulling or running the project, it is necessary to install the following:
